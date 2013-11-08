@@ -1,0 +1,105 @@
+@charset "utf-8";
+/* 模块样式 */
+
+body{ background:url(../images/body_bg.jpg) 0 0 repeat-x}
+#container{width:1002px;margin:0 auto}
+#header{position:relative;height:140px;}
+#content{margin-bottom:40px}
+
+.main{width:710px}
+.side{width:280px}
+.cont{padding:10px}
+
+.row{overflow:hidden;margin-top:10px;}
+.box{border:#ddd 1px solid; background:#fff}
+
+#header{ background: url(../images/header_bg.jpg) center 0 no-repeat}
+#header .logo{position:absolute;top:15px;width:190px;height:63px;text-indent:-9999px; background:url(../images/logo.png) 0 0 no-repeat}
+.headerLink{position: absolute;top:15px;right: 0;}
+
+.nav{position:absolute;bottom:0;left:0;right:0;height:38px; background:#800080 url(../images/nav_bg.png) 0 0 repeat-x;border:#800080 1px solid}
+.nav ul{width:784px;margin:2px auto 0}
+.nav li{float:left;display:inline;}
+.nav a{display:block;zoom:1;padding:0 18px;height:36px;line-height:34px;color:#fff;font-size:16px}
+.nav a:hover{ background:#C600C6 url(../images/nav_current.png) 0 0 repeat-x; text-decoration:none}
+
+.userLink{margin-right:-15px}
+.userLink li{float:left;display:inline;margin:0 10px 5px 0}
+.userLink a{display:block;width:105px}
+
+.titleBar{position:relative;height:34px;line-height:34px;padding:0 10px;border-bottom:#ddd 1px solid; background:#f6f6f6 url(../images/titleBar_bg.png) 0 0 repeat-x}
+.title,.title a{line-height:34px;color:#800080;font-size:16px;font-weight:bold}
+.title a{display:inline-block;margin-right:20px;padding-left:20px; background:url(../images/title_icon.png) 0 center no-repeat}
+.titleBar .more{position:absolute;right:10px;top:0}
+
+.imgList{margin:0 -10px -10px 0;}
+.imgList li{float:left;display:inline;margin:0 10px 10px 0}
+.imgList li a{display:block;zoom:1}
+.imgList li a p{text-align:center}
+.imgList_cout{margin-top:20px;text-align:center;color:#999;font-size:12px}
+
+.txtList li{border-bottom:#ddd 1px dotted}
+.txtList li a{display:block;zoom:1;color:#333;height:26px;line-height:26px}
+.txtList li a:hover{color:#BC93aa; text-decoration:none}
+
+.shopList{margin:0 -10px -10px 0;}
+.shopList li{float:left;display:inline;margin:0 10px 10px 0;border:#eee 1px solid}
+.shopList_img,.shopList_info{float:left;display:inline;}
+
+.banner img{width:710px;height:350px}
+.bannerTip{padding:10px;font-size:18px;color:#800080;}
+
+.footerNav{width:516px;margin:0 auto}
+.footerNav li{float:left;display:inline;margin:0 15px;}
+.cpr{text-align:center;margin-top:30px}
+
+
+.pages {margin:20px; text-align: center } 
+.pages a { border: #bbb 1px solid; padding:2px 5px;margin: 2px; color:#BC7CA0; text-decoration:none} 
+.pages a:hover { border: #800080 1px solid;color: #800080;} 
+.pages .current,.pages .current:hover { border: #800080 1px solid;padding:2px 5px;font-weight: bold;margin: 2px; color: #fff;background: #800080 } 
+.pages .disabled,.pages .disabled:hover { border: #eee 1px solid; padding:2px 5px;margin: 2px;color: #ddd;cursor:default} 
+
+
+.btnPurple{padding:2px 5px; background:#C621C6 url(../images/btnPurple.png) 0 0 repeat-x; color:#fff; text-align:center;border:#800080 1px solid;cursor:pointer; text-decoration:none}
+.btnGray{padding:2px 5px; background:#F2F2F2 url(../images/btnGray.png) 0 0 repeat-x;color:#800080;text-align:center;border:#ddd 1px solid;cursor:pointer;text-decoration:none}
+.btnWhite{padding:2px 5px; background:#fff;color:#800080;text-align:center;border:#ddd 1px solid;cursor:pointer;text-decoration:none}
+.btnPurple:hover{ opacity:0.9}
+.btnGray:hover{ opacity:0.7}
+
+.buildBtn{float:right;display:inline;margin-top:3px;height:22px;line-height:22px}
+.userInfo{line-height:40px;text-align:center;color:#800080}
+.subTitle{font-size:16px;font-weight:bold;color:#BC7CA0;padding:6px 10px; border-bottom:#eee 1px dotted; background:#f2f2f2}
+.note{margin:10px;padding:10px;font-size:12px; background:#FFF5FF;border:#eee 1px solid}
+.buildForm{margin:15px 0}
+.buildForm td{padding:5px}
+.build .main{border-left:#eee 1px dotted}
+.baifoTable table{width:100%}
+.baifoTable th,.baifoTable td{border:#ddd 1px solid;text-align:center}
+.detail .flash .number{position:absolute;right:0;padding:2px 4px;color:#333; background:#fff; opacity:0.8}
+.peopleImg{text-align:center}
+.peopleInfo{margin:20px 0 20px 30px}
+
+.newsList li{padding:10px 0;border-bottom:#ddd 1px dotted}
+.newsList_title{margin-bottom:6px;font-size:16px}
+.newsList_subtitle{margin-bottom:6px;color:#aaa;font-size:12px}
+.newsList_author{margin-right:30px}
+.newsList_img{float:left}
+.newsList_img img{width:110px;margin:5px 10px 0 0;height:80px}
+
+
+.grade{position:absolute;left:0;top:2px;height:28px; background:url(../images/grade.png) 0 0 no-repeat;}
+.grade10{width:287px}
+.grade9{width:256px}
+.grade8{width:228px}
+.grade7{width:199px}
+.grade6{width:171px}
+.grade5{width:143px}
+.grade4{width:115px}
+.grade3{width:86px}
+.grade2{width:58px}
+.grade1{width:31px}
+
+
+
+

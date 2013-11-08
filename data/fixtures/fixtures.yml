@@ -1,0 +1,95 @@
+#sfGuardUser default data
+sfGuardUser: 
+  User_admin: 
+    email_address:  mia@gmail.com
+    username:       mia
+    gender:         1
+    city:           珠海
+    province:       广东省
+    password:       mia123
+    phone:          13824789585
+    birthday:       1993-09-13 00:00:00
+    is_super_admin: true
+    Groups:         [Group_admin]
+
+sfGuardGroup:
+  Group_admin:
+    name:           admin
+    description:    Administrator group
+    Permissions:    [Permission_admin]
+  Group_ordinary_user: 
+    name:           ordinary 
+    description:    Ordinary user group
+    Permissions:    [Permission_ordinary]
+     
+sfGuardPermission:
+  Permission_admin:
+    name:           admin
+    description:    Administrator permission
+  Permission_ordinary:
+    name:           ordinary
+    description:    Ordinary user permission
+    
+# 纪念馆分类
+MemorialCategory: 
+  single: 
+    name: 单人馆
+  double: 
+    name: 双人馆
+# 祭品分类
+OblationCategory: 
+  c1: 
+    name: 节日祭品
+  c2: 
+    name: 香烛烟花
+  c3: 
+    name: 鲜花盆景
+  c4: 
+    name: 食品水果
+  c5: 
+    name: 数码产品
+  c6: 
+    name: 家用电器
+  c7: 
+    name: 交通工具
+  c8: 
+    name: 休闲娱乐
+  c9: 
+    name: 儿童用品
+  c10: 
+    name: 学习用品
+  c11: 
+    name: 特色礼品
+  c12: 
+    name: 金银珠宝
+  c13: 
+    name: 服装衣帽
+  c14: 
+    name: 宠物宝贝
+  c15: 
+    name: 守护神兽
+  c16: 
+    name: 跪地拜祭
+  c17: 
+    name: 住房别墅
+  c18: 
+    name: 奢侈用品
+  c19: 
+    name: 文化音像
+  c20: 
+    name: 其它祭品
+
+# 帖子分类
+ArticleCategory: 
+  c1: 
+    name: 佛教资讯
+  c2: 
+    name: 祭祀活动
+  c3: 
+    name: 慈善救助
+  c4: 
+    name: 同城活动
+  c5: 
+    name: 追忆祭文
+  c6: 
+    name: 在线讣告

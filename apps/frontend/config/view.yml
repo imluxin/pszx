@@ -1,0 +1,17 @@
+default: 
+  http_metas:
+    content-type: text/html
+
+  metas:
+    title:        菩萨在线
+    #description:  symfony project
+    #keywords:     symfony, project
+    #language:     en
+    #robots:       index, follow
+
+  stylesheets:    [base.css, common.css, pages.css, slide.css,/css/jqueryui/themes/base/jquery-ui.css]
+
+  javascripts:    [jquery-1.9.1.min.js, slides.min.jquery.js]
+
+  has_layout:     true
+  layout:         layout

@@ -1,0 +1,228 @@
+#佛殿
+BunddlaHall: 
+  options:
+    type: MyISAM
+    collate: utf8_unicode_ci
+    charset: utf8
+  actAs: 
+    Timestampable: ~ 
+  columns:
+    user_id: { type: integer, notnull: true }
+    name: { type: string(255), notnull: true }
+    images: { type: string(255), notnull: true }
+    description: { type: text, notnull: true }
+    is_rejected: { type: boolean, default: false}
+    is_approved: { type: boolean, default: false }
+  relations:
+      sfGuardUser:  { onDelete: CASCADE, local: user_id, foreign: id }
+#礼佛记录
+OtwrHistory: 
+  options:
+    type: MyISAM
+    collate: utf8_unicode_ci
+    charset: utf8
+  actAs: 
+    Timestampable: ~ 
+  columns:
+    bh_id: { type: integer, notnull: true }
+    user_id: { type: integer, notnull: true }
+    gid: { type: integer}
+    description: { type: string(255), notnull: true } 
+
+#寺庙
+Temple: 
+  options:
+    type: MyISAM
+    collate: utf8_unicode_ci
+    charset: utf8
+  actAs: 
+    Timestampable: ~ 
+  columns: 
+    user_id: { type: integer, notnull: true }
+    name: { type: string(255), notnull: true }
+    province: { type: string(255), notnull: true }
+    city: { type: string(255), notnull: true }
+    block: { type: string(255), notnull: true }
+    img_one: { type: string(255) }
+    img_two: { type: string(255) }
+    img_three: { type: string(255) }
+    is_rejected: { type: boolean, default: false}
+    is_approved: { type: boolean, default: false }
+    description: { type: text}
+  relations:
+      sfGuardUser:  { onDelete: CASCADE, local: user_id, foreign: id }
+#纪念馆
+Memorial: 
+  options:
+    type: MyISAM
+    collate: utf8_unicode_ci
+    charset: utf8
+  actAs: 
+    Timestampable: ~ 
+  columns: 
+    user_id: { type: integer, notnull: true }
+    category_id: { type: integer, notnull: true }
+    m_name: { type: string(255), notnull: true }
+    is_secret: { type: boolean }
+    is_single: { type: boolean }
+    die_name_one: { type: string(255) }
+    die_province_one: { type: string(255) }
+    die_city_one: { type: string(255) }
+    die_birth_one: { type: string(255) }
+    die_die_one: { type: string(255) }
+    die_nickname_one: { type: string(255) }
+    die_photo_one: { type: string(255) }
+    die_name_two: { type: string(255) }
+    die_province_two: { type: string(255) }
+    die_city_two: { type: string(255) }
+    die_birth_two: { type: string(255) }
+    die_die_two: { type: string(255) }
+    die_nickname_two: { type: string(255) }
+    die_photo_two: { type: string(255) }
+    description: { type: text }
+    is_rejected: { type: boolean, default: false}
+    is_approved: { type: boolean, default: false }
+  relations:
+      sfGuardUser:  { onDelete: CASCADE, local: user_id, foreign: id }
+      MemorialCategory:  { onDelete: CASCADE, local: category_id, foreign: id }
+#纪念馆分类
+MemorialCategory: 
+  options:
+    type: MyISAM
+    collate: utf8_unicode_ci
+    charset: utf8
+  actAs: 
+    Timestampable: ~ 
+  columns: 
+    name: { type: string(255) }
+#祭品
+Oblation: 
+  options:
+    type: MyISAM
+    collate: utf8_unicode_ci
+    charset: utf8
+  actAs: 
+    Timestampable: ~ 
+  columns: 
+    user_id: { type: integer, notnull: true }
+    category_id: { type: integer, notnull: true }
+    name: { type: string(255), notnull: true }
+    price: { type: integer }
+    times: { type: integer }
+    images: { type: string(255) }
+    position: { type: string(266), default: 0 }
+    can_modify: { type: boolean, default: true }
+    is_rejected: { type: boolean, default: false}
+    is_approved: { type: boolean, default: false }
+  relations:
+      sfGuardUser:  { onDelete: CASCADE, local: user_id, foreign: id }
+      OblationCategory:  { onDelete: CASCADE, local: category_id, foreign: id }
+#祭品分类
+OblationCategory: 
+  options:
+    type: MyISAM
+    collate: utf8_unicode_ci
+    charset: utf8
+  actAs: 
+    Timestampable: ~ 
+  columns: 
+    name: { type: string(255) }
+#帖子
+Article: 
+  options:
+    type: MyISAM
+    collate: utf8_unicode_ci
+    charset: utf8
+  actAs: 
+    Timestampable: ~ 
+  columns: 
+    user_id: { type: integer, notnull: true }
+    category_id: { type: integer, notnull: true }
+    title: { type: string(255),notnull: true }
+    img_one: { type: string(255) }
+    title_one: { type: string(255) }
+    img_two: { type: string(255) }
+    title_two: { type: string(255) }
+    img_three: { type: string(255) }
+    title_three: { type: string(255) }
+    content: { type: text, notnull: true }
+    is_rejected: { type: boolean, default: false}
+    is_approved: { type: boolean, default: false }
+  relations:
+      sfGuardUser:  { onDelete: CASCADE, local: user_id, foreign: id }
+      ArticleCategory:  { onDelete: CASCADE, local: category_id, foreign: id }
+#帖子分类
+ArticleCategory: 
+  options:
+    type: MyISAM
+    collate: utf8_unicode_ci
+    charset: utf8
+  actAs: 
+    Timestampable: ~ 
+  columns: 
+    name: { type: string(255) }
+
+#帖子回复
+Comment: 
+  options:
+    type: MyISAM
+    collate: utf8_unicode_ci
+    charset: utf8
+  actAs: 
+    Timestampable: ~ 
+  columns: 
+    user_id: { type: integer }
+    article_id: { type: integer }
+    content: { type: string(255) }
+    images: { type: string(255) }
+  relations:
+      sfGuardUser:  { onDelete: CASCADE, local: user_id, foreign: id }
+      Article:  { onDelete: CASCADE, local: article_id, foreign: id }
+    
+# 银行账户
+BankAccount: 
+  options:
+    type: MyISAM
+    collate: utf8_unicode_ci
+    charset: utf8
+  actAs: 
+    Timestampable: ~ 
+  columns: 
+    user_id: { type: integer }
+    account_to: { type: string(255) }
+    account_from: { type: string(255) }
+    name: { type: string(255) }
+    bank: { type: string(255) }
+  relations:
+      sfGuardUser:  { onDelete: CASCADE, local: user_id, foreign: id }
+
+# 交易清单
+DealList: 
+  options:
+    type: MyISAM
+    collate: utf8_unicode_ci
+    charset: utf8
+  actAs: 
+    Timestampable: ~ 
+  columns: 
+    user_id: { type: integer }
+    description: { type: string(255) }
+    is_in: { type: boolean }
+    ammount: { type: integer }
+    balance: { type: integer }
+  relations: 
+      sfGuardUser:  { onDelete: CASCADE, local: user_id, foreign: id }
+
+# 文件上传
+FileUpload: 
+  options:
+    type: MyISAM
+    collate: utf8_unicode_ci
+    charset: utf8
+  actAs: 
+    Timestampable: ~ 
+  columns: 
+    user_id: { type: string(255) }
+    file: { type: string(255) }
+  relations:
+      sfGuardUser:  { onDelete: CASCADE, local: user_id, foreign: id }

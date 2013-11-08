@@ -1,0 +1,155 @@
+@charset "utf-8";
+/* 各页面样式 */
+
+/* index 首页 */
+.index .user .login,.index .user .userInfo{height:102px}
+.index .user .cont{padding:15px}
+.index .user .titleBar{ background:none;border:none;text-align:center;color:#BC93AA;font-size:18px;line-height:34px;font-family:"楷体"}
+.index .loginInput{float:left;display:inline}
+.index .loginInput li{margin-bottom:9px}
+.index .loginInput input{width:165px}
+.index .loginInput label input{width:auto}
+.index .loginBtn{float:right;display:inline;}
+.index .loginBtn input{width:64px;height:64px}
+.index .userInfo{line-height:40px;text-align:center;color:#800080}
+.index .userNote{margin-top:6px;color:#BC93AA;font-size:14px;line-height:130%;font-family:"楷体"}
+.index_buddha .imgList li{width:340px;}
+.index_buddha .imgList img{width:340px;height:200px}/*网上礼佛图片宽高*/
+.index_temple .imgList li{width:165px;}
+.index_temple .imgList img{width:165px;height:100px}
+.index_memorial .imgList li{width:130px;}
+.index_memorial .imgList img{width:130px;height:150px}
+.shopList img{width:150px;height:100px}
+.index .shopList li{width:338px;}
+.index .side .imgList img{width:125px;height:80px}
+.index .row1 .cont{height:286px}
+.index .row2 .cont{height:452px}
+.index .row3 .cont{height:383px}
+.index .row4 .cont{height:352px}
+.index .row5 .cont{height:438px}
+.index .searchPeople .btnPurple{width:52px;height:52px}
+
+/* 注册/登录 */
+.reg .regBox{padding:40px}
+.reg .regTip{color:#800080;font-size:18px;margin-bottom:20px;padding:15px;border:#eee 1px solid; background:#FFF5FF}
+.reg .regNote{margin-bottom:20px}
+.reg .regNote p{text-indent:2em;color:#666;line-height:180%}
+.reg .regFormSubmit{margin:20px}
+.reg .regFormSubmitBtn{width:64px;height:64px}
+.reg .regForm td{padding:5px}
+.reg .radio_list li { display: inline; padding-right:5px; }
+
+
+/* buddha 网上礼佛 */
+.buddha .imgList li{width:320px}
+.buddha .imgList img{width:320px}
+.buddha .imgList li a p {text-align: left;}
+.buddha .side{height:348px}
+
+/* temple 名山名寺 */
+.temple .imgList li{width:320px}
+.temple .imgList img{width:320px}
+.temple .imgList li a p {text-align: left;}
+.temple .side{height:348px}
+
+/* memorial 纪念馆 */
+.memorial .imgList li{width:155px}
+.memorial .imgList img{width:155px}
+.jng .buildBtn,.sp .buildBtn,.zp .buildBtn,.shipin .buildBtn,.zyjw .buildBtn{margin-top:-31px}
+.jng .imgList li{position:relative;width:320px}
+.jng .imgList img{width:320px}
+.jng .upgrade{position:absolute;right:0;bottom:21px}
+.zp .imgList li{width:160px}
+.zp .imgList img{width:160px}
+.shipin .imgList li{width:160px}
+.shipin .imgList img{width:160px}
+.shipinInput{width:550px;height:80px}
+.liuyanInput{width:550px;height:80px}
+.liuyanTable table{width:100%}
+.liuyanTable td{border-bottom:#eee 1px dotted}
+.zyjwTable table{width:100%}
+.zyjwTable td{border:#ddd 1px solid}
+.memorial .searchPeople .btnPurple{width:52px;height:52px}
+.memorial .side{height:348px}
+
+/* shop 祭品商店 */
+.shopSort{padding:10px;text-align:center}
+.shopSort a{display:inline-block;margin:5px 18px}
+.shop .side{height:348px}
+
+/* news 最新动态 */
+.news .main{border-right:#ddd 1px dotted}
+.news .writingTitle{font-size:24px;text-align:center;color: #800080;margin:10px 0}
+.news .writingSubtitle{color: #aaa;font-size: 12px;text-align:center}
+.news .writingSubtitle_author{margin-right:30px}
+.news .reply textarea{float:left;width: 600px;height: 67px;margin-top: 10px;}
+.news .reply .reply_insert,.news .reply .reply_submit{margin: 10px 5px;width: 50px;float: left;}
+.news .replies li{padding:10px 5px}
+.news .authorPhoto{float:left}
+.news .authorPhoto img{width:120px;height:150px}
+.news .authorLink{float:left;margin-left:10px}
+.news .authorLink_name{font-size:18px;text-align:center;margin:10px 5px}
+.news .authorLink a{display:block;width:100px;margin:15px 5px}
+.news .otherWriting li{text-align:center}
+.news .side.box{height:348px}
+
+/* pay 充值提现 */
+.pay .note{font-size:16px;color:#800080}
+.pay .col{width:48%}
+.pay .money p{font-size:16px;color:#800080;text-align:center;margin:20px 0;}
+.pay .bank li span{display:inline-block;width:190px;height:36px;text-indent:-9999px}
+.pay .bank li{float:left;padding-left:5px;border:#ddd 1px solid;margin:10px; background-image:url(../images/combo.png); background-repeat:no-repeat;}
+.pay .bank li input{vertical-align:-9px}
+.pay .bank li.alipay{ background-position:20px 0}
+.pay .bank li.cft{ background-position:20px -43px}
+.pay .bank li.icbc{ background-position:20px -913px}
+.pay .bank li.boc{ background-position:20px -158px}
+.pay .bank li.abc{ background-position:20px -83px}
+.pay .bank li.ccb{ background-position:20px -303px}
+.pay .bank li.comm{ background-position:20px -482px}
+.pay .bank li.psbc{ background-position:20px -1056px}
+.pay .bank li.cmbc{ background-position:20px -411px}
+.pay .bank li.cib{ background-position:20px -1345px}
+.pay .submitBar{margin:10px;text-align:center}
+
+/* admin 管理中心 */
+.admin .side{width:240px}
+.admin .main{width:750px}
+.admin .userIntro{text-align:center}
+.admin .userIntro_photo{width:130px;height:150px}
+.admin .userIntro_name{font-size:18px;color:#800080;padding:10px 0}
+.admin .userMenu{margin:30px 0;}
+.admin .userMenu a{display:block;margin:5px 10px;padding:5px 10px;text-align:center;border:#ddd 1px solid}
+.admin .main table{width:100%}
+.admin .table td{text-align:center;border:#ddd 1px solid}
+.admin .admin_box{margin-bottom:30px}
+.admin .admin_account_money{font-size:14px;color:#800080;margin-left:30px}
+.admin .admin_account_choice{float:right;font-size:14px}
+.admin .admin_temple .imgList li{margin-right:20px}
+.admin .admin_temple .imgList img{width:160px;height:110px}
+.admin .admin_temple .imgList p{text-align:center}
+.admin .admin_memorial .imgList li{margin-right:30px}
+.admin .admin_memorial .imgList img{width:150px;height:170px}
+.admin .admin_memorial .imgList p{text-align:center}
+.admin .note{margin:10px 0}
+.admin .admin_temple_audit .imgList li{margin-right:20px}
+.admin .admin_temple_audit .imgList img{width:160px;height:110px}
+.admin .admin_temple_audit .imgList p{text-align:center}
+.admin .userIntro_admin a{display:block;margin:10px;padding:5px 0}
+.admin .admin_userInfo_search{float:right;margin-top: -3px;}
+.admin .admin_userInfo_search input{width:90px}
+.admin .admin_bless textarea{width:600px;height:100px}
+.admin .admin_bless .submitBar input{display:block;width:80px;float:right}
+.admin .admin_bless .submitBar{margin-bottom:20px}
+.admin .admin_shop .shopSort{padding:5px} 
+.admin .admin_shop .shopSort a{margin:5px 4px}
+.admin .userIntro_msg textarea{width:210px;height:80px}
+.admin .userIntro_msgList{margin-top:20px}
+.admin .userIntro_msgList img{width:40px;height:45px;margin-right:5px;vertical-align:top }
+.admin .userIntro_msgList li{margin-bottom:5px;font-size:12px}
+.admin .admin_lifo li{margin:10px 40px}
+.admin .admin_lifo img{width:160px;height:110px}
+.admin .admin_lifo p{text-align:center}
+.admin .admin_jinianguan li{margin:10px 55px}
+.admin .admin_jinianguan img{width:130px;height:150px}
+.admin .admin_jinianguan p{text-align:center}

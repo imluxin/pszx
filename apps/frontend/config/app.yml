@@ -1,0 +1,22 @@
+all: 
+  sf_guard_plugin: 
+    algorithm_callable: md5
+    routes_register: false
+    remember_key_expiration_age:  2592000   # 30 days in seconds
+    remember_cookie_name:         pszxRememberMe
+    
+  sf_captchagd:
+            image_width:                100 # image width in pixels
+            image_height:               25 # image height in pixels
+            chars:                      "123456789" # possible chars in captcha
+            length:                     4 # length of captcha
+            font_size:                  18 # font size
+            force_new_captcha:          false # if true - captcha regenerated EVERY request, even if user input true value before
+            
+            # possible chars colors
+            font_color:                 ["252525", "8b8787", "550707", "3526E6", "88531E"]
+            
+            # chars fonts
+            fonts:                      ["akbar/akbar.ttf", "brushcut/BRUSHCUT.TTF", "molten/molten.ttf", "planet_benson/Planetbe.ttf", "whoobub/WHOOBUB_.TTF"] 
+            background_color:           FFFFFF # image background color
+            border_color:               555555 # image border color
