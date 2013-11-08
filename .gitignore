@@ -13,6 +13,9 @@ lib/model/doctrine/*Plugin/base/Base*
 lib/model/om/*
 lib/model/map/*
 web/*Plugin/*
+<<<<<<< HEAD
 .buildpath
 .project
 .settings/*
+=======
+>>>>>>> 3c37e7ec48e93c4de6c8eda4a442d4471a2c4f7d
