@@ -10,15 +10,8 @@
  * @author     Mia
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-class Oblation extends BaseOblation
-{
-	public function save( Doctrine_Connection $conn = null ) {
-		$user_id = sfContext::getInstance()->getUser()->getGuardUser()->getId();
-		$this->setUserId($user_id);
+class Oblation extends BaseOblation {
 
-		return parent::save( $conn );
-
-	}
 
 	static public function getFileDir()
 	{
@@ -28,5 +21,19 @@ class Oblation extends BaseOblation
 	public function getPublicFileLocation()
 	{
 		return str_replace(sfConfig::get('sf_web_dir'), '', self::getFileDir()) . '/' . $this->getImages();
+	}
+
+	public function save( Doctrine_Connection $conn = null ) {
+		$user_id = sfContext::getInstance()->getUser()->getGuardUser()->getId();
+		$this->setUserId($user_id);
+		return parent::save( $conn );
+
+	}
+
+	public function delete(Doctrine_Connection $conn = null) {
+		if($this->getImages() != '') 
+			unlink(sfConfig::get('sf_upload_dir').'/oblation/'.$this->getImages());
+		
+		return parent::delete($conn);
 	}
 }

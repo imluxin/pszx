@@ -13,7 +13,7 @@ class templeActions extends sfActions
 	public function executeIndex(sfWebRequest $request)
 	{
 		$this->myuser = $this->getUser()->getGuardUser();
-		
+
 		$page= $request->getParameter('page',1);        //默认第1页
 		$q = Doctrine_Core::getTable('temple')->getListOnPage($page,18); //第页显示n条
 		$q->Where('is_approved=0 AND is_rejected=0');
@@ -44,38 +44,42 @@ class templeActions extends sfActions
 
 		$this->setTemplate('new');
 	}
-	
+
 	public function executeDetails(sfWebRequest $request) {
-		
+
 	}
-	
-	
-	/*public function executeEdit(sfWebRequest $request)
+
+	public function executeEdit(sfWebRequest $request)
 	{
 		$this->forward404Unless($temple = Doctrine_Core::getTable('Temple')->find(array($request->getParameter('id'))), sprintf('Object temple does not exist (%s).', $request->getParameter('id')));
 		$this->form = new TempleForm($temple);
+		$this->temple = $temple;
+		$this->myuser = $this->getUser()->getGuardUser();
 	}
 
 	public function executeUpdate(sfWebRequest $request)
 	{
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
 		$this->forward404Unless($temple = Doctrine_Core::getTable('Temple')->find(array($request->getParameter('id'))), sprintf('Object temple does not exist (%s).', $request->getParameter('id')));
+		$this->temple = temple;
+		$this->myuser = $this->getUser()->getGuardUser();
 		$this->form = new TempleForm($temple);
 
-		$this->processForm($request, $this->form);
+		$this->processEditForm($request, $this->form);
 
 		$this->setTemplate('edit');
 	}
 
-	public function executeDelete(sfWebRequest $request)
-	{
+	/*
+		public function executeDelete(sfWebRequest $request)
+		{
 		$request->checkCSRFProtection();
 
 		$this->forward404Unless($temple = Doctrine_Core::getTable('Temple')->find(array($request->getParameter('id'))), sprintf('Object temple does not exist (%s).', $request->getParameter('id')));
 		$temple->delete();
 
 		$this->redirect('temple/index');
-	}*/
+		}*/
 
 	protected function processForm(sfWebRequest $request, sfForm $form)
 	{
@@ -83,8 +87,19 @@ class templeActions extends sfActions
 		if ($form->isValid())
 		{
 			$temple = $form->save();
-			
-			$this->redirect('temple/index');
+
+			$this->redirect('temple/edit?id='.$temple->getId());
+		}
+	}
+	
+	protected function processEditForm(sfWebRequest $request, sfForm $form)
+	{
+		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+		if ($form->isValid())
+		{
+			$temple = $form->save();
+
+			$this->redirect('manager/bto');
 		}
 	}
 }

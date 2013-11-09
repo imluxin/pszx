@@ -18,7 +18,7 @@
 					发帖
                     </h3>
                     <div class="buildForm">
-                    <?php include_partial('form', array('form' => $form)) ?>
+                    <?php include_partial('article/form', array('form' => $form)) ?>
                     </div>
                 </div>
             </div>

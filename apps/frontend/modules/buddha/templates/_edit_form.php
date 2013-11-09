@@ -27,7 +27,10 @@
       </tr>
       <tr>
         <th><?php echo $form['images']->renderLabel() ?></th>
-        <td><?php echo $form['images'] ?> </td>
+        <td id="buddha_img">
+        <?php echo image_tag('../uploads/buddha/'.$bunddla_hall->getImages())?>
+        <?php echo $form['images'] ?> 
+        </td>
         <td style="color: red;"><?php echo $form['images']->renderError() ?></td>
       </tr>
       <tr>
@@ -40,6 +43,12 @@
   <div>
   <?php echo $form['description'] ?>
   </div><br />
-  <input class="btnPurple" type="submit" value="确认创建" />
-  <input class="btnPurple" type="button" value="返回" onclick="history.go(-1);" />
+  <input class="btnPurple" type="submit" value="确认修改" />
+  <input class="btnPurple" type="button" value="返回管理中心" onclick="location.href='<?php echo url_for('manager/bto') ?>'" />
 </form>
+<script>
+	$(function() {
+		var imgs = $('#buddha_img img');
+		$(imgs[1]).css('display','none');
+	});
+</script>

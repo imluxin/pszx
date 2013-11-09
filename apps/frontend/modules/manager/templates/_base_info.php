@@ -18,7 +18,7 @@
 					), array())
 		?>
 		
-		<input type="password" name="password" value="<?php echo $myuser->getPassword() ?>"/>
+		<input type="password" name="password" value="<?php // echo $myuser->getPassword() ?>"/>
 		&nbsp;
 		<input class="btnPurple" type="submit" value="确认" />
 		</form>

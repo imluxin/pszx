@@ -35,31 +35,34 @@
       </tr>
       <tr>
         <th><?php echo $form['img_one']->renderLabel() ?></th>
-        <td>
+        <td id="article_img1">
           <?php echo $form['img_one']->renderError() ?>
           <?php echo $form['title_one']->renderError() ?>
           <?php echo $form['title_one'] ?>
           &nbsp; 
+          <?php echo image_tag('../uploads/article/'.$article->getImgOne())?>
           <?php echo $form['img_one'] ?>
         </td>
       </tr>
       <tr>
         <th><?php echo $form['img_two']->renderLabel() ?></th>
-        <td>
+        <td id="article_img2">
           <?php echo $form['img_two']->renderError() ?>
           <?php echo $form['title_two']->renderError() ?>
           <?php echo $form['title_two'] ?>
           &nbsp; 
+          <?php echo image_tag('../uploads/article/'.$article->getImgTwo())?>
           <?php echo $form['img_two'] ?>
         </td>
       </tr>
       <tr>
         <th><?php echo $form['img_three']->renderLabel() ?></th>
-        <td>
+        <td  id="article_img3">
           <?php echo $form['img_three']->renderError() ?>
           <?php echo $form['title_three']->renderError() ?>
           <?php echo $form['title_three'] ?>
           &nbsp; 
+          <?php echo image_tag('../uploads/article/'.$article->getImgThree())?>
           <?php echo $form['img_three'] ?>
         </td>
       </tr>
@@ -75,6 +78,19 @@
   <?php echo $form['content'] ?>
   </div>
   <br />
+  <input type="hidden" value="<?php echo $article_page ?>" name="article_page" />
   <input class="btnPurple" type="submit" value="确认发布" />
-  <input class="btnPurple" type="button" value="返回" onclick="history.go(-1);" />
+  <input class="btnPurple" type="button" value="返回管理中心" onclick="location.href='<?php echo url_for('manager/bto?article_page='.$article_page) ?>'" />
 </form>
+<script>
+	$(function() {
+		var imgs1 = $('#article_img1 img');
+		$(imgs1[1]).css('display','none');
+
+		var imgs2 = $('#article_img2 img');
+		$(imgs2[1]).css('display','none');
+
+		var imgs3 = $('#article_img3 img');
+		$(imgs3[1]).css('display','none');
+	});
+</script>

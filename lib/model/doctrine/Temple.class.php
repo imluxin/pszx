@@ -21,22 +21,35 @@ class Temple extends BaseTemple
 	{
 		return str_replace(sfConfig::get('sf_web_dir'), '', self::getFileDir()) . '/' . $this->getImgOne();
 	}
-	
+
 	public function getPublicFileLocation2()
 	{
 		return str_replace(sfConfig::get('sf_web_dir'), '', self::getFileDir()) . '/' . $this->getImgTwo();
 	}
-	
+
 	public function getPublicFileLocation3()
 	{
 		return str_replace(sfConfig::get('sf_web_dir'), '', self::getFileDir()) . '/' . $this->getImgThree();
 	}
-	
+
 	public function save( Doctrine_Connection $conn = null ) {
 		$user_id = sfContext::getInstance()->getUser()->getGuardUser()->getId();
 		$this->setUserId($user_id);
 
 		return parent::save( $conn );
 
+	}
+
+	public function delete(Doctrine_Connection $conn = null) {
+		if($this->getImgOne() != '')
+			unlink(sfConfig::get('sf_upload_dir').'/temple/'.$this->getImgOne());
+		
+		if($this->getImgTwo() != '')
+			unlink(sfConfig::get('sf_upload_dir').'/temple/'.$this->getImgTwo());
+			
+		if($this->getImgTwo() != '')
+			unlink(sfConfig::get('sf_upload_dir').'/temple/'.$this->getImgTwo());
+		
+		return parent::delete($conn);
 	}
 }

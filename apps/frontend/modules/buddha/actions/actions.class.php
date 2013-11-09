@@ -14,7 +14,7 @@ class buddhaActions extends sfActions
 	public function executeIndex(sfWebRequest $request)
 	{
 		$this->myuser = $this->getUser()->getGuardUser();
-		
+
 		$page= $request->getParameter('page',1);        //默认第1页
 		$q = Doctrine_Core::getTable('BunddlaHall')->getListOnPage($page,6); //第页显示n条
 		$q->Where('is_approved=1 AND is_rejected=0');
@@ -31,15 +31,15 @@ class buddhaActions extends sfActions
 	public function executeNew(sfWebRequest $request)
 	{
 		$this->myuser = $this->getUser()->getGuardUser();
-		
+
 		$this->form = new BunddlaHallForm();
-		
+
 	}
 
 	public function executeCreate(sfWebRequest $request)
 	{
 		$this->myuser = $this->getUser()->getGuardUser();
-		
+
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
 
 		$this->form = new BunddlaHallForm();
@@ -82,30 +82,26 @@ class buddhaActions extends sfActions
 		$this->renderText($gid);
 	}
 
-	/*
-	 public function executeIndex(sfWebRequest $request)
-	 {
-	 $this->bunddla_halls = Doctrine_Core::getTable('BunddlaHall')
-	 ->createQuery('a')
-	 ->execute();
-	 }
-	 public function executeEdit(sfWebRequest $request)
-	 {
-	 $this->forward404Unless($bunddla_hall = Doctrine_Core::getTable('BunddlaHall')->find(array($request->getParameter('id'))), sprintf('Object bunddla_hall does not exist (%s).', $request->getParameter('id')));
+	public function executeEdit(sfWebRequest $request) {
+	 $this->forward404Unless($bunddla_hall = Doctrine_Core::getTable('BunddlaHall')->find(array($request->getParameter('id'))), sprintf('没有找到对应的佛殿！佛殿ID： (%s).', $request->getParameter('id')));
+	 $this->myuser = $this->getUser()->getGuardUser();
+	 $this->bunddla_hall = $bunddla_hall;
 	 $this->form = new BunddlaHallForm($bunddla_hall);
-	 }
+	}
 
-	 public function executeUpdate(sfWebRequest $request)
-	 {
+	public function executeUpdate(sfWebRequest $request) {
 	 $this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
-	 $this->forward404Unless($bunddla_hall = Doctrine_Core::getTable('BunddlaHall')->find(array($request->getParameter('id'))), sprintf('Object bunddla_hall does not exist (%s).', $request->getParameter('id')));
+	 $this->forward404Unless($bunddla_hall = Doctrine_Core::getTable('BunddlaHall')->find(array($request->getParameter('id'))), sprintf('没有找到对应的佛殿！佛殿ID： (%s).', $request->getParameter('id')));
+	 $this->myuser = $this->getUser()->getGuardUser();
+	 $this->bunddla_hall = $bunddla_hall;
 	 $this->form = new BunddlaHallForm($bunddla_hall);
 
-	 $this->processForm($request, $this->form);
-
+	 $this->processEditForm($request, $this->form);
+	
 	 $this->setTemplate('edit');
-	 }
+	}
 
+	/*
 	 public function executeDelete(sfWebRequest $request)
 	 {
 	 $request->checkCSRFProtection();
@@ -121,7 +117,18 @@ class buddhaActions extends sfActions
 		if ($form->isValid())
 		{
 			$bunddla_hall = $form->save();
-			$this->redirect('buddha/index');
+			// $this->redirect('buddha/index');
+			$this->redirect('buddha/edit?id='.$bunddla_hall->getId());
+		}
+	}
+	
+	protected function processEditForm(sfWebRequest $request, sfForm $form)
+	{
+		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+		if ($form->isValid())
+		{
+			$bunddla_hall = $form->save();
+			$this->redirect('manager/bto');
 			// $this->redirect('buddha/edit?id='.$bunddla_hall->getId());
 		}
 	}

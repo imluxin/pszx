@@ -8,7 +8,7 @@
             	<div class="cont">
                     <h3 class="subTitle">我要充值</h3>
                     <div class="money">
-                        <p>你当前账户余额：3000金币（30元）</p>
+                        <p>你当前账户余额：<?php echo $myuser->getCoins() ?>金币（<?php echo ($myuser->getCoins()/100) ?>元）</p>
                         <p>充值金额&nbsp;<input type="text" />&nbsp;元</p>
                     </div>
                     <div class="bank">
@@ -35,8 +35,8 @@
             	<div class="cont">
                     <h3 class="subTitle">我要提现</h3>
                     <div class="money">
-                        <p>你当前账户余额：3000金币（30元）</p>
-                        <p>可以提现：30元</p>
+                        <p>你当前账户余额：<?php echo $myuser->getCoins() ?>金币（<?php echo ($myuser->getCoins()/100) ?>元）</p>
+                        <p>可以提现：<?php echo ($myuser->getCoins()/100) ?>元</p>
                         <p>提现&nbsp;<input type="text" />&nbsp;元</p>
                     </div>
                     <p class="submitBar">

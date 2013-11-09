@@ -25,10 +25,11 @@ class BunddlaHallForm extends BaseBunddlaHallForm
 			));
 				
 		$this->validatorSchema['images'] = new sfValidatorFile(array(
+					'required' => false,
 				    'mime_types' => 'web_images',
 				    'path' => $this->getObject()->getFileDir(),
 					),array(
-						'required'=>'菩萨动画图片不能为空。'
+						//'required'=>'菩萨动画图片不能为空。'
 					)
 				);
 				

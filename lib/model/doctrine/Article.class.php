@@ -39,4 +39,17 @@ class Article extends BaseArticle
 		return parent::save( $conn );
 
 	}
+
+	public function delete(Doctrine_Connection $conn = null) {
+		if($this->getImgOne() != '')
+			unlink(sfConfig::get('sf_upload_dir').'/article/'.$this->getImgOne());
+
+		if($this->getImgTwo() != '')
+			unlink(sfConfig::get('sf_upload_dir').'/article/'.$this->getImgTwo());
+			
+		if($this->getImgThree() != '')
+			unlink(sfConfig::get('sf_upload_dir').'/article/'.$this->getImgThree());
+
+		return parent::delete($conn);
+	}
 }

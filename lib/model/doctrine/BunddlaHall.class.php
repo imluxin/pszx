@@ -29,4 +29,11 @@ class BunddlaHall extends BaseBunddlaHall
 		return parent::save( $conn );
 
 	}
+
+	public function delete(Doctrine_Connection $conn = null) {
+		if($this->getImages() != '')
+			unlink(sfConfig::get('sf_upload_dir').'/buddha/'.$this->getImages());
+			
+		return parent::delete($conn);
+	}
 }

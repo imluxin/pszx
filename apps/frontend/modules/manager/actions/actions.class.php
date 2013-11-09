@@ -10,11 +10,6 @@
  */
 class managerActions extends sfActions
 {
-	/**
-	 * Executes index action
-	 *
-	 * @param sfRequest $request A request object
-	 */
 	public function executeIndex(sfWebRequest $request) {
 		$this->myuser = $this->getUser()->getGuardUser();
 			
@@ -38,6 +33,8 @@ class managerActions extends sfActions
 	public function executeBto(sfWebRequest $request) {
 		$this->myuser = $this->getUser()->getGuardUser();
 		$this->form = new FileUploadForm();
+		
+		
 	}
 
 	/************Updatephoto*************/
@@ -58,7 +55,7 @@ class managerActions extends sfActions
 		{
 			$this->deleteOldOne($myuser);
 			$photo = $form->save();
-			
+
 			$myuser->setPhoto($photo->getFile());
 			$myuser->save();
 		}
@@ -67,7 +64,7 @@ class managerActions extends sfActions
 	protected  function deleteOldOne($user) {
 		$uid = $user->getId();
 		$photo = Doctrine_Core::getTable('FileUpload')->findOneByUserId($uid);
-		
+
 		if($photo) {
 			if($photo->getFile() != '') {
 				unlink(sfConfig::get('sf_upload_dir').'/userphoto/'.$photo->getFile());

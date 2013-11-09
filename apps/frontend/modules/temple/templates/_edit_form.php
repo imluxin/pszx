@@ -40,21 +40,24 @@
       </tr>
       <tr>
         <th><?php echo $form['img_one']->renderLabel() ?></th>
-        <td>
+        <td id="tmple_img1">
+          <?php echo image_tag('../uploads/temple/'.$temple->getImgOne())?>
           <?php echo $form['img_one'] ?>
         </td>
         <td><?php echo $form['img_one']->renderError() ?></td>
       </tr>
       <tr>
         <th><?php echo $form['img_two']->renderLabel() ?></th>
-        <td>
+        <td id="tmple_img2">
+          <?php echo image_tag('../uploads/temple/'.$temple->getImgTwo())?>
           <?php echo $form['img_two'] ?>
         </td>
         <td> <?php echo $form['img_two']->renderError() ?></td>
       </tr>
       <tr>
         <th><?php echo $form['img_three']->renderLabel() ?></th>
-        <td>
+        <td id="tmple_img3">
+          <?php echo image_tag('../uploads/temple/'.$temple->getImgThree())?>
           <?php echo $form['img_three'] ?>
         </td>
         <td><?php echo $form['img_three']->renderError() ?></td>
@@ -72,8 +75,20 @@
   <?php echo $form['description'] ?>
   </div><br />
   <input class="btnPurple" type="submit" value="确认创建" />
-  <input class="btnPurple" type="button" value="返回" onclick="history.go(-1);" />
+  <input class="btnPurple" type="button" value="返回管理中心" onclick="location.href='<?php echo url_for('manager/bto') ?>'" />
 </form>
 <script>
-$.address('temple_province','temple_city','temple_block');
+$(function() {
+	var imgs1 = $('#tmple_img1 img');
+	$(imgs1[1]).css('display','none');
+	
+	var imgs2 = $('#tmple_img2 img');
+	$(imgs2[1]).css('display','none');
+	
+	var imgs3 = $('#tmple_img3 img');
+	$(imgs3[1]).css('display','none');
+
+	$.address('temple_province','temple_city','temple_block','<?php echo $temple->getProvince() ?>','<?php echo $temple->getCity() ?>','<?php echo $temple->getBlock() ?>');
+});
+
 </script>

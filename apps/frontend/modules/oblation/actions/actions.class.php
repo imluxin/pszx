@@ -53,20 +53,24 @@ class oblationActions extends sfActions
 	{
 		$this->forward404Unless($oblation = Doctrine_Core::getTable('Oblation')->find(array($request->getParameter('id'))), sprintf('Object oblation does not exist (%s).', $request->getParameter('id')));
 		$this->form = new OblationForm($oblation);
+		$this->oblation = $oblation;
+		$this->myuser = $this->getUser()->getGuardUser();
 	}
 
 	public function executeUpdate(sfWebRequest $request)
 	{
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
 		$this->forward404Unless($oblation = Doctrine_Core::getTable('Oblation')->find(array($request->getParameter('id'))), sprintf('Object oblation does not exist (%s).', $request->getParameter('id')));
+		$this->myuser = $this->getUser()->getGuardUser();
+		$this->oblation = $oblation;
 		$this->form = new OblationForm($oblation);
-
-		$this->processForm($request, $this->form);
+		
+		$this->processEditForm($request, $this->form);
 
 		$this->setTemplate('edit');
 	}
 
-	public function executeDelete(sfWebRequest $request)
+/*	public function executeDelete(sfWebRequest $request)
 	{
 		$request->checkCSRFProtection();
 
@@ -74,7 +78,7 @@ class oblationActions extends sfActions
 		$oblation->delete();
 
 		$this->redirect('oblation/index');
-	}
+	}*/
 
 	protected function processForm(sfWebRequest $request, sfForm $form)
 	{
@@ -84,6 +88,17 @@ class oblationActions extends sfActions
 			$oblation = $form->save();
 
 			$this->redirect('oblation/edit?id='.$oblation->getId());
+		}
+	}
+	
+	protected function processEditForm(sfWebRequest $request, sfForm $form)
+	{
+		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+		if ($form->isValid())
+		{
+			$oblation = $form->save();
+
+			$this->redirect('manager/bto');
 		}
 	}
 }

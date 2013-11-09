@@ -52,56 +52,64 @@ class articleActions extends sfActions
 	public function executeDetails(sfWebRequest $request) {
 		$this->forward404Unless($request->getParameter('id'));
 		$this->id = $request->getParameter('id');
-
+		$this->myuser = $this->getUser()->getGuardUser();
+		
 		$this->article = Doctrine_Core::getTable('Article')->findOneById($this->id);
 		if(!$this->article)
 		$this->redirect('article/index');
 
 		$comments_query = Doctrine_Core::getTable('Comment')->createQuery('a')
 		->where('a.article_id=',$this->id)
-		->orderBy('a.created_at ASC');
+		->orderBy('a.created_at DESC');
 
 		$this->comments = $comments_query->execute();
-		
+
 		$this->form = new CommentForm();
 		$this->form->getWidget('article_id')->setDefault($this->id);
 	}
-	
+
 	public function executeComment(sfWebRequest $request) {
 		if(!$request->isMethod(sfRequest::POST)) {
 			return $this->renderText("-1");
 		}
+		$this->myuser = $this->getUser()->getGuardUser();
 		
 		$this->form = new CommentForm();
 		$this->processComment($request, $this->form);
 	}
-
-	/*public function executeEdit(sfWebRequest $request)
-	 {
+	public function executeEdit(sfWebRequest $request)
+	{
 		$this->forward404Unless($article = Doctrine_Core::getTable('Article')->find(array($request->getParameter('id'))), sprintf('Object article does not exist (%s).', $request->getParameter('id')));
 		$this->form = new ArticleForm($article);
-		}
+		
+		$this->article = $article;
+		$this->myuser = $this->getUser()->getGuardUser();
+		$this->article_page = $request->getParameter('article_page',1);
+	}
 
-		public function executeUpdate(sfWebRequest $request)
-		{
+	public function executeUpdate(sfWebRequest $request)
+	{
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
 		$this->forward404Unless($article = Doctrine_Core::getTable('Article')->find(array($request->getParameter('id'))), sprintf('Object article does not exist (%s).', $request->getParameter('id')));
 		$this->form = new ArticleForm($article);
-
-		$this->processForm($request, $this->form);
+		$this->article = $article;
+		$this->myuser = $this->getUser()->getGuardUser();
+		$article_page = $request->getParameter('article_page');
+		$this->processEditForm($request, $this->form,$article_page);
 
 		$this->setTemplate('edit');
-		}
+	}
+	/*
 
-		public function executeDelete(sfWebRequest $request)
-		{
-		$request->checkCSRFProtection();
+	public function executeDelete(sfWebRequest $request)
+	{
+	$request->checkCSRFProtection();
 
-		$this->forward404Unless($article = Doctrine_Core::getTable('Article')->find(array($request->getParameter('id'))), sprintf('Object article does not exist (%s).', $request->getParameter('id')));
-		$article->delete();
+	$this->forward404Unless($article = Doctrine_Core::getTable('Article')->find(array($request->getParameter('id'))), sprintf('Object article does not exist (%s).', $request->getParameter('id')));
+	$article->delete();
 
-		$this->redirect('article/index');
-		}*/
+	$this->redirect('article/index');
+	}*/
 
 	protected function processForm(sfWebRequest $request, sfForm $form)
 	{
@@ -110,17 +118,28 @@ class articleActions extends sfActions
 		{
 			$article = $form->save();
 
-			$this->redirect('article/index');
+			$this->redirect('article/edit?id='.$article->getId());
 		}
 	}
 	
+	protected function processEditForm(sfWebRequest $request, sfForm $form, $article_page = 1)
+	{
+		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+		if ($form->isValid())
+		{
+			$article = $form->save();
+
+			$this->redirect('manager/bto?article_page='.$article_page);
+		}
+	}
+
 	protected function processComment(sfWebRequest $request, sfForm $form)
 	{
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
 		if ($form->isValid())
 		{
 			$comment = $form->save();
-			
+				
 			$this->redirect('article/details?id='.$request->getParameter('aid'));
 		}
 	}

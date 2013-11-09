@@ -8,6 +8,7 @@
  */
 class ajaxActions extends sfActions {
 
+	/**************** manager: base_info **************************/
 	public function executeUpdateUserName(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
 		$username = $request->getParameter('username');
@@ -64,15 +65,74 @@ class ajaxActions extends sfActions {
 
 		return $this->renderText('ok');
 	}
-	
+
 	public function executeUpdatePassword(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
-		$province = $request->getParameter('password');
+		$password = $request->getParameter('password');
 
-		$myuser = $this->getUser()->getGuardUser();
-		$myuser->setPassword($province);
-		$myuser->save();
+		if($password != '' && strlen($password) >= 6) {
+			$myuser = $this->getUser()->getGuardUser();
+			$myuser->setPassword($password);
+			$myuser->save();
 
-		return $this->renderText('ok');
+			return $this->renderText('ok');
+		}
 	}
+	/**************** manager: base_info end**************************/
+
+	/**************** manager: buddha **************************/
+	public function executeDelBuddha(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST));
+
+		$id = $request->getParameter('id');
+		$buddha = Doctrine_Core::getTable('BunddlaHall')->findOneById($id);
+		if($buddha) {
+			$buddha->delete();
+		}
+
+		return $this->renderText(1);
+	}
+	/**************** manager: buddha end**************************/
+	
+	/**************** manager: temple **************************/
+	public function executeDelTemple(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST));
+
+		$id = $request->getParameter('id');
+		$temple = Doctrine_Core::getTable('Temple')->findOneById($id);
+		if($temple) {
+			$temple->delete();
+		}
+
+		return $this->renderText(1);
+	}
+	/**************** manager: temple end**************************/
+		
+	/**************** manager: oblation **************************/
+	public function executeDelOblation(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST));
+
+		$id = $request->getParameter('id');
+		$oblation = Doctrine_Core::getTable('Oblation')->findOneById($id);
+		if($oblation) {
+			$oblation->delete();
+		}
+
+		return $this->renderText(1);
+	}
+	/**************** manager: oblation end**************************/
+	
+	/**************** manager: oblation **************************/
+	public function executeDelArticle(sfWebRequest $request) {
+		//$this->forward404Unless($request->isMethod(sfRequest::POST));
+
+		$id = $request->getParameter('id');
+		$article = Doctrine_Core::getTable('Article')->findOneById($id);
+		if($article) {
+			$article->delete();
+		}
+
+		return $this->renderText(1);
+	}
+	/**************** manager: oblation end**************************/
 }

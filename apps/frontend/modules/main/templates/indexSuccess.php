@@ -36,16 +36,7 @@
 <div class="userInfo"><?php include_partial('main/user_info', array('myuser'=>$myuser)) ?>
 </div>
 <?php }?>
-<div class="userLink">
-<ul class="clearfix">
-	<li><a class="btnGray" href="<?php echo url_for('cash/index') ?>">我要充值</a></li>
-	<li><a class="btnGray" href="<?php echo url_for('cash/index') ?>">我要提现</a></li>
-	<li><a class="btnGray" href="#">我要拜佛</a></li>
-	<li><a class="btnGray" href="#">我要祭祀</a></li>
-	<li><a class="btnGray" href="#">我要建馆</a></li>
-	<li><a class="btnGray" href="<?php echo url_for('manager/index') ?>">管理中心</a></li>
-</ul>
-</div>
+<?php include_partial('main/menu', array())?>
 <div class="userNote">
 <p>您可以：</p>
 <p>在线拜菩萨，保全家积德积财平安健康</p>
