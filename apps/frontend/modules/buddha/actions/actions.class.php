@@ -14,13 +14,28 @@ class buddhaActions extends sfActions
 	public function executeIndex(sfWebRequest $request)
 	{
 		$this->myuser = $this->getUser()->getGuardUser();
+		
+		$rq = $request->getParameter('rq','no');
+		$xh = $request->getParameter('xh','no');
+		$last = $request->getParameter('last','no');
+
+		$search_query = '';
+
+		if($rq != 'no') {
+
+		} else if($xh != 'no') {
+
+		} else if($last != 'no') {
+			$search_query = '';
+		}
 
 		$page= $request->getParameter('page',1);        //默认第1页
-		$q = Doctrine_Core::getTable('BunddlaHall')->getListOnPage($page,6); //第页显示n条
-		$q->Where('is_approved=1 AND is_rejected=0');
+		$q = Doctrine_Core::getTable('BunddlaHall')->getListOnPage($page,18); //第页显示n条
+		$q->Where('is_approved=0 AND is_rejected=0'.$search_query);
+		$q->OrderBy('id DESC');
 		$this->cols=$q->execute();
 		//分页
-		$this->pg= new sfDoctrinePager('BunddlaHall',6);
+		$this->pg= new sfDoctrinePager('BunddlaHall',18);
 		$this->pg->setQuery($q);
 		$this->pg->setPage($page);
 		$this->pg->init();
@@ -44,7 +59,7 @@ class buddhaActions extends sfActions
 
 		$this->form = new BunddlaHallForm();
 
-		$this->processForm($request, $this->form);
+		$this->processForm($request, $this->form, $this->myuser);
 
 		$this->setTemplate('new');
 	}
@@ -65,6 +80,7 @@ class buddhaActions extends sfActions
 		return $this->renderText(0);
 			
 		$c_user = Doctrine_Core::getTable('sfGuardUser')->findOneById($uid);
+
 		if(!$c_user)
 		return $this->renderText(0);
 
@@ -87,6 +103,7 @@ class buddhaActions extends sfActions
 	 $this->myuser = $this->getUser()->getGuardUser();
 	 $this->bunddla_hall = $bunddla_hall;
 	 $this->form = new BunddlaHallForm($bunddla_hall);
+	 $this->form->setWidget('user_name', new sfWidgetFormInputHidden());
 	}
 
 	public function executeUpdate(sfWebRequest $request) {
@@ -94,10 +111,12 @@ class buddhaActions extends sfActions
 	 $this->forward404Unless($bunddla_hall = Doctrine_Core::getTable('BunddlaHall')->find(array($request->getParameter('id'))), sprintf('没有找到对应的佛殿！佛殿ID： (%s).', $request->getParameter('id')));
 	 $this->myuser = $this->getUser()->getGuardUser();
 	 $this->bunddla_hall = $bunddla_hall;
+	 
 	 $this->form = new BunddlaHallForm($bunddla_hall);
-
+	 $this->form->getWidget('user_name')->setDefault($bunddla_hall->getUserName());
+	 
 	 $this->processEditForm($request, $this->form);
-	
+
 	 $this->setTemplate('edit');
 	}
 
@@ -111,24 +130,32 @@ class buddhaActions extends sfActions
 
 	 $this->redirect('buddha/index');
 	 }*/
-	protected function processForm(sfWebRequest $request, sfForm $form)
+	protected function processForm(sfWebRequest $request, sfForm $form,$myuser)
 	{
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-		if ($form->isValid())
-		{
+		if ($form->isValid()) {
 			$bunddla_hall = $form->save();
-			// $this->redirect('buddha/index');
+			
+			$bunddla_hall->setUserId($myuser->getId());
+			$bunddla_hall->setUserName($myuser->getUsername());
+			$bunddla_hall->save();
 			$this->redirect('buddha/edit?id='.$bunddla_hall->getId());
 		}
 	}
-	
+
 	protected function processEditForm(sfWebRequest $request, sfForm $form)
 	{
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
 		if ($form->isValid())
 		{
 			$bunddla_hall = $form->save();
-			$this->redirect('manager/bto');
+			
+			// reset status
+			$bunddla_hall->setIsApproved(false);
+			$bunddla_hall->setIsRejected(false);
+			$bunddla_hall->save();
+			
+			$this->redirect('manager/buddha');
 			// $this->redirect('buddha/edit?id='.$bunddla_hall->getId());
 		}
 	}

@@ -8,27 +8,62 @@ sfGuardUser:
     province:       广东省
     password:       mia123
     phone:          13824789585
-    birthday:       1993-09-13 00:00:00
     is_super_admin: true
-    Groups:         [Group_admin]
+    Permissions:     [high_admin]  
+  User_high: 
+    email_address:  high@gmail.com
+    username:       high
+    gender:         1
+    city:           珠海
+    province:       广东省
+    password:       aaaaaa
+    phone:          13824789585
+    Permissions:     [high_admin]  
+  User_senior: 
+    email_address:  senior@gmail.com
+    username:       senior
+    gender:         1
+    city:           珠海
+    province:       广东省
+    password:       aaaaaa
+    phone:          13824789585
+    Permissions:     [senior_admin]   
+  User_primary: 
+    email_address:  primary@gmail.com
+    username:       primary
+    gender:         1
+    city:           珠海
+    province:       广东省
+    password:       aaaaaa
+    phone:          13824789585
+    Permissions:     [primary_admin] 
+  User_origin: 
+    email_address:  t@gmail.com
+    username:       user
+    gender:         1
+    password:       aaaaaa
+    phone:          13824789585
 
-sfGuardGroup:
-  Group_admin:
-    name:           admin
-    description:    Administrator group
-    Permissions:    [Permission_admin]
-  Group_ordinary_user: 
-    name:           ordinary 
-    description:    Ordinary user group
-    Permissions:    [Permission_ordinary]
+#sfGuardGroup:
+#  Group_admin:
+#    name:           admin
+#    description:    Administrator group
+#    Permissions:    [Permission_admin]
+#  Group_ordinary_user: 
+#    name:           ordinary 
+#    description:    Ordinary user group
+#    Permissions:    [Permission_ordinary]
      
 sfGuardPermission:
-  Permission_admin:
-    name:           admin
-    description:    Administrator permission
-  Permission_ordinary:
-    name:           ordinary
-    description:    Ordinary user permission
+  primary_admin:  
+    name:           primary
+    description:    primary permission
+  senior_admin: 
+    name:           senior
+    description:    senior permission
+  high_admin: 
+    name:           high
+    description:    high permission
     
 # 纪念馆分类
 MemorialCategory: 

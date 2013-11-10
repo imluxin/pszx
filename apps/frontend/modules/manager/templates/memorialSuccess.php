@@ -9,11 +9,7 @@
       </div>
       <div class="main box fr">
         <div class="cont">
-          <?php // include_component('manager', 'buddha')?>
-          <?php // include_component('manager','temple')?>
-          <?php // include_component('manager','oblation')?>
-          <?php // include_partial('manager/memorial', array())?>
-          <?php // include_component('manager','article',array())?>
+          <?php include_partial('manager/memorial', array())?>
         </div>
       </div>
     </div>

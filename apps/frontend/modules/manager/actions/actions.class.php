@@ -30,13 +30,36 @@ class managerActions extends sfActions
 		$this->result = $this->pg->getResults();
 	}
 
-	public function executeBto(sfWebRequest $request) {
+/*	public function executeBto(sfWebRequest $request) {
 		$this->myuser = $this->getUser()->getGuardUser();
 		$this->form = new FileUploadForm();
-		
-		
+	}*/
+
+	public function executeBuddha(sfWebRequest $request) {
+		$this->myuser = $this->getUser()->getGuardUser();
+		$this->form = new FileUploadForm();
 	}
 
+	public function executeTemple(sfWebRequest $request) {
+		$this->myuser = $this->getUser()->getGuardUser();
+		$this->form = new FileUploadForm();
+	}
+
+	public function executeOblation(sfWebRequest $request) {
+		$this->myuser = $this->getUser()->getGuardUser();
+		$this->form = new FileUploadForm();
+	}
+
+	public function executeMemorial(sfWebRequest $request) {
+		$this->myuser = $this->getUser()->getGuardUser();
+		$this->form = new FileUploadForm();
+	}
+
+	public function executeArticle(sfWebRequest $request) {
+		$this->myuser = $this->getUser()->getGuardUser();
+		$this->form = new FileUploadForm();
+	}
+	
 	/************Updatephoto*************/
 	public function executeUpdatephoto(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));

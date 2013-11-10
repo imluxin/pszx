@@ -98,7 +98,7 @@ class oblationActions extends sfActions
 		{
 			$oblation = $form->save();
 
-			$this->redirect('manager/bto');
+			$this->redirect('manager/oblation');
 		}
 	}
 }

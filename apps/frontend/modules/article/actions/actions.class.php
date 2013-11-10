@@ -129,7 +129,7 @@ class articleActions extends sfActions
 		{
 			$article = $form->save();
 
-			$this->redirect('manager/bto?article_page='.$article_page);
+			$this->redirect('manager/article?article_page='.$article_page);
 		}
 	}
 

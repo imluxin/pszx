@@ -25,9 +25,17 @@ class Memorial extends BaseMemorial
 	{
 		return str_replace(sfConfig::get('sf_web_dir'), '', self::getFileDir()) . '/' . $this->getDiePhotoTwo();
 	}
+
 	public function save( Doctrine_Connection $conn = null ) {
-		$user_id = sfContext::getInstance()->getUser()->getGuardUser()->getId();
-		$this->setUserId($user_id);
+		$user = sfContext::getInstance()->getUser()->getGuardUser();
+
+		if($user) {
+			$this->setLastModify($user->getUsername());
+		} else {
+			$this->setLastModify(' ');
+		}
+
+		return parent::save( $conn );
 
 		return parent::save( $conn );
 

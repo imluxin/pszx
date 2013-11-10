@@ -30,10 +30,13 @@
 <div class="titleBar">
 <p>礼佛三炷香 心愿自然成</p>
 </div>
-<div class="cont"><?php if(!$sf_user->isAuthenticated()) {?> <?php use_helper('I18N') ?>
+<div class="cont">
+<?php if(!$sf_user->isAuthenticated()) {?> 
+<?php use_helper('I18N') ?>
 <?php echo include_partial('main/signin_form', array('form' => $form)) ?>
-<?php } else {?>
-<div class="userInfo"><?php include_partial('main/user_info', array('myuser'=>$myuser)) ?>
+<?php } else { ?>
+<div class="userInfo">
+<?php include_partial('main/user_info', array('myuser'=>$myuser)) ?>
 </div>
 <?php }?>
 <?php include_partial('main/menu', array())?>

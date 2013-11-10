@@ -80,7 +80,7 @@
   <br />
   <input type="hidden" value="<?php echo $article_page ?>" name="article_page" />
   <input class="btnPurple" type="submit" value="确认发布" />
-  <input class="btnPurple" type="button" value="返回管理中心" onclick="location.href='<?php echo url_for('manager/bto?article_page='.$article_page) ?>'" />
+  <input class="btnPurple" type="button" value="返回管理中心" onclick="location.href='<?php echo url_for('manager/article?article_page='.$article_page) ?>'" />
 </form>
 <script>
 	$(function() {

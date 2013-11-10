@@ -23,9 +23,13 @@ class BunddlaHall extends BaseBunddlaHall
 	}
 
 	public function save( Doctrine_Connection $conn = null ) {
-		$user_id = sfContext::getInstance()->getUser()->getGuardUser()->getId();
-		$this->setUserId($user_id);
+		$user = sfContext::getInstance()->getUser()->getGuardUser();
 
+		if($user) {
+			$this->setLastModify($user->getUsername());
+		} else {
+			$this->setLastModify(' ');
+		}
 		return parent::save( $conn );
 
 	}

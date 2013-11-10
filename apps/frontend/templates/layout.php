@@ -16,8 +16,12 @@
 			<div class="headerLink">
 				<ul>
 					<li><a href="#">加入收藏</a></li>
+					<?php if(!$sf_user->isAuthenticated()) {?>
 					<li><a href="<?php echo url_for('register/index') ?>">免费注册</a></li>
 					<li><a href="<?php echo url_for('@sf_guard_signin') ?>">用户登录</a></li>
+					<?php } else { ?>
+					<li><?php echo link_to('退出','@sf_guard_signout') ?></li>
+					<?php } ?>
 				</ul>
 			</div>
 			<div class="nav">

@@ -24,16 +24,23 @@ class Oblation extends BaseOblation {
 	}
 
 	public function save( Doctrine_Connection $conn = null ) {
-		$user_id = sfContext::getInstance()->getUser()->getGuardUser()->getId();
-		$this->setUserId($user_id);
+		$user = sfContext::getInstance()->getUser()->getGuardUser();
+
+		if($user) {
+			$this->setLastModify($user->getUsername());
+		} else {
+			$this->setLastModify(' ');
+		}
+
+		return parent::save( $conn );
 		return parent::save( $conn );
 
 	}
 
 	public function delete(Doctrine_Connection $conn = null) {
-		if($this->getImages() != '') 
-			unlink(sfConfig::get('sf_upload_dir').'/oblation/'.$this->getImages());
-		
+		if($this->getImages() != '')
+		unlink(sfConfig::get('sf_upload_dir').'/oblation/'.$this->getImages());
+
 		return parent::delete($conn);
 	}
 }

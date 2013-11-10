@@ -16,6 +16,11 @@ class managerComponents extends sfComponents {
 		$this->myuser = $this->getUser()->getGuardUser();
 		$this->oblation = Doctrine_Core::getTable('Oblation')->findByUserId($this->myuser->getId());
 	}
+
+	public function executeMemorial() {
+		$this->myuser = $this->getUser()->getGuardUser();
+		$this->oblation = Doctrine_Core::getTable('Oblation')->findByUserId($this->myuser->getId());
+	}
 	
 	public function executeArticle(sfWebRequest $request) {
 		$this->myuser = $this->getUser()->getGuardUser();

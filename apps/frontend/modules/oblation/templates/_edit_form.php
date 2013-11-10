@@ -14,7 +14,7 @@
             &nbsp;<?php echo link_to('Delete', 'oblation/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
           <?php endif;*/ ?>
           <input class="btnPurple" type="submit" value="确认修改" />
-          <input class="btnPurple" type="button" value="返回管理中心" onclick="location.href='<?php echo url_for('manager/bto') ?>'" />
+          <input class="btnPurple" type="button" value="返回管理中心" onclick="location.href='<?php echo url_for('manager/oblation') ?>'" />
         </td>
       </tr>
     </tfoot>
