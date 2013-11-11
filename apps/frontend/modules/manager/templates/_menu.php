@@ -13,7 +13,7 @@
 <?php if($is_admin):?>
 <p><a class="btnPurple" href="javascript:" onclick="$('#admin_menu').slideToggle();">网站管理</a></p>
 <ul id="admin_menu">
-	<li><a class="btnGray" href="<?php echo url_for('manager/article') ?>">佛殿审核</a></li>
+	<li><a class="btnGray" href="<?php echo url_for('manager/mbuddha') ?>">佛殿审核</a></li>
 	<li><a class="btnGray" href="<?php echo url_for('manager/article') ?>">寺庙审核</a></li>
 	<li><a class="btnGray" href="<?php echo url_for('manager/article') ?>">纪念馆审核</a></li>
 	<li><a class="btnGray" href="<?php echo url_for('manager/article') ?>">祭品审核</a></li>

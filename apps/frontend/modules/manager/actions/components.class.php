@@ -38,6 +38,13 @@ class managerComponents extends sfComponents {
 		$this->article_result = $this->article_pg->getResults();
 	}
 	
+	public function executeAdminbuddha(sfWebRequest $request) {
+		$query = Doctrine_Core::getTable('BunddlaHall')->createQuery('b');
+		$query->where('b.is_approved=0 AND b.is_rejected=0')
+			->orderBy('b.id DESC');
+		$this->buddha = $query->execute();
+	}
+	
 	public function executeMenu(sfWebRequest $request) {
 		$this->myuser = $this->getUser()->getGuardUser();
 		
