@@ -17,6 +17,6 @@
 </div>
 
 <div class="userMenu">
-<?php include_partial('manager/menu')?>
+<?php include_component('manager','menu') ?>
 </div>
 </div>

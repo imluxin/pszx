@@ -237,3 +237,17 @@ FileUpload:
     file: { type: string(255) }
   relations:
       sfGuardUser:  { onDelete: CASCADE, local: user_id, foreign: id }
+
+# 网站佛殿、寺庙、纪念馆、祭品内容推荐列表
+Recommend: 
+  options: 
+    type: MyISAM
+    collate: utf8_unicode_ci
+    charset: utf8
+  actAs: 
+    Timestampable: ~ 
+  columns: 
+    r_type: { type: string(255) }
+    r_id: { type: integer }
+    start_date:          { type: timestamp }
+    end_date:          { type: timestamp }

@@ -17,11 +17,11 @@ class articleActions extends sfActions
 		$this->category = Doctrine_Core::getTable("ArticleCategory")->findAll();
 
 		$page= $request->getParameter('page',1);        //默认第1页
-		$q = Doctrine_Core::getTable('Article')->getListOnPage($page,1); //第页显示n条
+		$q = Doctrine_Core::getTable('Article')->getListOnPage($page,18); //第页显示n条
 		$q->Where('is_approved=0 AND is_rejected=0');
 		$this->cols=$q->execute();
 		//分页
-		$this->pg= new sfDoctrinePager('Article',1);
+		$this->pg= new sfDoctrinePager('Article',18);
 		$this->pg->setQuery($q);
 		$this->pg->setPage($page);
 		$this->pg->init();
@@ -44,7 +44,7 @@ class articleActions extends sfActions
 
 		$this->form = new ArticleForm();
 
-		$this->processForm($request, $this->form);
+		$this->processForm($request, $this->form,$this->myuser);
 
 		$this->setTemplate('new');
 	}
@@ -111,13 +111,15 @@ class articleActions extends sfActions
 	$this->redirect('article/index');
 	}*/
 
-	protected function processForm(sfWebRequest $request, sfForm $form)
+	protected function processForm(sfWebRequest $request, sfForm $form,$myuser)
 	{
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
 		if ($form->isValid())
 		{
 			$article = $form->save();
-
+			$article->setUserId($myuser->getId());
+			$article->setUserName($myuser->getUsername());
+			$article->save();
 			$this->redirect('article/edit?id='.$article->getId());
 		}
 	}

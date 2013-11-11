@@ -21,4 +21,12 @@ class ArticleTable extends Doctrine_Table
 		$page = $page<=0?1:$page;
 		return $this->createQuery()->offset(($page-1)*$limit)->limit($limit);
 	}
+	
+	public function getIndexArticle($cagegory_id = 1,$notin = array(),$limit=15) {
+		$query = Doctrine_Core::getTable('Article')->createQuery('a');
+		$query->select('a.id,a.title')->where('a.category_id=?', $cagegory_id)
+		->andWhereNotIn('a.id', $notin)
+		->orderBy('a.id DESC')->limit($limit);
+		return $query->execute();
+	}
 }

@@ -14,6 +14,7 @@
             &nbsp;<?php echo link_to('Delete', 'oblation/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
           <?php endif;*/ ?>
           <input class="btnPurple" type="submit" value="确认创建" />
+          <input class="btnPurple" type="button" value="返回" onclick="history.go(-1);" />
         </td>
       </tr>
     </tfoot>

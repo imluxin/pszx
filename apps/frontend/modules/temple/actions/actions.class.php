@@ -94,7 +94,6 @@ class templeActions extends sfActions {
 		$this->temple = $temple;
 		$this->myuser = $this->getUser()->getGuardUser();
 		$this->form = new TempleForm($temple);
-		$this->form->setWidget('user_name', new sfWidgetFormInputHidden());
 	}
 
 	public function executeUpdate(sfWebRequest $request) {
@@ -104,7 +103,6 @@ class templeActions extends sfActions {
 		$this->myuser = $this->getUser()->getGuardUser();
 
 		$this->form = new TempleForm($temple);
-		$this->form->getWidget('user_name')->setDefault($temple->getUserName());
 
 		$this->processEditForm($request, $this->form);
 

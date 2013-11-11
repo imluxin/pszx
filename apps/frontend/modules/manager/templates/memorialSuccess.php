@@ -9,7 +9,7 @@
       </div>
       <div class="main box fr">
         <div class="cont">
-          <?php include_partial('manager/memorial', array())?>
+          <?php  include_component('manager', 'memorial')?>
         </div>
       </div>
     </div>

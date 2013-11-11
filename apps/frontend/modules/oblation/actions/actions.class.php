@@ -44,7 +44,7 @@ class oblationActions extends sfActions
 
 		$this->form = new OblationForm();
 
-		$this->processForm($request, $this->form);
+		$this->processForm($request, $this->form,$this->myuser);
 
 		$this->setTemplate('new');
 	}
@@ -80,13 +80,15 @@ class oblationActions extends sfActions
 		$this->redirect('oblation/index');
 	}*/
 
-	protected function processForm(sfWebRequest $request, sfForm $form)
+	protected function processForm(sfWebRequest $request, sfForm $form,$myuser)
 	{
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
 		if ($form->isValid())
 		{
 			$oblation = $form->save();
-
+			$oblation->setUserId($myuser->getId());
+			$oblation->setUserName($myuser->getUsername());
+			$oblation->save();
 			$this->redirect('oblation/edit?id='.$oblation->getId());
 		}
 	}
@@ -97,7 +99,9 @@ class oblationActions extends sfActions
 		if ($form->isValid())
 		{
 			$oblation = $form->save();
-
+			$oblation->setIsRejected(false);
+			$oblation->setIsApproved(false);
+			$oblation->save();
 			$this->redirect('manager/oblation');
 		}
 	}

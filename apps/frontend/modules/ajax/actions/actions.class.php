@@ -8,6 +8,10 @@
  */
 class ajaxActions extends sfActions {
 
+	public function executeTest(sfWebRequest $request) {
+		
+	}
+
 	/**************** manager: base_info **************************/
 	public function executeUpdateUserName(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
@@ -93,7 +97,7 @@ class ajaxActions extends sfActions {
 		return $this->renderText(1);
 	}
 	/**************** manager: buddha end**************************/
-	
+
 	/**************** manager: temple **************************/
 	public function executeDelTemple(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
@@ -107,7 +111,7 @@ class ajaxActions extends sfActions {
 		return $this->renderText(1);
 	}
 	/**************** manager: temple end**************************/
-		
+
 	/**************** manager: oblation **************************/
 	public function executeDelOblation(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
@@ -121,15 +125,29 @@ class ajaxActions extends sfActions {
 		return $this->renderText(1);
 	}
 	/**************** manager: oblation end**************************/
-	
+
 	/**************** manager: oblation **************************/
 	public function executeDelArticle(sfWebRequest $request) {
-		//$this->forward404Unless($request->isMethod(sfRequest::POST));
+		$this->forward404Unless($request->isMethod(sfRequest::POST));
 
 		$id = $request->getParameter('id');
 		$article = Doctrine_Core::getTable('Article')->findOneById($id);
 		if($article) {
 			$article->delete();
+		}
+
+		return $this->renderText(1);
+	}
+	/**************** manager: oblation end**************************/
+	
+	/**************** manager: oblation **************************/
+	public function executeDelMemorial(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST));
+
+		$id = $request->getParameter('id');
+		$memorial = Doctrine_Core::getTable('Memorial')->findOneById($id);
+		if($memorial) {
+			$memorial->delete();
 		}
 
 		return $this->renderText(1);

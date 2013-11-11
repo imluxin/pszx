@@ -41,7 +41,7 @@ class memorialActions extends sfActions
 
 		$this->form = new MemorialForm();
 
-		$this->processForm($request, $this->form);
+		$this->processForm($request, $this->form,$this->myuser);
 
 		$this->setTemplate('new');
 	}
@@ -49,6 +49,8 @@ class memorialActions extends sfActions
 	public function executeEdit(sfWebRequest $request)
 	{
 		$this->forward404Unless($memorial = Doctrine_Core::getTable('Memorial')->find(array($request->getParameter('id'))), sprintf('Object memorial does not exist (%s).', $request->getParameter('id')));
+		$this->myuser = $this->getUser()->getGuardUser();
+		$this->memorial = $memorial;
 		$this->form = new MemorialForm($memorial);
 	}
 
@@ -56,14 +58,16 @@ class memorialActions extends sfActions
 	{
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
 		$this->forward404Unless($memorial = Doctrine_Core::getTable('Memorial')->find(array($request->getParameter('id'))), sprintf('Object memorial does not exist (%s).', $request->getParameter('id')));
+		$this->myuser = $this->getUser()->getGuardUser();
+		$this->memorial = $memorial;
 		$this->form = new MemorialForm($memorial);
 
-		$this->processForm($request, $this->form);
+		$this->processEditForm($request, $this->form);
 
 		$this->setTemplate('edit');
 	}
 
-	public function executeDelete(sfWebRequest $request)
+/*	public function executeDelete(sfWebRequest $request)
 	{
 		$request->checkCSRFProtection();
 
@@ -71,15 +75,30 @@ class memorialActions extends sfActions
 		$memorial->delete();
 
 		$this->redirect('memorial/index');
-	}
+	}*/
 
-	protected function processForm(sfWebRequest $request, sfForm $form)
+	protected function processForm(sfWebRequest $request, sfForm $form,$myuser)
 	{
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
 		if ($form->isValid())
 		{
 			$memorial = $form->save();
-
+			$memorial->setUserId($myuser->getId());
+			$memorial->setUserName($myuser->getUsername());
+			$memorial->save();
+			$this->redirect('memorial/edit?id='.$memorial->getId());
+		}
+	}
+	
+	protected function processEditForm(sfWebRequest $request, sfForm $form)
+	{
+		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+		if ($form->isValid())
+		{
+			$memorial = $form->save();
+			$memorial->setIsRejected(false);
+			$memorial->setIsApproved(false);
+			$memorial->save();
 			$this->redirect('memorial/edit?id='.$memorial->getId());
 		}
 	}

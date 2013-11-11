@@ -103,7 +103,6 @@ class buddhaActions extends sfActions
 	 $this->myuser = $this->getUser()->getGuardUser();
 	 $this->bunddla_hall = $bunddla_hall;
 	 $this->form = new BunddlaHallForm($bunddla_hall);
-	 $this->form->setWidget('user_name', new sfWidgetFormInputHidden());
 	}
 
 	public function executeUpdate(sfWebRequest $request) {
@@ -113,7 +112,6 @@ class buddhaActions extends sfActions
 	 $this->bunddla_hall = $bunddla_hall;
 	 
 	 $this->form = new BunddlaHallForm($bunddla_hall);
-	 $this->form->getWidget('user_name')->setDefault($bunddla_hall->getUserName());
 	 
 	 $this->processEditForm($request, $this->form);
 

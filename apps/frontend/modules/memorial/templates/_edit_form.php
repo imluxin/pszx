@@ -100,7 +100,8 @@
       </tr>
       <tr>
         <th><?php echo $form['die_photo_one']->renderLabel() ?></th>
-        <td>
+        <td id="die_photo_one">
+          <?php echo image_tag('../uploads/memorial/'.$memorial->getDiePhotoOne())?>
           <?php echo $form['die_photo_one'] ?>
         </td>
         <td>
@@ -164,7 +165,8 @@
       </tr>
       <tr>
         <th><?php echo $form['die_photo_two']->renderLabel() ?></th>
-        <td>
+        <td id="die_photo_two">
+         <?php echo image_tag('../uploads/memorial/'.$memorial->getDiePhotoTwo())?>
           <?php echo $form['die_photo_two'] ?>
         </td>
         <td>
@@ -186,12 +188,19 @@
    <?php echo $form['description'] ?>
    </div>
   <br />
-   <input class="btnPurple" type="submit" value="确认创建" />
+   <input class="btnPurple" type="submit" value="确认修改" />
+   <input class="btnPurple" type="button" value="返回管理中心" onclick="location.href='<?php echo url_for('manager/memorial') ?>'" />
 </form>
 <select style="display:none" id="area_id"></select>
 <script>
 
 $(function() {
+	var imgs1 = $('#die_photo_one img');
+	$(imgs1[1]).css('display','none');
+
+	var imgs2 = $('#die_photo_two img');
+	$(imgs2[1]).css('display','none');
+	
 	$( "#memorial_die_birth_one" ).datepicker({
 		changeMonth: true,
 		changeYear: true

@@ -36,8 +36,16 @@ class Memorial extends BaseMemorial
 		}
 
 		return parent::save( $conn );
+	}
+	
+	public function delete(Doctrine_Connection $conn = null) {
+		if($this->getDiePhotoOne() != '')
+		unlink(sfConfig::get('sf_upload_dir').'/memorial/'.$this->getDiePhotoOne());
 
-		return parent::save( $conn );
+		if($this->getDiePhotoTwo() != '')
+		unlink(sfConfig::get('sf_upload_dir').'/memorial/'.$this->getDiePhotoTwo());
+			
 
+		return parent::delete($conn);
 	}
 }

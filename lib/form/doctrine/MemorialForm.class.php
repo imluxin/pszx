@@ -13,6 +13,7 @@ class MemorialForm extends BaseMemorialForm
 	public function configure() {
 		unset(
 			$this['user_id'],
+			$this['user_name'],
 			$this['created_at'],
 			$this['updated_at'],
 			$this['is_single']
