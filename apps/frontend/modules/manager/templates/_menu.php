@@ -15,7 +15,7 @@
 <ul id="admin_menu">
 	<li><a class="btnGray" href="<?php echo url_for('manager/mbuddha') ?>">佛殿审核</a></li>
 	<li><a class="btnGray" href="<?php echo url_for('manager/mtemple') ?>">寺庙审核</a></li>
-	<li><a class="btnGray" href="<?php echo url_for('manager/article') ?>">纪念馆审核</a></li>
+	<li><a class="btnGray" href="<?php echo url_for('manager/mmemorial') ?>">纪念馆审核</a></li>
 	<li><a class="btnGray" href="<?php echo url_for('manager/article') ?>">祭品审核</a></li>
 	<li><a class="btnGray" href="<?php echo url_for('manager/article') ?>">文章讣告审核</a></li>
 	<?php if($level == 'senior') {?>

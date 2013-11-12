@@ -9,7 +9,7 @@ sfGuardUser:
     password:       mia123
     phone:          13824789585
     is_super_admin: true
-    Permissions:     [high_admin]  
+    Permissions:     [high_admin,senior_admin,primary_admin]  
   User_high: 
     email_address:  high@gmail.com
     username:       high
@@ -18,7 +18,7 @@ sfGuardUser:
     province:       广东省
     password:       aaaaaa
     phone:          13824789585
-    Permissions:     [high_admin]  
+    Permissions:     [high_admin,senior_admin,primary_admin]  
   User_senior: 
     email_address:  senior@gmail.com
     username:       senior
@@ -27,7 +27,7 @@ sfGuardUser:
     province:       广东省
     password:       aaaaaa
     phone:          13824789585
-    Permissions:     [senior_admin]   
+    Permissions:     [senior_admin,primary_admin]   
   User_primary: 
     email_address:  primary@gmail.com
     username:       primary

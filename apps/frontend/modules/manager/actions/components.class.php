@@ -47,7 +47,21 @@ class managerComponents extends sfComponents {
 
 	public function executeMemorial() {
 		$this->myuser = $this->getUser()->getGuardUser();
-		$this->memorial = Doctrine_Core::getTable('Memorial')->findByUserId($this->myuser->getId());
+		
+		$query = Doctrine_Core::getTable('Memorial')->createQuery('b');
+		$query->where('b.is_approved=0 AND b.is_rejected=0');
+		$query->Andwhere('b.user_id=?',$this->myuser->getId());
+		$this->memorial = $query->execute();
+		
+		$query = Doctrine_Core::getTable('Memorial')->createQuery('b');
+		$query->where('b.is_approved=1 AND b.is_rejected=0');
+		$query->Andwhere('b.user_id=?',$this->myuser->getId());
+		$this->approve_memorial = $query->execute();
+		
+		$query = Doctrine_Core::getTable('Memorial')->createQuery('b');
+		$query->where('b.is_approved=0 AND b.is_rejected=1');
+		$query->Andwhere('b.user_id=?',$this->myuser->getId());
+		$this->reject_memorial = $query->execute();
 	}
 	
 	public function executeArticle(sfWebRequest $request) {
@@ -98,6 +112,23 @@ class managerComponents extends sfComponents {
 		$query->where('b.is_approved=0 AND b.is_rejected=1')
 			->orderBy('b.id DESC');
 		$this->reject_temple = $query->execute();
+	}
+	
+	public function executeAdminmemorial(sfWebRequest $request) {
+		$query = Doctrine_Core::getTable('Memorial')->createQuery('b');
+		$query->where('b.is_approved=0 AND b.is_rejected=0')
+			->orderBy('b.id DESC');
+		$this->memorial = $query->execute();
+		
+		$query = Doctrine_Core::getTable('Memorial')->createQuery('b');
+		$query->where('b.is_approved=1 AND b.is_rejected=0')
+			->orderBy('b.id DESC');
+		$this->approve_memorial = $query->execute();
+		
+		$query = Doctrine_Core::getTable('Memorial')->createQuery('b');
+		$query->where('b.is_approved=0 AND b.is_rejected=1')
+			->orderBy('b.id DESC');
+		$this->reject_memorial = $query->execute();
 	}
 	
 	public function executeMenu(sfWebRequest $request) {
