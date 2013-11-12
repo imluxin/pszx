@@ -34,7 +34,7 @@
           <?php echo $form['category_id'] ?>
         </td>
       </tr>
-      <?php if(!$oblation->getCanModify()):?>
+      <?php if(!$oblation->getCanModify()){?>
       <tr>
         <th><?php echo $form['price']->renderLabel() ?></th>
         <td>
@@ -42,7 +42,15 @@
           <?php echo $form['price'] ?>&nbsp; 金币
         </td>
       </tr>
-      <?php endif; ?>
+      <?php } else { ?>
+      <tr>
+        <th>单价：</th>
+        <td>
+          <?php echo $oblation->getPrice() ?>&nbsp; 金币
+          &nbsp;<font color="green">（价格已被管理员修改过，您无法进行修改。）</font>
+        </td>
+      </tr>
+      <?php }?>
       <tr>
         <th><?php echo $form['times']->renderLabel() ?></th>
         <td>

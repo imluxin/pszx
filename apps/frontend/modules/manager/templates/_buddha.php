@@ -6,7 +6,7 @@
 </div>
 
 <div class="cont">
-<p>待审批</p>
+<p>待审核</p>
 <ul class="imgList clearfix">
 	<?php foreach($buddha as $one):?>
 	<li>
@@ -68,7 +68,7 @@
 </div>
 
 <div class="cont">
-<p>已通过审批</p>
+<p>通过审核</p>
 <ul class="imgList clearfix">
 	<?php foreach($approve_buddha as $one):?>
 	<li>

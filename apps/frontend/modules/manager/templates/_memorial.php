@@ -5,7 +5,7 @@
 <span style="font-size:14px;text-decoration: underline;"><?php echo link_to('建馆','memorial/new')?></span>
 </div>
 <div class="cont">
-<p>待审批</p>
+<p>待审核</p>
 <ul class="imgList clearfix">
 	<?php foreach($memorial as $one): ?>
 	<li>
@@ -69,7 +69,7 @@
 </div>
 
 <div class="cont">
-<p>已通过审批</p>
+<p>通过审核</p>
 <ul class="imgList clearfix">
 	<?php foreach($approve_memorial as $one): ?>
 	<li>

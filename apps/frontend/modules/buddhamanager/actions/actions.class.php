@@ -4,7 +4,7 @@ class buddhamanagerActions extends sfActions {
 
 	public function executeApprove(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
-		$this->forward404Unless($bunddla_hall = Doctrine_Core::getTable('BunddlaHall')->find(array($request->getParameter('id'))), sprintf('Ã»ÓÐÕÒµ½¶ÔÓ¦µÄ·ðµî£¡·ðµîID£º (%s).', $request->getParameter('id')));
+		$this->forward404Unless($bunddla_hall = Doctrine_Core::getTable('BunddlaHall')->find(array($request->getParameter('id'))), sprintf('æ‰¾ä¸åˆ°å¯¹åº”çš„è®°å½•ï¼ŒIDï¼š (%s).', $request->getParameter('id')));
 		
 		$bunddla_hall->setIsApproved(true);
 		$bunddla_hall->setIsRejected(false);
@@ -15,7 +15,7 @@ class buddhamanagerActions extends sfActions {
 	
 	public function executeReject(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
-		$this->forward404Unless($bunddla_hall = Doctrine_Core::getTable('BunddlaHall')->find(array($request->getParameter('id'))), sprintf('Ã»ÓÐÕÒµ½¶ÔÓ¦µÄ·ðµî£¡·ðµîID£º (%s).', $request->getParameter('id')));
+		$this->forward404Unless($bunddla_hall = Doctrine_Core::getTable('BunddlaHall')->find(array($request->getParameter('id'))), sprintf('æ‰¾ä¸åˆ°å¯¹åº”çš„è®°å½•ï¼ŒIDï¼š (%s).', $request->getParameter('id')));
 		
 		$bunddla_hall->setIsApproved(false);
 		$bunddla_hall->setIsRejected(true);

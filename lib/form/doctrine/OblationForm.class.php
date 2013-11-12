@@ -16,7 +16,8 @@ class OblationForm extends BaseOblationForm
 		$this['user_id'],
 		$this['user_name'],
 		$this['created_at'],
-		$this['updated_at']
+		$this['updated_at'],
+		$this['can_modify']
 		);
 		
 		$this->validatorSchema['name'] = new sfValidatorString(

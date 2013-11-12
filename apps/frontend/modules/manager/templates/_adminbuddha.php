@@ -82,6 +82,12 @@
 			<td><?php echo image_tag('../uploads/buddha/'.$one->getImages()) ?></td>
 			<td>
 				<a href="#">浏览</a>
+				<?php echo jq_link_to_remote('打回', 
+											array(
+												'url' => 'buddhamanager/reject?id='.$one->getId(),
+												'confirm' => '确定要打回吗？',
+												'success' => 'if(data == 1) { location.reload() } else { alert(data); }'
+											), array())?>
 				<?php echo jq_link_to_remote('删除', 
 											array(
 												'url' => 'ajax/DelBuddha?id='.$one->getId(),

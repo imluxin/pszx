@@ -28,7 +28,4 @@
 <a
 	href="<?php echo url_for('article/index?page='.$pg->getLastPage()) ?>">尾页</a>
 <?php endif; ?>
-共
-<?php echo count($pg) ?>
-条
 <?php endif;?>

@@ -18,7 +18,7 @@ class articleActions extends sfActions
 
 		$page= $request->getParameter('page',1);        //默认第1页
 		$q = Doctrine_Core::getTable('Article')->getListOnPage($page,18); //第页显示n条
-		$q->Where('is_approved=0 AND is_rejected=0');
+		$q->Where('is_approved=1 AND is_rejected=0');
 		$this->cols=$q->execute();
 		//分页
 		$this->pg= new sfDoctrinePager('Article',18);

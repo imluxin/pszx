@@ -66,6 +66,7 @@
 <?php include_component('main', 'zyjw') ?>
 <!--/在线纪念、追忆祭文--> <!--搜索逝者-->
 <div class="row">
+<?php /*
 <div class="searchPeople box">
 <div class="cont">
 <table>
@@ -95,6 +96,7 @@
 </table>
 </div>
 </div>
+*/ ?>
 </div>
 <!--/搜索逝者--> <!--祭品商店、同城活动-->
 <div class="row row5 clearfix">

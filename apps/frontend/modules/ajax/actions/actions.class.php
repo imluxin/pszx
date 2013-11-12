@@ -140,7 +140,7 @@ class ajaxActions extends sfActions {
 	}
 	/**************** manager: oblation end**************************/
 	
-	/**************** manager: oblation **************************/
+	/**************** manager: memorial **************************/
 	public function executeDelMemorial(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
 
@@ -152,5 +152,5 @@ class ajaxActions extends sfActions {
 
 		return $this->renderText(1);
 	}
-	/**************** manager: oblation end**************************/
+	/**************** manager: memorial end**************************/
 }

@@ -118,7 +118,7 @@ Oblation:
     times: { type: integer }
     images: { type: string(255) }
     position: { type: string(266), default: 0 }
-    can_modify: { type: boolean, default: true }
+    can_modify: { type: boolean, default: false }
     is_rejected: { type: boolean, default: false}
     is_approved: { type: boolean, default: false }
     last_modify: { type: string(255) }

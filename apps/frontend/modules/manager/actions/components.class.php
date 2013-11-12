@@ -4,69 +4,83 @@ class managerComponents extends sfComponents {
 
 	public function executeBuddha() {
 		$this->myuser = $this->getUser()->getGuardUser();
-		
+
 		$query = Doctrine_Core::getTable('BunddlaHall')->createQuery('b');
 		$query->where('b.is_approved=0 AND b.is_rejected=0');
 		$query->Andwhere('b.user_id=?',$this->myuser->getId());
 		$this->buddha = $query->execute();
-		
+
 		$query = Doctrine_Core::getTable('BunddlaHall')->createQuery('b');
 		$query->where('b.is_approved=1 AND b.is_rejected=0');
 		$query->Andwhere('b.user_id=?',$this->myuser->getId());
 		$this->approve_buddha = $query->execute();
-		
+
 		$query = Doctrine_Core::getTable('BunddlaHall')->createQuery('b');
 		$query->where('b.is_approved=0 AND b.is_rejected=1');
 		$query->Andwhere('b.user_id=?',$this->myuser->getId());
 		$this->reject_buddha = $query->execute();
 	}
-	
+
 	public function executeTemple() {
 		$this->myuser = $this->getUser()->getGuardUser();
-		
+
 		$query = Doctrine_Core::getTable('Temple')->createQuery('b');
 		$query->where('b.is_approved=0 AND b.is_rejected=0');
 		$query->Andwhere('b.user_id=?',$this->myuser->getId());
 		$this->temple = $query->execute();
-		
+
 		$query = Doctrine_Core::getTable('Temple')->createQuery('b');
 		$query->where('b.is_approved=1 AND b.is_rejected=0');
 		$query->Andwhere('b.user_id=?',$this->myuser->getId());
 		$this->approve_temple = $query->execute();
-		
+
 		$query = Doctrine_Core::getTable('Temple')->createQuery('b');
 		$query->where('b.is_approved=0 AND b.is_rejected=1');
 		$query->Andwhere('b.user_id=?',$this->myuser->getId());
 		$this->reject_temple = $query->execute();
 	}
-	
+
 	public function executeOblation() {
 		$this->myuser = $this->getUser()->getGuardUser();
-		$this->oblation = Doctrine_Core::getTable('Oblation')->findByUserId($this->myuser->getId());
+
+		$query = Doctrine_Core::getTable('Oblation')->createQuery('b');
+		$query->where('b.is_approved=0 AND b.is_rejected=0');
+		$query->Andwhere('b.user_id=?',$this->myuser->getId());
+		$this->oblation = $query->execute();
+
+		$query = Doctrine_Core::getTable('Oblation')->createQuery('b');
+		$query->where('b.is_approved=1 AND b.is_rejected=0');
+		$query->Andwhere('b.user_id=?',$this->myuser->getId());
+		$this->approve_oblation = $query->execute();
+
+		$query = Doctrine_Core::getTable('Oblation')->createQuery('b');
+		$query->where('b.is_approved=0 AND b.is_rejected=1');
+		$query->Andwhere('b.user_id=?',$this->myuser->getId());
+		$this->reject_oblation = $query->execute();
 	}
 
 	public function executeMemorial() {
 		$this->myuser = $this->getUser()->getGuardUser();
-		
+
 		$query = Doctrine_Core::getTable('Memorial')->createQuery('b');
 		$query->where('b.is_approved=0 AND b.is_rejected=0');
 		$query->Andwhere('b.user_id=?',$this->myuser->getId());
 		$this->memorial = $query->execute();
-		
+
 		$query = Doctrine_Core::getTable('Memorial')->createQuery('b');
 		$query->where('b.is_approved=1 AND b.is_rejected=0');
 		$query->Andwhere('b.user_id=?',$this->myuser->getId());
 		$this->approve_memorial = $query->execute();
-		
+
 		$query = Doctrine_Core::getTable('Memorial')->createQuery('b');
 		$query->where('b.is_approved=0 AND b.is_rejected=1');
 		$query->Andwhere('b.user_id=?',$this->myuser->getId());
 		$this->reject_memorial = $query->execute();
 	}
-	
+
 	public function executeArticle(sfWebRequest $request) {
 		$this->myuser = $this->getUser()->getGuardUser();
-		
+
 		$this->article_page = $request->getParameter('article_page',1);        //默认第1页
 		$q = Doctrine_Core::getTable('Article')->getListOnPage($this->article_page,30); //第页显示n条
 		$q->Where('user_id='.$this->myuser->getId());
@@ -79,68 +93,117 @@ class managerComponents extends sfComponents {
 
 		$this->article_result = $this->article_pg->getResults();
 	}
-	
+
 	public function executeAdminbuddha(sfWebRequest $request) {
 		$query = Doctrine_Core::getTable('BunddlaHall')->createQuery('b');
 		$query->where('b.is_approved=0 AND b.is_rejected=0')
-			->orderBy('b.id DESC');
+		->orderBy('b.id DESC');
 		$this->buddha = $query->execute();
-		
+
 		$query = Doctrine_Core::getTable('BunddlaHall')->createQuery('b');
 		$query->where('b.is_approved=1 AND b.is_rejected=0')
-			->orderBy('b.id DESC');
+		->orderBy('b.id DESC');
 		$this->approve_buddha = $query->execute();
-		
+
 		$query = Doctrine_Core::getTable('BunddlaHall')->createQuery('b');
 		$query->where('b.is_approved=0 AND b.is_rejected=1')
-			->orderBy('b.id DESC');
-		$this->reject_buddha = $query->execute();		
+		->orderBy('b.id DESC');
+		$this->reject_buddha = $query->execute();
 	}
-	
+
 	public function executeAdmintemple(sfWebRequest $request) {
 		$query = Doctrine_Core::getTable('Temple')->createQuery('b');
 		$query->where('b.is_approved=0 AND b.is_rejected=0')
-			->orderBy('b.id DESC');
+		->orderBy('b.id DESC');
 		$this->temple = $query->execute();
-		
+
 		$query = Doctrine_Core::getTable('Temple')->createQuery('b');
 		$query->where('b.is_approved=1 AND b.is_rejected=0')
-			->orderBy('b.id DESC');
+		->orderBy('b.id DESC');
 		$this->approve_temple = $query->execute();
-		
+
 		$query = Doctrine_Core::getTable('Temple')->createQuery('b');
 		$query->where('b.is_approved=0 AND b.is_rejected=1')
-			->orderBy('b.id DESC');
+		->orderBy('b.id DESC');
 		$this->reject_temple = $query->execute();
 	}
-	
+
 	public function executeAdminmemorial(sfWebRequest $request) {
 		$query = Doctrine_Core::getTable('Memorial')->createQuery('b');
 		$query->where('b.is_approved=0 AND b.is_rejected=0')
-			->orderBy('b.id DESC');
+		->orderBy('b.id DESC');
 		$this->memorial = $query->execute();
-		
+
 		$query = Doctrine_Core::getTable('Memorial')->createQuery('b');
 		$query->where('b.is_approved=1 AND b.is_rejected=0')
-			->orderBy('b.id DESC');
+		->orderBy('b.id DESC');
 		$this->approve_memorial = $query->execute();
-		
+
 		$query = Doctrine_Core::getTable('Memorial')->createQuery('b');
 		$query->where('b.is_approved=0 AND b.is_rejected=1')
-			->orderBy('b.id DESC');
+		->orderBy('b.id DESC');
 		$this->reject_memorial = $query->execute();
+	}
+
+	public function executeAdminoblation(sfWebRequest $request) {
+		$query = Doctrine_Core::getTable('Oblation')->createQuery('b');
+		$query->where('b.is_approved=0 AND b.is_rejected=0')
+		->orderBy('b.id DESC');
+		$this->oblation = $query->execute();
+
+		$query = Doctrine_Core::getTable('Oblation')->createQuery('b');
+		$query->where('b.is_approved=1 AND b.is_rejected=0')
+		->orderBy('b.id DESC');
+		$this->approve_oblation = $query->execute();
+
+		$query = Doctrine_Core::getTable('Oblation')->createQuery('b');
+		$query->where('b.is_approved=0 AND b.is_rejected=1')
+		->orderBy('b.id DESC');
+		$this->reject_oblation = $query->execute();
+	}
+
+	public function executeAdminoblationprice(sfWebRequest $request) {
+		
+		$page= $request->getParameter('page',1);        //默认第1页
+		$q = Doctrine_Core::getTable('Oblation')->getListOnPage($page,1); //第页显示n条
+		$q->orderBy('id DESC');
+		// $this->cols=$q->execute();
+		//分页
+		$this->pg= new sfDoctrinePager('Oblation',1);
+		$this->pg->setQuery($q);
+		$this->pg->setPage($page);
+		$this->pg->init();
+
+		$this->result = $this->pg->getResults();
+		
+	}
+	
+	public function executeAdminarticle(sfWebRequest $request) {
+		
+		$page= $request->getParameter('page',1);        //默认第1页
+		$q = Doctrine_Core::getTable('Article')->getListOnPage($page,30); //第页显示n条
+		$q->orderBy('id DESC');
+		// $this->cols=$q->execute();
+		//分页
+		$this->pg= new sfDoctrinePager('Article',30);
+		$this->pg->setQuery($q);
+		$this->pg->setPage($page);
+		$this->pg->init();
+
+		$this->result = $this->pg->getResults();
+		
 	}
 	
 	public function executeMenu(sfWebRequest $request) {
 		$this->myuser = $this->getUser()->getGuardUser();
-		
+
 		$this->is_admin = false;
 		$this->level = 'primary';
-		
+
 		if($this->myuser->hasPermission('senior'))
-			$this->level = 'senior';
-		else if($this->myuser->hasPermission('high')) 
-			$this->level = 'high';
+		$this->level = 'senior';
+		else if($this->myuser->hasPermission('high'))
+		$this->level = 'high';
 			
 		if($this->myuser->getPermissions()->count() > 0)  $this->is_admin = true;
 	}

@@ -26,6 +26,8 @@ class ArticleTable extends Doctrine_Table
 		$query = Doctrine_Core::getTable('Article')->createQuery('a');
 		$query->select('a.id,a.title')->where('a.category_id=?', $cagegory_id)
 		->andWhereNotIn('a.id', $notin)
+		->andWhere('a.is_approved=1')
+		->andWhere('a.is_rejected=0')
 		->orderBy('a.id DESC')->limit($limit);
 		return $query->execute();
 	}

@@ -17,11 +17,11 @@ class oblationActions extends sfActions
 		$this->category = Doctrine_Core::getTable('OblationCategory')->findAll();
 		
 		$page= $request->getParameter('page',1);        //默认第1页
-		$q = Doctrine_Core::getTable('Oblation')->getListOnPage($page,1); //第页显示n条
-		$q->Where('is_approved=0 AND is_rejected=0');
+		$q = Doctrine_Core::getTable('Oblation')->getListOnPage($page,18); //第页显示n条
+		$q->Where('is_approved=1 AND is_rejected=0');
 		$this->cols=$q->execute();
 		//分页
-		$this->pg= new sfDoctrinePager('Oblation',1);
+		$this->pg= new sfDoctrinePager('Oblation',18);
 		$this->pg->setQuery($q);
 		$this->pg->setPage($page);
 		$this->pg->init();
@@ -64,8 +64,7 @@ class oblationActions extends sfActions
 		$this->myuser = $this->getUser()->getGuardUser();
 		$this->oblation = $oblation;
 		$this->form = new OblationForm($oblation);
-		
-		$this->processEditForm($request, $this->form);
+		$this->processEditForm($request, $this->form,$oblation);
 
 		$this->setTemplate('edit');
 	}
@@ -93,14 +92,22 @@ class oblationActions extends sfActions
 		}
 	}
 	
-	protected function processEditForm(sfWebRequest $request, sfForm $form)
+	protected function processEditForm(sfWebRequest $request, sfForm $form,$o)
 	{
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
 		if ($form->isValid())
 		{
+			if($o->getCanModify()) {
+				$price = $o->getPrice();
+			}
+			
+			
 			$oblation = $form->save();
 			$oblation->setIsRejected(false);
 			$oblation->setIsApproved(false);
+			if($o->getCanModify()) {
+				$oblation->setPrice($price);
+			}
 			$oblation->save();
 			$this->redirect('manager/oblation');
 		}
