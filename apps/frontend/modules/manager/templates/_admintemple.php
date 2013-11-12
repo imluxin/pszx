@@ -1,30 +1,30 @@
 <div class="admin_temple_audit admin_box">
-<div class="subTitle">佛殿审核</div>
+<div class="subTitle">寺庙审核</div>
 <div class="cont">
 <p>待审核</p>
 <ul class="imgList clearfix">
-	<?php foreach($buddha as $one):?>
+	<?php foreach($temple as $one):?>
 	<li>
 	<table>
 		<tr>
-			<td><?php echo image_tag('../uploads/buddha/'.$one->getImages()) ?></td>
+			<td><?php echo image_tag('../uploads/temple/'.$one->getImgOne()) ?></td>
 			<td>
 				<a href="#">浏览</a>
 				<?php echo jq_link_to_remote('同意', 
 											array(
-												'url' => 'buddhamanager/approve?id='.$one->getId(),
+												'url' => 'templemanager/approve?id='.$one->getId(),
 												'confirm' => '确定要同意吗？',
 												'success' => 'if(data == 1) { location.reload() } else { alert(data); }'
 											), array())?>
 				<?php echo jq_link_to_remote('打回', 
 											array(
-												'url' => 'buddhamanager/reject?id='.$one->getId(),
+												'url' => 'templemanager/reject?id='.$one->getId(),
 												'confirm' => '确定要打回吗？',
 												'success' => 'if(data == 1) { location.reload() } else { alert(data); }'
 											), array())?>
 				<?php echo jq_link_to_remote('删除', 
 											array(
-												'url' => 'ajax/DelBuddha?id='.$one->getId(),
+												'url' => 'ajax/DelTemple?id='.$one->getId(),
 												'confirm' => '确定要删除吗？',
 												'success' => 'if(data == 1) { location.reload() }'
 											), array())?>
@@ -45,16 +45,16 @@
 <div class="cont">
 <p>打回</p>
 <ul class="imgList clearfix">
-	<?php foreach($reject_buddha as $one):?>
+	<?php foreach($reject_temple as $one):?>
 	<li>
 	<table>
 		<tr>
-			<td><?php echo image_tag('../uploads/buddha/'.$one->getImages()) ?></td>
+			<td><?php echo image_tag('../uploads/temple/'.$one->getImgOne()) ?></td>
 			<td>
 				<a href="#">浏览</a>
 				<?php echo jq_link_to_remote('删除', 
 											array(
-												'url' => 'ajax/DelBuddha?id='.$one->getId(),
+												'url' => 'ajax/DelTemple?id='.$one->getId(),
 												'confirm' => '确定要删除吗？',
 												'success' => 'if(data == 1) { location.reload() }'
 											), array())?>
@@ -75,16 +75,16 @@
 <div class="cont">
 <p>通过审核</p>
 <ul class="imgList clearfix">
-	<?php foreach($approve_buddha as $one):?>
+	<?php foreach($approve_temple as $one):?>
 	<li>
 	<table>
 		<tr>
-			<td><?php echo image_tag('../uploads/buddha/'.$one->getImages()) ?></td>
+			<td><?php echo image_tag('../uploads/temple/'.$one->getImgOne()) ?></td>
 			<td>
 				<a href="#">浏览</a>
 				<?php echo jq_link_to_remote('删除', 
 											array(
-												'url' => 'ajax/DelBuddha?id='.$one->getId(),
+												'url' => 'ajax/DelTemple?id='.$one->getId(),
 												'confirm' => '确定要删除吗？',
 												'success' => 'if(data == 1) { location.reload() }'
 											), array())?>

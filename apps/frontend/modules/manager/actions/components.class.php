@@ -4,12 +4,40 @@ class managerComponents extends sfComponents {
 
 	public function executeBuddha() {
 		$this->myuser = $this->getUser()->getGuardUser();
-		$this->buddha = Doctrine_Core::getTable('BunddlaHall')->findByUserId($this->myuser->getId());
+		
+		$query = Doctrine_Core::getTable('BunddlaHall')->createQuery('b');
+		$query->where('b.is_approved=0 AND b.is_rejected=0');
+		$query->Andwhere('b.user_id=?',$this->myuser->getId());
+		$this->buddha = $query->execute();
+		
+		$query = Doctrine_Core::getTable('BunddlaHall')->createQuery('b');
+		$query->where('b.is_approved=1 AND b.is_rejected=0');
+		$query->Andwhere('b.user_id=?',$this->myuser->getId());
+		$this->approve_buddha = $query->execute();
+		
+		$query = Doctrine_Core::getTable('BunddlaHall')->createQuery('b');
+		$query->where('b.is_approved=0 AND b.is_rejected=1');
+		$query->Andwhere('b.user_id=?',$this->myuser->getId());
+		$this->reject_buddha = $query->execute();
 	}
 	
 	public function executeTemple() {
 		$this->myuser = $this->getUser()->getGuardUser();
-		$this->temple = Doctrine_Core::getTable('Temple')->findByUserId($this->myuser->getId());
+		
+		$query = Doctrine_Core::getTable('Temple')->createQuery('b');
+		$query->where('b.is_approved=0 AND b.is_rejected=0');
+		$query->Andwhere('b.user_id=?',$this->myuser->getId());
+		$this->temple = $query->execute();
+		
+		$query = Doctrine_Core::getTable('Temple')->createQuery('b');
+		$query->where('b.is_approved=1 AND b.is_rejected=0');
+		$query->Andwhere('b.user_id=?',$this->myuser->getId());
+		$this->approve_temple = $query->execute();
+		
+		$query = Doctrine_Core::getTable('Temple')->createQuery('b');
+		$query->where('b.is_approved=0 AND b.is_rejected=1');
+		$query->Andwhere('b.user_id=?',$this->myuser->getId());
+		$this->reject_temple = $query->execute();
 	}
 	
 	public function executeOblation() {
@@ -43,6 +71,33 @@ class managerComponents extends sfComponents {
 		$query->where('b.is_approved=0 AND b.is_rejected=0')
 			->orderBy('b.id DESC');
 		$this->buddha = $query->execute();
+		
+		$query = Doctrine_Core::getTable('BunddlaHall')->createQuery('b');
+		$query->where('b.is_approved=1 AND b.is_rejected=0')
+			->orderBy('b.id DESC');
+		$this->approve_buddha = $query->execute();
+		
+		$query = Doctrine_Core::getTable('BunddlaHall')->createQuery('b');
+		$query->where('b.is_approved=0 AND b.is_rejected=1')
+			->orderBy('b.id DESC');
+		$this->reject_buddha = $query->execute();		
+	}
+	
+	public function executeAdmintemple(sfWebRequest $request) {
+		$query = Doctrine_Core::getTable('Temple')->createQuery('b');
+		$query->where('b.is_approved=0 AND b.is_rejected=0')
+			->orderBy('b.id DESC');
+		$this->temple = $query->execute();
+		
+		$query = Doctrine_Core::getTable('Temple')->createQuery('b');
+		$query->where('b.is_approved=1 AND b.is_rejected=0')
+			->orderBy('b.id DESC');
+		$this->approve_temple = $query->execute();
+		
+		$query = Doctrine_Core::getTable('Temple')->createQuery('b');
+		$query->where('b.is_approved=0 AND b.is_rejected=1')
+			->orderBy('b.id DESC');
+		$this->reject_temple = $query->execute();
 	}
 	
 	public function executeMenu(sfWebRequest $request) {

@@ -57,11 +57,11 @@ class templeActions extends sfActions {
 
 		$page= $request->getParameter('page',1);        //默认第1页
 		$q = Doctrine_Core::getTable('temple')->getListOnPage($page,18); //第页显示n条
-		$q->Where('is_approved=0 AND is_rejected=0'.$search_query);
+		$q->Where('is_approved=1 AND is_rejected=0'.$search_query);
 		$q->OrderBy('id DESC');
 
 		//分页
-		$this->pg= new sfDoctrinePager('temple',1);
+		$this->pg= new sfDoctrinePager('temple',18);
 		$this->pg->setQuery($q);
 		$this->pg->setPage($page);
 		$this->pg->init();

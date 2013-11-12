@@ -65,6 +65,11 @@ class managerActions extends sfActions
 		$this->form = new FileUploadForm();	
 	}
 	
+	public function executeMtemple(sfWebRequest $request) {
+		$this->myuser = $this->getUser()->getGuardUser();	
+		$this->form = new FileUploadForm();	
+	}
+	
 	/************Updatephoto*************/
 	public function executeUpdatephoto(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));

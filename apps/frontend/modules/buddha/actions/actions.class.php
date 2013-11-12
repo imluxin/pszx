@@ -31,7 +31,7 @@ class buddhaActions extends sfActions
 
 		$page= $request->getParameter('page',1);        //默认第1页
 		$q = Doctrine_Core::getTable('BunddlaHall')->getListOnPage($page,18); //第页显示n条
-		$q->Where('is_approved=0 AND is_rejected=0'.$search_query);
+		$q->Where('is_approved=1 AND is_rejected=0'.$search_query);
 		$q->OrderBy('id DESC');
 		$this->cols=$q->execute();
 		//分页
