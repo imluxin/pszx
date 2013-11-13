@@ -16,6 +16,54 @@ class memorialActions extends sfActions
 
 		$search_query = '';
 
+		$this->die_name = $request->getParameter('die_name');
+		$this->province = $request->getParameter('province','选择省份');
+		$this->city = $request->getParameter('city','选择城市');
+		$this->die_day = $request->getParameter('die_day');
+		$this->born_day = $request->getParameter('born_day');
+		$this->mname = $request->getParameter('mname');
+		$this->mid = $request->getParameter('mid');
+		$this->category = $request->getParameter('category','纪念馆分类');
+		$this->creator = $request->getParameter('creator');
+
+		if($this->die_name != '') {
+			$search_query .= " AND (m.die_name_one LIKE '%$this->die_name%' OR m.die_name_two LIKE '%$this->die_name%')";
+		}
+
+		if($this->province != '选择省份' && $this->city != '选择城市') {
+			$search_query .= " AND ((m.die_province_one = '$this->province' AND m.die_city_one = '$this->city')";
+			$search_query .= " OR (m.die_province_two= '$this->province' AND m.die_city_two = '$this->city'))";
+		}
+
+		if($this->die_day != '') {
+			$search_query .= " AND (m.die_die_one='$this->die_day' OR m.die_die_two='$this->die_day')";
+		}
+
+		if($this->born_day != '') {
+			$search_query .= " AND (m.die_birth_one='$this->born_day' OR m.die_birth_two='$this->born_day')";
+		}
+
+		if($this->mname != '') {
+			$search_query .= " AND m.m_name LIKE '%$this->mname%'";
+		}
+		
+		if($this->mid != '') {
+			$search_query .= " AND m.id = $this->mid";
+		}
+		
+		if($this->category != '纪念馆分类') {
+			$search_query .= " AND m.category_id = $this->category";
+		}
+
+		if($this->creator != '') {
+			$search_query .= " AND m.user_name LIKE '%$this->creator%'";
+		}
+		
+		$this->search_url = "&die_name=$this->die_name&province=$this->province&city=$this->city
+							&die_day=$this->die_day&born_day=$this->born_day&mname=$this->mname
+							&mid=$this->mid&category=$this->category&creator=$this->creator";
+		$this->search_url = urlencode($this->search_url);
+
 		$rq = $request->getParameter('rq','no');
 		$xh = $request->getParameter('xh','no');
 		$last = $request->getParameter('last','no');
@@ -25,14 +73,15 @@ class memorialActions extends sfActions
 		} else if($xh != 'no') {
 
 		} else if($last != 'no') {
-			$seazrch_query = '';
+			$search_query = '';
 		}
 
 		$page= $request->getParameter('page',1);        //默认第1页
 		$q = Doctrine_Core::getTable('Memorial')->getListOnPage($page,18); //第页显示n条
-		$q->Where('is_approved=1 AND is_rejected=0'.$search_query);
-		$q->orderBy('id DESC');
-		$this->cols=$q->execute();
+		$q->Where('m.is_approved=1 AND m.is_rejected=0'.$search_query);
+		$q->orderBy('m.id DESC');
+		// $this->cols=$q->execute();
+		
 		//分页
 		$this->pg= new sfDoctrinePager('Memorial',18);
 		$this->pg->setQuery($q);

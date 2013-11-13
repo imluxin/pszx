@@ -13,13 +13,36 @@ class oblationActions extends sfActions
 	public function executeIndex(sfWebRequest $request)
 	{
 		$this->myuser = $this->getUser()->getGuardUser();
-		
 		$this->category = Doctrine_Core::getTable('OblationCategory')->findAll();
+		
+		$search_query = '';
+		$search_url = '';
+		
+		$this->xl = $request->getParameter('xl','no');
+		$this->zd = $request->getParameter('zd','no');
+		$this->zc = $request->getParameter('zc','no');
+		$this->last = $request->getParameter('last','no');
+		$this->category_id = $request->getParameter('category');
+		
+		if($this->xl != 'no') {
+			
+		} else if($this->zd != 'no') {
+			
+		} else if($this->zc != 'no') {
+			
+		}
+		else if($this->last != 'no') {
+			
+		} else if($this->category_id != '') {
+			$search_query = ' AND category_id='.$this->category_id;
+			$search_url = '&category='.$this->category_id;
+		}
+		
+		$this->search_url = urlencode($search_url);
 		
 		$page= $request->getParameter('page',1);        //默认第1页
 		$q = Doctrine_Core::getTable('Oblation')->getListOnPage($page,18); //第页显示n条
-		$q->Where('is_approved=1 AND is_rejected=0');
-		$this->cols=$q->execute();
+		$q->Where('is_approved=1 AND is_rejected=0'.$search_query);
 		//分页
 		$this->pg= new sfDoctrinePager('Oblation',18);
 		$this->pg->setQuery($q);

@@ -40,7 +40,7 @@
 				<td rowspan="2"><input class="btnPurple" type="submit" value="搜索"></td>
 			</tr>
 			<tr>
-				<td><input type="text" style="width: 80px"></td>
+				<td><input value="<?php echo $die_name ?>" name="die_name" type="text" style="width: 80px"></td>
 				<td>
 					<select id="province" name="province" >
 					</select> 
@@ -49,14 +49,17 @@
 					<select id="block" style="display: none" >
 					</select>
 				</td>
-				<td><input style="width:75px;" type="text" id="die_day" name="die_day" /></td>
-				<td><input style="width:75px;" type="text" id="born_day" name="born_day" /></td>
-				<td><input id="mname" name="mname" type="text" style="width: 100px"></td>
-				<td><input id="mid" name="mid" type="text" style="width: 80px"></td>
-				<td><select>
+				<td><input value="<?php echo $die_day ?>" style="width:75px;" type="text" id="die_day" name="die_day" /></td>
+				<td><input value="<?php echo $born_day ?>" style="width:75px;" type="text" id="born_day" name="born_day" /></td>
+				<td><input value="<?php echo $mname ?>" id="mname" name="mname" type="text" style="width: 100px"></td>
+				<td><input value="<?php echo $mid ?>" id="mid" name="mid" type="text" style="width: 80px"></td>
+				<td>
+				<select id="category" name="category">
 					<option>纪念馆分类</option>
-				</select></td>
-				<td><input type="text" style="width: 90px"></td>
+					<?php include_component('memorial', 'category') ?>
+				</select>
+				</td>
+				<td><input value="<?php echo $creator ?>" name="creator" type="text" style="width: 90px"></td>
 			</tr>
 		</tbody>
 	</table>
@@ -69,7 +72,7 @@
 	<a class="btnWhite" href="<?php echo url_for('memorial/index?last=yes')?>">最新纪念</a>
 </div>
 <div class="cont">
-<div class="pages"><?php include_partial('memorial/pager', array('pg'=>$pg) ) ?></div>
+<div class="pages"><?php include_partial('memorial/pager', array('pg'=>$pg,'search_url'=>$search_url) ) ?></div>
 <div class="imgList">
 <ul class="clearfix">
 <?php foreach($result as $one) { ?>
@@ -82,12 +85,17 @@
 <?php }?>
 </ul>
 </div>
-<div class="pages"><?php include_partial('memorial/pager', array('pg'=>$pg) ) ?></div>
+<div class="pages"><?php include_partial('memorial/pager', array('pg'=>$pg,'search_url'=>$search_url) ) ?></div>
 </div>
 </div>
 </div>
 <script>
-	$.address('province','city','block');
+
+	$(function() {
+		$("#category").val(<?php echo $category ?>);
+	});
+
+	$.address('province','city','block','<?php echo $province ?>','<?php echo $city?>');
 	
 	$( "#die_day" ).datepicker({
 		changeMonth: true,

@@ -16,14 +16,14 @@
         <div class="row box">
         	<div class="shopSort">
         		<?php foreach ($category as $one):?>
-            		<a href="#"><?php echo $one['name'] ?></a>
+            		<a href="<?php echo url_for('oblation/index?category='.$one->getId()) ?>"><?php echo $one['name'] ?></a>
             	<?php endforeach;?>
             </div>
         	<div class="titleBar">
-            	<a class="btnWhite" href="#">销量最多</a>
-                <a class="btnWhite" href="#">价格最低</a>
-                <a class="btnWhite" href="#">期限最长</a>
-                <a class="btnWhite" href="#">最新创建</a>
+            	<a class="btnWhite" href="<?php echo url_for('oblation/index?xl=yes')?>">销量最多</a>
+                <a class="btnWhite" href="<?php echo url_for('oblation/index?zd=yes') ?>">价格最低</a>
+                <a class="btnWhite" href="<?php echo url_for('oblation/index?zc=yes')?>">期限最长</a>
+                <a class="btnWhite" href="<?php echo url_for('oblation/index?last=yes')?>">最新创建</a>
                 <div class="search fr">
                     <input type="text" />
                     <input class="btnPurple" type="submit" value="搜索">
@@ -31,7 +31,7 @@
             </div>
             <div class="cont">
                 <div class="pages">
-                	<?php include_partial('oblation/pager', array('pg'=>$pg))?>
+                	<?php include_partial('oblation/pager', array('pg'=>$pg,'search_url'=>$search_url))?>
                 </div>
             	<div class="shopList">
                         <ul class="clearfix">
@@ -66,7 +66,7 @@
                         </ul>
                     </div>
                 <div class="pages">
-                	<?php include_partial('oblation/pager', array('pg'=>$pg))?>
+                	<?php include_partial('oblation/pager', array('pg'=>$pg,'search_url'=>$search_url))?>
                 </div>
             </div>
         </div>

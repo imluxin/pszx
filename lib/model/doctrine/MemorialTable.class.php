@@ -18,6 +18,6 @@ class MemorialTable extends Doctrine_Table
 	}
 	public function getListOnPage($page=1,$limit=18){
 		$page = $page<=0?1:$page;
-		return $this->createQuery()->offset(($page-1)*$limit)->limit($limit);
+		return $this->createQuery('m')->offset(($page-1)*$limit)->limit($limit);
 	}
 }
