@@ -13,10 +13,25 @@ class memorialActions extends sfActions
 	public function executeIndex(sfWebRequest $request)
 	{
 		$this->myuser = $this->getUser()->getGuardUser();
-		
+
+		$search_query = '';
+
+		$rq = $request->getParameter('rq','no');
+		$xh = $request->getParameter('xh','no');
+		$last = $request->getParameter('last','no');
+
+		if($rq != 'no') {
+
+		} else if($xh != 'no') {
+
+		} else if($last != 'no') {
+			$seazrch_query = '';
+		}
+
 		$page= $request->getParameter('page',1);        //默认第1页
 		$q = Doctrine_Core::getTable('Memorial')->getListOnPage($page,18); //第页显示n条
-		$q->Where('is_approved=1 AND is_rejected=0');
+		$q->Where('is_approved=1 AND is_rejected=0'.$search_query);
+		$q->orderBy('id DESC');
 		$this->cols=$q->execute();
 		//分页
 		$this->pg= new sfDoctrinePager('Memorial',18);
@@ -36,7 +51,7 @@ class memorialActions extends sfActions
 	public function executeCreate(sfWebRequest $request)
 	{
 		$this->myuser = $this->getUser()->getGuardUser();
-		
+
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
 
 		$this->form = new MemorialForm();
@@ -67,15 +82,15 @@ class memorialActions extends sfActions
 		$this->setTemplate('edit');
 	}
 
-/*	public function executeDelete(sfWebRequest $request)
-	{
+	/*	public function executeDelete(sfWebRequest $request)
+	 {
 		$request->checkCSRFProtection();
 
 		$this->forward404Unless($memorial = Doctrine_Core::getTable('Memorial')->find(array($request->getParameter('id'))), sprintf('Object memorial does not exist (%s).', $request->getParameter('id')));
 		$memorial->delete();
 
 		$this->redirect('memorial/index');
-	}*/
+		}*/
 
 	protected function processForm(sfWebRequest $request, sfForm $form,$myuser)
 	{
@@ -89,7 +104,7 @@ class memorialActions extends sfActions
 			$this->redirect('memorial/edit?id='.$memorial->getId());
 		}
 	}
-	
+
 	protected function processEditForm(sfWebRequest $request, sfForm $form)
 	{
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));

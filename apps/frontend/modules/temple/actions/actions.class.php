@@ -46,7 +46,6 @@ class templeActions extends sfActions {
 		$xh = $request->getParameter('xh','no');
 		$last = $request->getParameter('last','no');
 
-
 		if($rq != 'no') {
 
 		} else if($xh != 'no') {
