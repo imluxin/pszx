@@ -90,6 +90,26 @@ class managerActions extends sfActions
 		$this->form = new FileUploadForm();	
 	}
 	
+	public function executeUser(sfWebRequest $request) {
+		$this->myuser = $this->getUser()->getGuardUser();	
+		$this->form = new FileUploadForm();	
+	}
+	
+	public function executeCoins(sfWebRequest $request) {
+		$this->myuser = $this->getUser()->getGuardUser();	
+		$this->form = new FileUploadForm();	
+	}
+	
+	public function executeCashin(sfWebRequest $request) {
+		$this->myuser = $this->getUser()->getGuardUser();	
+		$this->form = new FileUploadForm();	
+	}
+	
+	public function executeCashout(sfWebRequest $request) {
+		$this->myuser = $this->getUser()->getGuardUser();	
+		$this->form = new FileUploadForm();	
+	}
+	
 	/************Updatephoto*************/
 	public function executeUpdatephoto(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));

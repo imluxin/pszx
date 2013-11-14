@@ -24,14 +24,14 @@
         <div class="row box clearfix">
         	<div class="titleBar">
         		<?php foreach ($category as $one):?>
-            		<a class="btnWhite" href="#"><?php echo $one['name']?></a>
+            		<a class="btnWhite" href="<?php echo url_for('article/index?category='.$one->getId()) ?>"><?php echo $one['name']?></a>
         		<?php endforeach;?>
                 <a class="btnPurple buildBtn" href="<?php echo url_for('article/new')?>">我要发帖</a>
             </div>
             <div class="main fl">
             	<div class="cont">
                     <div class="pages">
-                       <?php include_partial('article/pager', array('pg'=>$pg) )?>
+                       <?php include_partial('article/pager', array('pg'=>$pg,'search_url'=>$search_url) )?>
                     </div>
                     <div class="newsList">
                         <ul>
@@ -50,11 +50,12 @@
                         </ul>
                     </div>
                     <div class="pages">
-                       <?php include_partial('article/pager', array('pg'=>$pg) )?>
+                       <?php include_partial('article/pager', array('pg'=>$pg,'search_url'=>$search_url) )?>
                     </div>
                 </div>
             </div>
             <div class="side fr">
+            	<?php /*
             	<div class="cont">
                 	<h3 class="subTitle">推荐作品</h3>
                     <div class="newsList">
@@ -71,6 +72,7 @@
                     </div>
                     
                 </div>
+            	*/?>
             </div>
         </div>
     </div>

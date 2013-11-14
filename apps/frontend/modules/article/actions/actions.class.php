@@ -13,13 +13,26 @@ class articleActions extends sfActions
 	public function executeIndex(sfWebRequest $request)
 	{
 		$this->myuser = $this->getUser()->getGuardUser();
-
+		
 		$this->category = Doctrine_Core::getTable("ArticleCategory")->findAll();
 
+		$search_query = '';
+		$search_url = '';
+		
 		$page= $request->getParameter('page',1);        //默认第1页
 		$q = Doctrine_Core::getTable('Article')->getListOnPage($page,18); //第页显示n条
 		$q->Where('is_approved=1 AND is_rejected=0');
-		$this->cols=$q->execute();
+		
+		
+		$this->category_id = $request->getParameter('category');
+		
+		if($this->category_id != '') {
+			$q->andWhere('category_id=?',$this->category_id);
+			$search_url .= '&category='.$this->category_id;
+		}
+		
+		$this->search_url .= urlencode($search_url);
+		
 		//分页
 		$this->pg= new sfDoctrinePager('Article',18);
 		$this->pg->setQuery($q);
