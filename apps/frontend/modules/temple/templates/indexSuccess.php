@@ -9,12 +9,14 @@
 <div class="cont">
 <div class="bannerTip"></div>
 <div class="bannerNote"></div>
-<a class="buildBtn btnPurple" href="<?php echo url_for('temple/new') ?>">创建寺庙</a></div>
+<a class="buildBtn btnPurple" href="<?php echo url_for('temple/new'.urldecode($search_url)) ?>">创建寺庙</a></div>
 </div>
 </div>
 <div class="row box">
-<div class="titleBar"><a class="btnWhite" href="<?php echo url_for('temple/index?xh=yes') ?>">香火最旺</a> <a
-	class="btnWhite" href="<?php echo url_for('temple/rq=yes') ?>">人气最旺</a> <a class="btnWhite" href="<?php echo url_for('temple/index?last=yes') ?>">最新创建</a>
+<div class="titleBar">
+	<a class="btnWhite" href="<?php echo url_for('temple/index?xh=yes'.urldecode($search_url)) ?>">香火最旺</a>
+	<a class="btnWhite" href="<?php echo url_for('temple/rq=yes'.urldecode($search_url)) ?>">人气最旺</a>
+	<a class="btnWhite" href="<?php echo url_for('temple/index?last=yes'.urldecode($search_url)) ?>">最新创建</a>
 <div class="search fr">
 <form method="GET" action="<?php echo url_for('temple/index') ?>">
 <select id="province" name="province" >
@@ -23,8 +25,8 @@
 </select> 
 <select id="block" name="block" >
 </select>
-<input type="text" value="输入名称" name="name" /> 
-<input type="text" value="创建者" name="creator"/> 
+<input type="text" value="<?php echo $name ?>" name="name" /> 
+<input type="text" value="<?php echo $creator?>" name="creator"/> 
 <input class="btnPurple" type="submit" value="搜索" />
 </form>
 </div>

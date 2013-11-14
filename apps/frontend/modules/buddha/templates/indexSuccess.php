@@ -13,13 +13,15 @@
 </div>
 </div>
 <div class="row box">
-<div class="titleBar"><a class="btnWhite" href="<?php echo url_for('buddha/index?xh=yes') ?>">香火最旺</a> <a
-	class="btnWhite" href="<?php echo url_for('buddha/index?rq=yes') ?>">人气最旺</a> <a class="btnWhite" href="<?php echo url_for('buddha/index?last=yes') ?>">最新创建</a>
+<div class="titleBar">
+	<a class="btnWhite" href="<?php echo url_for('buddha/index?xh=yes') ?>">香火最旺</a>
+	<a class="btnWhite" href="<?php echo url_for('buddha/index?rq=yes') ?>">人气最旺</a>
+	<a class="btnWhite" href="<?php echo url_for('buddha/index?last=yes') ?>">最新创建</a>
 <a class="btnPurple buildBtn fr"
 	href="<?php echo url_for('buddha/new') ?>>">创建佛殿</a></div>
 <div class="cont">
 
-<div class="pages"><?php include_partial('buddha/pager', array('pg'=>$pg))?></div>
+<div class="pages"><?php include_partial('buddha/pager', array('pg'=>$pg,'search_url'=>$search_url))?></div>
 
 <div class="imgList">
 <ul class="clearfix">
@@ -34,7 +36,7 @@
 </ul>
 </div>
 <!--p class="imgList_cout">排列6排合计18个</p -->
-<div class="pages"><?php include_partial('buddha/pager', array('pg'=>$pg))?></div>
+<div class="pages"><?php include_partial('buddha/pager', array('pg'=>$pg,'search_url'=>$search_url))?></div>
 </div>
 </div>
 </div>

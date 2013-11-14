@@ -11,56 +11,63 @@
 class templeActions extends sfActions {
 	public function executeIndex(sfWebRequest $request) {
 		$this->myuser = $this->getUser()->getGuardUser();
-
+		
+		$page= $request->getParameter('page',1);        //默认第1页
+		$q = Doctrine_Core::getTable('temple')->getListOnPage($page,18); //第页显示n条
+		$q->Where('is_approved=1 AND is_rejected=0');
+		
 		$search_query = '';
-
+		$search_url = '';
+		
 		$this->province = $request->getParameter('province','选择省份');
 		$this->city = $request->getParameter('city','选择城市');
 		$this->block = $request->getParameter('block','选择区');
 		$this->name = $request->getParameter('name','输入名称');
 		$this->creator = $request->getParameter('creator','创建者');
+		$this->rq = $request->getParameter('rq','no');
+		$this->xh = $request->getParameter('xh','no');
+		$this->last = $request->getParameter('last','no');
 		
-		$this->search_url = '&province='.$this->province.'&city='.$this->city.'&block='.$this->block.'&name='.$this->name.'&creator='.$this->creator;
-		$this->search_url = urlencode($this->search_url);
+		
 		if($this->province != '选择省份') {
-			$search_query .= " AND province='".$this->province."'";
+			// $search_query .= " AND province='".$this->province."'";
+			$q->andWhere('province=?',$this->province);
 		}
 
 		if($this->city != '选择城市') {
-			$search_query .= " AND city='".$this->city."'";
+			// $search_query .= " AND city='".$this->city."'";
+			$q->andWhere('city=?',$this->city);
 		}
 
 		if($this->block != '选择区') {
-			$search_query .= " AND block='".$this->block."'";
+			// $search_query .= " AND block='".$this->block."'";
+			$q->andWhere('block=?',$this->block);
 		}
 
 		if($this->name != '输入名称') {
-			$search_query .= " AND name LIKE '%$this->name%'";
+			// $search_query .= " AND name LIKE '%$this->name%'";
+			$q->andWhere("name LIKE '%".$this->name."%'");
 		}
 
 		if($this->creator != '创建者') {
-			$search_query .= " AND user_name LIKE '%$this->creator%'";
+			// $search_query .= " AND user_name LIKE '%$this->creator%'";
+			$q->andWhere("user_name LIKE '%".$this->creator."%'");
 		}
 
-		$rq = $request->getParameter('rq','no');
-		$xh = $request->getParameter('xh','no');
-		$last = $request->getParameter('last','no');
+		if($this->rq != 'no') {
 
-		if($rq != 'no') {
+		} else if($this->xh != 'no') {
 
-		} else if($xh != 'no') {
-
-		} else if($last != 'no') {
-			$search_query = '';
+		} else if($this->last != 'no') {
+			$q->orderBy('id DESC');
+			$search_url .= '&last=yes';
 		}
-
-		$page= $request->getParameter('page',1);        //默认第1页
-		$q = Doctrine_Core::getTable('temple')->getListOnPage($page,18); //第页显示n条
-		$q->Where('is_approved=1 AND is_rejected=0'.$search_query);
-		$q->OrderBy('id DESC');
-
+		
+		$this->search_url = $search_url.'&province='.$this->province.'&city='.$this->city.'&block='.$this->block.'&name='.$this->name.'&creator='.$this->creator;
+		$this->search_url = urlencode($this->search_url);
+		
 		//分页
-		$this->pg= new sfDoctrinePager('temple',18);
+		$this->pg= new sfDoctrinePager('temple',1);
 		$this->pg->setQuery($q);
 		$this->pg->setPage($page);
 		$this->pg->init();

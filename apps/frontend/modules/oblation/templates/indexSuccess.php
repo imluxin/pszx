@@ -20,13 +20,15 @@
             	<?php endforeach;?>
             </div>
         	<div class="titleBar">
-            	<a class="btnWhite" href="<?php echo url_for('oblation/index?xl=yes')?>">销量最多</a>
-                <a class="btnWhite" href="<?php echo url_for('oblation/index?zd=yes') ?>">价格最低</a>
-                <a class="btnWhite" href="<?php echo url_for('oblation/index?zc=yes')?>">期限最长</a>
-                <a class="btnWhite" href="<?php echo url_for('oblation/index?last=yes')?>">最新创建</a>
+            	<a class="btnWhite" href="<?php echo url_for('oblation/index?xl=yes'.urldecode($search_url))?>">销量最多</a>
+                <a class="btnWhite" href="<?php echo url_for('oblation/index?zd=yes'.urldecode($search_url)) ?>">价格最低</a>
+                <a class="btnWhite" href="<?php echo url_for('oblation/index?zc=yes'.urldecode($search_url))?>">期限最长</a>
+                <a class="btnWhite" href="<?php echo url_for('oblation/index?last=yes'.urldecode($search_url))?>">最新创建</a>
                 <div class="search fr">
-                    <input type="text" />
-                    <input class="btnPurple" type="submit" value="搜索">
+                	<form action="<?php echo url_for('oblation/index')?>" method="get">
+	                    <input name="name" value="<?php echo $name ?>" type="text" />
+	                    <input class="btnPurple" type="submit" value="搜索">
+                    </form>
                 </div>
             </div>
             <div class="cont">

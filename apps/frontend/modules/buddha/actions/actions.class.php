@@ -15,25 +15,32 @@ class buddhaActions extends sfActions
 	{
 		$this->myuser = $this->getUser()->getGuardUser();
 		
-		$rq = $request->getParameter('rq','no');
-		$xh = $request->getParameter('xh','no');
-		$last = $request->getParameter('last','no');
+		$this->rq = $request->getParameter('rq','no');
+		$this->xh = $request->getParameter('xh','no');
+		$this->last = $request->getParameter('last','no');
 
 		$search_query = '';
-
-		if($rq != 'no') {
-
-		} else if($xh != 'no') {
-
-		} else if($last != 'no') {
-			$search_query = '';
-		}
-
+		$search_url = '';
+		
 		$page= $request->getParameter('page',1);        //默认第1页
 		$q = Doctrine_Core::getTable('BunddlaHall')->getListOnPage($page,18); //第页显示n条
-		$q->Where('is_approved=1 AND is_rejected=0'.$search_query);
-		$q->OrderBy('id DESC');
-		$this->cols=$q->execute();
+		$q->Where('is_approved=1 AND is_rejected=0');
+		
+		if($this->rq != 'no') {
+			
+		}
+
+		if($this->xh != 'no') {
+
+		} 
+
+		if($this->last != 'no') {
+			$q->orderBy("id DESC");
+			$search_url .= '&last=yes';
+		}
+		
+		$this->search_url = urlencode($search_url);
+		
 		//分页
 		$this->pg= new sfDoctrinePager('BunddlaHall',18);
 		$this->pg->setQuery($q);

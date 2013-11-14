@@ -15,6 +15,10 @@ class oblationActions extends sfActions
 		$this->myuser = $this->getUser()->getGuardUser();
 		$this->category = Doctrine_Core::getTable('OblationCategory')->findAll();
 		
+		$page= $request->getParameter('page',1);        //默认第1页
+		$q = Doctrine_Core::getTable('Oblation')->getListOnPage($page,18); //第页显示n条
+		$q->Where('is_approved=1 AND is_rejected=0');
+		
 		$search_query = '';
 		$search_url = '';
 		
@@ -23,26 +27,36 @@ class oblationActions extends sfActions
 		$this->zc = $request->getParameter('zc','no');
 		$this->last = $request->getParameter('last','no');
 		$this->category_id = $request->getParameter('category');
+		$this->name = $request->getParameter('name');
 		
 		if($this->xl != 'no') {
 			
-		} else if($this->zd != 'no') {
-			
-		} else if($this->zc != 'no') {
+		}
+		if($this->zd != 'no') {
 			
 		}
-		else if($this->last != 'no') {
+		if($this->zc != 'no') {
 			
-		} else if($this->category_id != '') {
-			$search_query = ' AND category_id='.$this->category_id;
-			$search_url = '&category='.$this->category_id;
+		}
+		
+		if($this->last != 'no') {
+			$q->orderBy('id DESC');
+			$search_url .= '&last=yes';
+		}
+		if($this->category_id != '') {
+			// $search_query = ' AND category_id='.$this->category_id;
+			$q->andWhere('category_id=?',$this->category_id);
+			$search_url .= '&category='.$this->category_id;
+		}
+		
+		if($this->name != '') {
+			$q->andWhere("name LIKE '%".$this->name."%'");
+			$search_url .= '&name='.$this->name;
 		}
 		
 		$this->search_url = urlencode($search_url);
 		
-		$page= $request->getParameter('page',1);        //默认第1页
-		$q = Doctrine_Core::getTable('Oblation')->getListOnPage($page,18); //第页显示n条
-		$q->Where('is_approved=1 AND is_rejected=0'.$search_query);
+		
 		//分页
 		$this->pg= new sfDoctrinePager('Oblation',18);
 		$this->pg->setQuery($q);

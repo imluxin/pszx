@@ -67,9 +67,9 @@
 </div>
 </div>
 <div class="titleBar">
-	<a class="btnWhite" href="<?php echo url_for('memorial/index?xh=yes')?>">香火最旺</a> 
-	<a class="btnWhite" href="<?php echo url_for('memorial/index?rq=yes')?>">人气最旺</a>
-	<a class="btnWhite" href="<?php echo url_for('memorial/index?last=yes')?>">最新纪念</a>
+	<a class="btnWhite" href="<?php echo url_for('memorial/index?xh=yes'.urldecode($search_url))?>">香火最旺</a> 
+	<a class="btnWhite" href="<?php echo url_for('memorial/index?rq=yes'.urldecode($search_url))?>">人气最旺</a>
+	<a class="btnWhite" href="<?php echo url_for('memorial/index?last=yes'.urldecode($search_url))?>">最新纪念</a>
 </div>
 <div class="cont">
 <div class="pages"><?php include_partial('memorial/pager', array('pg'=>$pg,'search_url'=>$search_url) ) ?></div>
