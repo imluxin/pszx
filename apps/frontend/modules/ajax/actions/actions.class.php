@@ -153,4 +153,28 @@ class ajaxActions extends sfActions {
 		return $this->renderText(1);
 	}
 	/**************** manager: memorial end**************************/
+	
+	public function executeEditCoins(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST));
+		
+		$coins = $request->getParameter('coins',0);
+		$coins = (int)$coins;
+		$uid = $request->getParameter('uid',0);
+		$user = Doctrine_Core::getTable('sfGuardUser')->findOneById($uid);
+		
+		if(!is_integer($coins)) 
+			return $this->renderText(-1);
+		
+		if($user) {
+			$u_coins = $user->getCoins();
+			$tmp = $coins + $u_coins;
+			$user->setCoins($tmp);
+			$user->setLastModify($this->getUser()->getGuardUser()->getUsername());
+			$user->save();
+			
+			return $this->renderText(1);
+		}
+		
+		return $this->renderText(0);
+	}
 }

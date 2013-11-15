@@ -94,6 +94,8 @@ sfGuardUser:
     is_super_admin:
       type: boolean
       default: false
+    last_modify: 
+      type: string(255)
     last_login:
       type: timestamp
   indexes:

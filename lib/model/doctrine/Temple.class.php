@@ -43,8 +43,6 @@ class Temple extends BaseTemple
 
 		return parent::save( $conn );
 
-		return parent::save( $conn );
-
 	}
 
 	public function delete(Doctrine_Connection $conn = null) {

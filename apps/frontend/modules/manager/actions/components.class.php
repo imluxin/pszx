@@ -163,7 +163,7 @@ class managerComponents extends sfComponents {
 	}
 
 	public function executeAdminoblationprice(sfWebRequest $request) {
-		
+
 		$page= $request->getParameter('page',1);        //默认第1页
 		$q = Doctrine_Core::getTable('Oblation')->getListOnPage($page,1); //第页显示n条
 		$q->orderBy('id DESC');
@@ -175,11 +175,11 @@ class managerComponents extends sfComponents {
 		$this->pg->init();
 
 		$this->result = $this->pg->getResults();
-		
+
 	}
-	
+
 	public function executeAdminarticle(sfWebRequest $request) {
-		
+
 		$page= $request->getParameter('page',1);        //默认第1页
 		$q = Doctrine_Core::getTable('Article')->getListOnPage($page,30); //第页显示n条
 		$q->orderBy('id DESC');
@@ -191,44 +191,44 @@ class managerComponents extends sfComponents {
 		$this->pg->init();
 
 		$this->result = $this->pg->getResults();
-		
+
 	}
-	
+
 	public function executeAdminuser(sfWebRequest $request) {
 
 		$search_url = '';
-		
+
 		$page= $request->getParameter('page',1);        //默认第1页
 		$q = Doctrine_Core::getTable('sfGuardUser')->createQuery(); //第页显示n条
-		$q->where('is_active = 1');		
-		
+		$q->where('is_active = 1');
+
 		$this->name = $request->getParameter('name','姓名');
 		$this->username = $request->getParameter('username','昵称');
 		$this->email = $request->getParameter('email','注册邮箱');
 		$this->phone = $request->getParameter('phone','联系手机');
-		
+
 		if($this->name != '姓名' && $this->name != '') {
 			$q->andWhere("first_name LIKE '%$this->name%'");
-			$search_url .= '&name='.$this->name;			
+			$search_url .= '&name='.$this->name;
 		}
-		
+
 		if($this->username != '昵称' && $this->username != '') {
 			$q->andWhere("username LIKE '%$this->username%'");
 			$search_url .= '&useranme='.$this->username;
 		}
-		
+
 		if($this->email != '注册邮箱' && $this->email != '') {
 			$q->andWhere("email_address LIKE '%$this->email%'");
 			$search_url .= '&email='.$this->email;
 		}
-		
+
 		if($this->phone != '联系手机' && $this->phone != '') {
 			$q->andWhere('phone = ?',$this->phone);
 			$search_url .= '&phone='.$this->phone;
 		}
-		
+
 		$this->search_url = urlencode($search_url);
-		
+
 		//分页
 		$this->pg= new sfDoctrinePager('sfGuardUser',30);
 		$this->pg->setQuery($q);
@@ -237,17 +237,56 @@ class managerComponents extends sfComponents {
 
 		$this->result = $this->pg->getResults();
 	}
-	
+
 	public function executeAdmincoins(sfWebRequest $request) {
-		
+		$search_url = '';
+
+		$page= $request->getParameter('page',1);        //默认第1页
+		$q = Doctrine_Core::getTable('sfGuardUser')->createQuery(); //第页显示n条
+		$q->where('is_active = 1');
+
+		$this->name = $request->getParameter('name','姓名');
+		$this->username = $request->getParameter('username','昵称');
+		$this->email = $request->getParameter('email','注册邮箱');
+		$this->phone = $request->getParameter('phone','联系手机');
+
+		if($this->name != '姓名' && $this->name != '') {
+			$q->andWhere("first_name LIKE '%$this->name%'");
+			$search_url .= '&name='.$this->name;
+		}
+
+		if($this->username != '昵称' && $this->username != '') {
+			$q->andWhere("username LIKE '%$this->username%'");
+			$search_url .= '&useranme='.$this->username;
+		}
+
+		if($this->email != '注册邮箱' && $this->email != '') {
+			$q->andWhere("email_address LIKE '%$this->email%'");
+			$search_url .= '&email='.$this->email;
+		}
+
+		if($this->phone != '联系手机' && $this->phone != '') {
+			$q->andWhere('phone = ?',$this->phone);
+			$search_url .= '&phone='.$this->phone;
+		}
+
+		$this->search_url = urlencode($search_url);
+
+		//分页
+		$this->pg= new sfDoctrinePager('sfGuardUser',30);
+		$this->pg->setQuery($q);
+		$this->pg->setPage($page);
+		$this->pg->init();
+
+		$this->result = $this->pg->getResults();
 	}
 	public function executeAdmincashin(sfWebRequest $request) {
-		
+
 	}
 	public function executeAdmincashout(sfWebRequest $request) {
-		
+
 	}
-	
+
 	public function executeMenu(sfWebRequest $request) {
 		$this->myuser = $this->getUser()->getGuardUser();
 
