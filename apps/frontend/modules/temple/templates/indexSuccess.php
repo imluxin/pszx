@@ -3,13 +3,15 @@
 <div id="content" class="temple">
 <div class="row clearfix">
 <div class="main fl">
-<div class="banner"><img src="#" /></div>
+<div class="banner">
+<?php include_component('adv', 'slider',array('adv'=>array(16,17,18)));?>
+</div>
 </div>
 <div class="side fr box">
 <div class="cont">
 <div class="bannerTip"></div>
 <div class="bannerNote"></div>
-<a class="buildBtn btnPurple" href="<?php echo url_for('temple/new'.urldecode($search_url)) ?>">创建寺庙</a></div>
+<a class="buildBtn btnPurple" href="<?php echo url_for('temple/new') ?>">创建寺庙</a></div>
 </div>
 </div>
 <div class="row box">

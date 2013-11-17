@@ -1,9 +1,14 @@
 <div class="admin_money admin_box">
 <div class="subTitle">用户金币管理
-<div class="admin_userInfo_search"><input type="text" value="姓名"
-	size="20" />&nbsp; <input type="text" value="昵称" />&nbsp; <input
-	type="text" value="注册邮箱" />&nbsp; <input type="text" value="联系手机" />&nbsp;
-<input class="btnPurple" type="submit" value="查询" /></div>
+<div class="admin_userInfo_search">
+<form method="get" action="<?php echo url_for('manager/coins')?>">
+	<input name="name" type="text" value="<?php echo $name ?>" 	size="20" />&nbsp;
+	<input name="username" type="text" value="<?php echo $username ?>" />&nbsp;
+	<input name="email" type="text" value="<?php echo $email ?>" />&nbsp;
+	<input name="phone" type="text" value="<?php echo $phone ?>" />&nbsp;
+	<input class="btnPurple" type="submit" value="查询" />
+</form>
+</div>
 </div>
 <div class="cont">
 <table class="table">
@@ -23,7 +28,7 @@
 		<td><?php echo $one->getId() ?></td>
 		<td><?php echo $one->getFirstName() ?></td>
 		<td><?php echo $one->getUsername() ?></td>
-		<td><?php echo $one->getGender() ?></td>
+		<td><?php echo $one->getGender() == 0 ? '女' : '男' ?></td>
 		<td><?php echo $one->getPhone() ?></td>
 		<td><?php echo $one->getCoins() ?></td>
 		<td><input style="width:80px;" type="text" id="coins_<?php echo $one->getId()?>" /></td>
@@ -61,9 +66,9 @@
 <a class="disabled">首页</a>
 <a class="disabled">前一页</a>
 <?php else : ?>
-<a href="<?php echo url_for('manager/user?page=1') ?>">首页</a>
+<a href="<?php echo url_for('manager/coins?page=1'.urldecode($search_url)) ?>">首页</a>
 <a
-	href="<?php echo url_for('manager/user?page='.$pg->getPreviousPage()) ?>">前一页</a>
+	href="<?php echo url_for('manager/coins?page='.$pg->getPreviousPage().urldecode($search_url)) ?>">前一页</a>
 <!-- 前一页号 -->
 <?php endif; ?>
 <?php foreach ($pg->getLinks() as $page): ?>
@@ -71,7 +76,7 @@
 <?php if($page==$pg->getPage()): ?>
 <a class="current"><?php echo $page ?></a>
 <?php else: ?>
-<a href="<?php echo url_for('manager/user?page='.$page) ?>"><?php echo $page ?></a>
+<a href="<?php echo url_for('manager/coins?page='.$page.urldecode($search_url)) ?>"><?php echo $page ?></a>
 <?php endif; ?>
 <?php endforeach; ?>
 <?php if($pg->getPage()==$pg->getLastPage()): ?>
@@ -80,10 +85,10 @@
 <a class="disabled">尾页</a>
 <?php else : ?>
 <a
-	href="<?php echo url_for('manager/user?page='.$pg->getNextPage()) ?>">后一页</a>
+	href="<?php echo url_for('manager/coins?page='.$pg->getNextPage().urldecode($search_url)) ?>">后一页</a>
 <!-- 下一页页号 -->
 <a
-	href="<?php echo url_for('manager/user?page='.$pg->getLastPage()) ?>">尾页</a>
+	href="<?php echo url_for('manager/coins?page='.$pg->getLastPage().urldecode($search_url)) ?>">尾页</a>
 <?php endif; ?>
 <?php endif;?>
 </div>

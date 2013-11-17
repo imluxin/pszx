@@ -1,6 +1,6 @@
 <div class="admin_oblation_audit admin_box">
 <div class="admin_shop_price admin_box">
-	<div class="subTitle">祭品价格表</div>
+	<div class="subTitle">文章讣告管理</div>
 	<div class="cont">
 		<table class="table">
 				<tr>

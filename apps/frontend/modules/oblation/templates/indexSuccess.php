@@ -3,7 +3,7 @@
     	<div class="row clearfix">
         	<div class="main fl">
             	<div class="banner">
-                	<img src="#" />
+                	<?php include_component('adv', 'slider',array('adv'=>array(13,14,15)));?>
                 </div>
             </div>
             <div class="side fr box">

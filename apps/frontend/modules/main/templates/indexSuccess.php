@@ -1,30 +1,14 @@
 <?php slot('title', '菩萨在线' ) ?>
+<?php use_javascript('address.js') ?>
+<?php use_javascript("jqueryui/ui/jquery-ui.js")?>
+<?php use_javascript("jqueryui/ui/i18n/jquery-ui-i18n.js")?>
 <!--content-->
-<div
-	id="content" class="index"><!--幻灯片广告、登录-->
+<div id="content" class="index"><!--幻灯片广告、登录-->
 <div class="row row1 clearfix">
 <div class="main fl">
 <div class="slideShow">
-<div id="slides">
-<div class="slides_container"><a href="#" title="" rel="external"> <img
-	src="images/slideshow/1.jpg" alt=""> </a><a href="#" title=""
-	rel="external"> <img src="images/slideshow/2.jpg" alt=""> </a><a
-	href="#" title="" rel="external"> <img src="images/slideshow/3.jpg"
-	alt=""> </a></div>
-
+<?php include_component('adv', 'slider',array('adv'=>array(1,2,3)));?>
 </div>
-<script type="text/javascript">
-                        $(function(){
-                            $('#slides').slides({
-                                preload: true,
-                                play: 5000,
-                                pause: 2500,
-                                hoverPause: true,
-                                fadeSpeed: 350,
-                                effect: 'fade'
-                            });
-                        });
-                    </script></div>
 </div>
 <div class="side fr box user">
 <div class="titleBar">
@@ -66,37 +50,50 @@
 <?php include_component('main', 'zyjw') ?>
 <!--/在线纪念、追忆祭文--> <!--搜索逝者-->
 <div class="row">
-<?php /*
+
 <div class="searchPeople box">
 <div class="cont">
-<table>
-	<tr>
-		<td>逝者姓名</td>
-		<td>逝者籍贯</td>
-		<td>忌日</td>
-		<td>生日</td>
-		<td>纪念馆名称</td>
-		<td>纪念馆编号</td>
-		<td>建馆者姓名</td>
-		<td rowspan="2"><input class="btnPurple" type="submit" value="搜索" /></td>
-	</tr>
-	<tr>
-		<td><input type="text" /></td>
-		<td><select>
-			<option>省</option>
-		</select> <select>
-			<option>市</option>
-		</select></td>
-		<td><input type="text" size="2" />月<input type="text" size="2" />日</td>
-		<td><input type="text" size="2" />月<input type="text" size="2" />日</td>
-		<td><input type="text" /></td>
-		<td><input type="text" /></td>
-		<td><input type="text" /></td>
-	</tr>
-</table>
+<form method="GET" action="<?php echo url_for('memorial/index')?>">
+	<table>
+		<tbody>
+			<tr>
+				<td>逝者姓名</td>
+				<td>逝者籍贯</td>
+				<td>忌日</td>
+				<td>生日</td>
+				<td>纪念馆名称</td>
+				<td>纪念馆编号</td>
+				<td>纪念馆分类</td>
+				<td>建馆者姓名</td>
+				<td rowspan="2"><input class="btnPurple" type="submit" value="搜索"></td>
+			</tr>
+			<tr>
+				<td><input value="逝者姓名" name="die_name" type="text" style="width: 80px"></td>
+				<td>
+					<select id="province" name="province" >
+					</select> 
+					<select id="city" name="city">
+					</select> 
+					<select id="block" style="display: none" >
+					</select>
+				</td>
+				<td><input  style="width:75px;" type="text" id="die_day" name="die_day" /></td>
+				<td><input  style="width:75px;" type="text" id="born_day" name="born_day" /></td>
+				<td><input  id="mname" name="mname" type="text" style="width: 100px"></td>
+				<td><input  id="mid" name="mid" type="text" style="width: 80px"></td>
+				<td>
+				<select id="category" name="category">
+					<option>纪念馆分类</option>
+					<?php include_component('memorial', 'category') ?>
+				</select>
+				</td>
+				<td><input value="创建者" name="creator" type="text" style="width: 90px"></td>
+			</tr>
+		</tbody>
+	</table>
+</form>
 </div>
 </div>
-*/ ?>
 </div>
 <!--/搜索逝者--> <!--祭品商店、同城活动-->
 <div class="row row5 clearfix">
@@ -105,3 +102,18 @@
 </div>
 <!--/祭品商店、同城活动--></div>
 <!--content end-->
+</div>
+
+<script>
+
+	$.address('province','city','block');
+	
+	$( "#die_day" ).datepicker({
+		changeMonth: true,
+		changeYear: true
+	});
+	$( "#born_day" ).datepicker({
+		changeMonth: true,
+		changeYear: true
+	});
+</script>

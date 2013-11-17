@@ -12,4 +12,18 @@
  */
 class sfGuardUser extends PluginsfGuardUser
 {
+	public function getHigerPermission() {
+		
+		if($this->hasPermission('high')) {
+			return '高级管理员';
+		}
+		
+		if($this->hasPermission('senior')) {
+			return '中级管理员';
+		}
+		
+		if($this->hasPermission('primary')) {
+			return '初级管理员';
+		}
+	}
 }

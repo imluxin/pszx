@@ -5,7 +5,9 @@
 <div id="content" class="memorial">
 <div class="row clearfix">
 <div class="main fl">
-<div class="banner"><img src="#" /></div>
+<div class="banner">
+<?php include_component('adv', 'slider',array('adv'=>array(10,11,12)));?>
+</div>
 </div>
 <div class="side fr box">
 <div class="cont">

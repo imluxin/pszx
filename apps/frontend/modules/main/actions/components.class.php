@@ -3,7 +3,7 @@
 class mainComponents extends sfComponents {
 
 	public function executeBuddha() {
-		$this->buddhas = $this->getRecommendResult('BunddlaHall');
+		$this->buddhas = Doctrine_Core::getTable('BunddlaHall')->findAll();//$this->getRecommendResult('BunddlaHall');
 	}
 
 	public function executeTemple() {
@@ -11,16 +11,16 @@ class mainComponents extends sfComponents {
 	}
 
 	public function executeOblation() {
-		$this->oblation = $this->getRecommendResult('Oblation');
+		$this->oblation = Doctrine_Core::getTable('Oblation')->findAll();//$this->getRecommendResult('Oblation');
 	}
 
 	public function executeMemorial() {
-		$this->memorial = $this->getRecommendResult('Memorial');
+		$this->memorial = Doctrine_Core::getTable('Memorial')->findAll();//$this->getRecommendResult('Memorial');
 	}
 
 	public function executeFjzx(sfWebRequest $request) {
-		$this->fjzxa1 = $this->getRecommendResult('FJZXA1','Article');
-		$this->fjzxa2 = $this->getRecommendResult('FJZXA2','Article');
+		$this->fjzxa1 = $this->getRecommendResult('佛教资讯A1','Article');
+		$this->fjzxa2 = $this->getRecommendResult('佛教资讯A2','Article');
 		
 		$tmp = array();
 		
@@ -38,8 +38,8 @@ class mainComponents extends sfComponents {
 	}
 
 	public function executeCsjz(sfWebRequest $request) {
-		$this->csjza3 = $this->getRecommendResult('CSJZA3','Article');
-		$this->csjza4 = $this->getRecommendResult('CSJZA4','Article');
+		$this->csjza3 = $this->getRecommendResult('慈善救助A3','Article');
+		$this->csjza4 = $this->getRecommendResult('慈善救助A4','Article');
 
 		$tmp = array();
 		
@@ -57,8 +57,8 @@ class mainComponents extends sfComponents {
 	}
 	
 	public function executeZyjw(sfWebRequest $request) {
-		$this->zyjwa5 = $this->getRecommendResult('ZYJWA5','Article');
-		$this->zyjwa6 = $this->getRecommendResult('ZYJWA6','Article');
+		$this->zyjwa5 = $this->getRecommendResult('追忆祭文A5','Article');
+		$this->zyjwa6 = $this->getRecommendResult('追忆祭文A6','Article');
 		
 		$tmp = array();
 		
@@ -77,8 +77,8 @@ class mainComponents extends sfComponents {
 	}
 
 	public function executeTchd(sfWebRequest $request) {
-		$this->tchda7 = $this->getRecommendResult('TCHDA7','Article');
-		$this->tchda8 = $this->getRecommendResult('TCHDA8','Article');
+		$this->tchda7 = $this->getRecommendResult('同城活动A7','Article');
+		$this->tchda8 = $this->getRecommendResult('同城活动A8','Article');
 		
 		$tmp = array();
 		
@@ -101,7 +101,7 @@ class mainComponents extends sfComponents {
 		$model = $type;
 			
 		$query = Doctrine_Core::getTable('Recommend')->createQuery('r');
-		$query->select('r.r_id')->where('r.r_type=?',$type);
+		$query->select('r.r_id')->where('r.start_date<=now() and r.end_date>= now()')->andWhere('r.r_type=?',$type);
 		$recommend = $query->execute();
 		$tmp = array();
 		foreach($recommend as $one) {
@@ -116,6 +116,4 @@ class mainComponents extends sfComponents {
 		
 		return array();
 	}
-
-
 }

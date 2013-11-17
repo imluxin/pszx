@@ -1,7 +1,7 @@
 <div class="admin_userInfo admin_box">
 <div class="subTitle">用户资料管理
 <div class="admin_userInfo_search">
-<form method="get" action="<?php echo url_for('manager/user')?>">
+<form method="get" action="<?php echo url_for('manager/manager')?>">
 	<input name="name" type="text" value="<?php echo $name ?>" 	size="20" />&nbsp;
 	<input name="username" type="text" value="<?php echo $username ?>" />&nbsp;
 	<input name="email" type="text" value="<?php echo $email ?>" />&nbsp;
@@ -20,7 +20,7 @@
 		<td>地区</td>
 		<td>注册邮箱</td>
 		<td>联系手机</td>
-		<td>注册时间</td>
+		<td>当前级别|管理级别设置</td>
 	</tr>
 	<?php foreach($result as $one):?>
 	<tr>
@@ -31,10 +31,15 @@
 		<td><?php echo $one->getProvince().'-'.$one->getCity() ?></td>
 		<td><?php echo $one->getEmailAddress()?></td>
 		<td><?php echo $one->getPhone() ?></td>
-		<td><?php echo $one->getCreatedAt() ?></td>
+		<td>
+		<?php echo $one->getHigerPermission() ?>
+		|
+		<a href="<?php echo url_for('permission/edit?id='.$one->getId())?>">修改</a>
+		</td>
 	</tr>
 	<?php endforeach;?>
 </table>
+
 <div class="pages">
 <?php if(count($pg)>0): ?>
 <?php if($pg->getPage()==1): ?>

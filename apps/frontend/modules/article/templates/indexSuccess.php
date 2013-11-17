@@ -3,7 +3,7 @@
     	<div class="row clearfix">
         	<div class="main fl">
             	<div class="banner">
-                	<img src="#" />
+                	<?php include_component('adv', 'slider',array('adv'=>array(10,11,12)));?>
                 </div>
             </div>
             <div class="side fr box">
@@ -55,7 +55,6 @@
                 </div>
             </div>
             <div class="side fr">
-            	<?php /*
             	<div class="cont">
                 	<h3 class="subTitle">推荐作品</h3>
                     <div class="newsList">
@@ -68,11 +67,25 @@
                                 	<p>如来佛祖：神通广大法力无边，是西方极乐世界的最高统治者和最高法力神通的代表。</p>
                                 </div>
                             </li>                        
+							<li class="clearfix">
+                            	<div class="newsList_img">
+                                	<img src="#" />
+                                </div>
+                                <div class="newsList_view">
+                                	<p>如来佛祖：神通广大法力无边，是西方极乐世界的最高统治者和最高法力神通的代表。</p>
+                                </div>
+                            </li>                        
+							<li class="clearfix">
+                            	<div class="newsList_img">
+                                	<img src="#" />
+                                </div>
+                                <div class="newsList_view">
+                                	<p>如来佛祖：神通广大法力无边，是西方极乐世界的最高统治者和最高法力神通的代表。</p>
+                                </div>
+                            </li>                        
                         </ul>
                     </div>
-                    
                 </div>
-            	*/?>
             </div>
         </div>
     </div>

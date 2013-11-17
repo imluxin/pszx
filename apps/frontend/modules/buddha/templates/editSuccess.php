@@ -3,7 +3,7 @@
 <div id="content" class="build">
 <div class="row box clearfix">
 <div class="side fl">
-<?php include_partial('temple/user_info', array('myuser'=>$myuser))?>
+<?php include_partial('buddha/user_info', array('myuser'=>$myuser))?>
 </div>
 <div class="main fr">
 <div class="cont">

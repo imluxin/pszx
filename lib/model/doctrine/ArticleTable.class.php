@@ -31,4 +31,23 @@ class ArticleTable extends Doctrine_Table
 		->orderBy('a.id DESC')->limit($limit);
 		return $query->execute();
 	}
+	
+	public function getArticleForRecommend($type) {
+		if($type == '佛教资讯A1' || $type == '佛教资讯A2') {
+			$category = 1;
+		} else if($type == '慈善救助A3' || $type == '慈善救助A4'){
+			$category = 3;
+		} else  if($type == '追忆祭文A5' || $type == '追忆祭文A6') {
+			$category = 5;
+		} else if($type == '同城活动A7' || $type == '同城活动A8') {
+			$category = 4;
+		}
+		
+		$query = $this->createQuery();
+		$query->select('id,title')->where('is_approved=1 AND is_rejected=0')
+			  ->andWhere('category_id=?', $category);
+			  
+		return $query->execute();
+	}
+	
 }

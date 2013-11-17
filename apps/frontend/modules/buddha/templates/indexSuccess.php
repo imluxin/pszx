@@ -3,7 +3,9 @@
 <div id="content" class="buddha">
 <div class="row clearfix">
 <div class="main fl">
-<div class="banner"><img src="#" /></div>
+<div class="banner">
+<?php include_component('adv', 'slider',array('adv'=>array(4,5,6)));?>
+</div>
 </div>
 <div class="side fr box">
 <div class="cont">

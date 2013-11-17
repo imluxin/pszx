@@ -199,7 +199,7 @@ class managerComponents extends sfComponents {
 		$search_url = '';
 
 		$page= $request->getParameter('page',1);        //默认第1页
-		$q = Doctrine_Core::getTable('sfGuardUser')->createQuery(); //第页显示n条
+		$q = Doctrine_Core::getTable('sfGuardUser')->getListOnPage($page,30); //第页显示n条
 		$q->where('is_active = 1');
 
 		$this->name = $request->getParameter('name','姓名');
@@ -214,7 +214,7 @@ class managerComponents extends sfComponents {
 
 		if($this->username != '昵称' && $this->username != '') {
 			$q->andWhere("username LIKE '%$this->username%'");
-			$search_url .= '&useranme='.$this->username;
+			$search_url .= '&username='.$this->username;
 		}
 
 		if($this->email != '注册邮箱' && $this->email != '') {
@@ -242,7 +242,7 @@ class managerComponents extends sfComponents {
 		$search_url = '';
 
 		$page= $request->getParameter('page',1);        //默认第1页
-		$q = Doctrine_Core::getTable('sfGuardUser')->createQuery(); //第页显示n条
+		$q = Doctrine_Core::getTable('sfGuardUser')->getListOnPage($page,30); //第页显示n条
 		$q->where('is_active = 1');
 
 		$this->name = $request->getParameter('name','姓名');
@@ -257,7 +257,7 @@ class managerComponents extends sfComponents {
 
 		if($this->username != '昵称' && $this->username != '') {
 			$q->andWhere("username LIKE '%$this->username%'");
-			$search_url .= '&useranme='.$this->username;
+			$search_url .= '&username='.$this->username;
 		}
 
 		if($this->email != '注册邮箱' && $this->email != '') {
@@ -286,7 +286,65 @@ class managerComponents extends sfComponents {
 	public function executeAdmincashout(sfWebRequest $request) {
 
 	}
+	
+	public function executeAdminprayword(sfWebRequest $request) {
+		$this->b_prayword = Doctrine_Core::getTable('PrayWords')->findOneById(1);
+		$this->t_prayword = Doctrine_Core::getTable('PrayWords')->findOneById(2);
+		$this->m_prayword = Doctrine_Core::getTable('PrayWords')->findOneById(3);
+	}
+	
+	public function executeAdminadv(sfWebRequest $request) {
+		$this->advs = Doctrine_Core::getTable('Adv')->findAll();
+		
+		$this->recommend = Doctrine_Core::getTable('Recommend')->findAll();
+	}
 
+	public function executeAdminmanager(sfWebRequest $request) {
+
+		$search_url = '';
+
+		$page= $request->getParameter('page',1);        //默认第1页
+		$q = Doctrine_Core::getTable('sfGuardUser')->getListOnPage($page,30); //第页显示n条
+		$q->where('is_active = 1');
+
+		$this->name = $request->getParameter('name','姓名');
+		$this->username = $request->getParameter('username','昵称');
+		$this->email = $request->getParameter('email','注册邮箱');
+		$this->phone = $request->getParameter('phone','联系手机');
+
+		if($this->name != '姓名' && $this->name != '') {
+			$q->andWhere("first_name LIKE '%$this->name%'");
+			$search_url .= '&name='.$this->name;
+		}
+
+		if($this->username != '昵称' && $this->username != '') {
+			$q->andWhere("username LIKE '%$this->username%'");
+			$search_url .= '&username='.$this->username;
+		}
+
+		if($this->email != '注册邮箱' && $this->email != '') {
+			$q->andWhere("email_address LIKE '%$this->email%'");
+			$search_url .= '&email='.$this->email;
+		}
+
+		if($this->phone != '联系手机' && $this->phone != '') {
+			$q->andWhere('phone = ?',$this->phone);
+			$search_url .= '&phone='.$this->phone;
+		}
+
+		$this->search_url = urlencode($search_url);
+
+		//分页
+		$this->pg= new sfDoctrinePager('sfGuardUser',30);
+		$this->pg->setQuery($q);
+		$this->pg->setPage($page);
+		$this->pg->init();
+
+		$this->result = $this->pg->getResults();
+		
+		$this->permission = Doctrine_Core::getTable('sfGuardPermission')->findAll();
+	}
+	
 	public function executeMenu(sfWebRequest $request) {
 		$this->myuser = $this->getUser()->getGuardUser();
 
@@ -295,9 +353,9 @@ class managerComponents extends sfComponents {
 
 		if($this->myuser->hasPermission('senior'))
 		$this->level = 'senior';
-		else if($this->myuser->hasPermission('high'))
+		
+		if($this->myuser->hasPermission('high'))
 		$this->level = 'high';
-			
 		if($this->myuser->getPermissions()->count() > 0)  $this->is_admin = true;
 	}
 }

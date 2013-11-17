@@ -57,13 +57,13 @@ sfGuardUser:
 sfGuardPermission:
   primary_admin:  
     name:           primary
-    description:    primary permission
+    description:    初级管理员
   senior_admin: 
     name:           senior
-    description:    senior permission
+    description:    中级管理员
   high_admin: 
     name:           high
-    description:    high permission
+    description:    高级管理员
     
 # 纪念馆分类
 MemorialCategory: 
@@ -128,3 +128,88 @@ ArticleCategory:
     name: 追忆祭文
   c6: 
     name: 在线讣告
+
+# 祈福词语
+PrayWords: 
+  buddha: 
+    words : 金榜题名、大鹏展翅、马到成功、美丽可爱、年年有余、工作顺利、财源广进、心想事成、回心转意、百年好合、夫妻恩爱、喜得贵子、出门平安、母子平安、全家健康、事业有成、兴旺腾达、步步高升、常来拜祭
+  temple: 
+    words : 学习进步、大鹏展翅、马到成功、美丽可爱、年年有余、工作顺利、财源广进、心想事成、回心转意、百年好合、夫妻恩爱、喜得贵子、出门平安、母子平安、全家健康、事业有成、兴旺腾达、步步高升、常来拜祭
+  memorial: 
+    words : 学习进步、金榜题名、马到成功、美丽可爱、年年有余、工作顺利、财源广进、心想事成、回心转意、百年好合、夫妻恩爱、喜得贵子、出门平安、母子平安、全家健康、事业有成、兴旺腾达、步步高升、常来拜祭
+
+# 广告
+Adv: 
+  iv1: 
+    block: 网站首页1
+    title: 首页广告1
+  iv2: 
+    block: 网站首页2
+    title: 首页广告2
+  iv3: 
+    block: 网站首页3
+    title: 首页关广告3
+  bv1: 
+    block: 网上礼佛1
+    title: 网上礼佛1
+  bv2: 
+    block: 网上礼佛2
+    title: 网上礼佛2
+  bv3: 
+    block: 网上礼佛3
+    title: 网上礼佛3
+  av1: 
+    block: 最新动态1
+    title: 最新动态1
+  av2: 
+    block: 最新动态2
+    title: 最新动态2
+  av3: 
+    block: 最新动态3
+    title: 最新动态3
+  mv1: 
+    block: 纪念馆1
+    title: 纪念馆1
+  mv2: 
+    block: 纪念馆2
+    title: 纪念馆2
+  mv3: 
+    block: 纪念馆3
+    title: 纪念馆3
+  ov1: 
+    block: 祭品商店1
+    title: 祭品商店1
+  ov2: 
+    block: 祭品商店2
+    title: 祭品商店2
+  ov3: 
+    block: 祭品商店3
+    title: 祭品商店3
+  fj1: 
+    block: 佛教文化1
+    title: 佛教文化1
+  fj2: 
+    block: 佛教文化2
+    title: 佛教文化2
+  fj3: 
+    block: 佛教文化3
+    title: 佛教文化3
+
+# 首页推荐内容
+Recommend: 
+  FJZXA1: 
+    r_type: 佛教资讯A1
+  FJZXA2: 
+    r_type: 佛教资讯A2
+  CSJZA3: 
+    r_type: 慈善救助A3
+  CSJZA4: 
+    r_type: 慈善救助A4
+  ZYJWA5: 
+    r_type: 追忆祭文A5
+  ZYJWA6: 
+    r_type: 追忆祭文A6
+  TCHDA7: 
+    r_type: 同城活动A7
+  TCHDA8: 
+    r_type: 同城活动A8
