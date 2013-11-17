@@ -32,14 +32,33 @@
 		<td><?php echo $one->getEmailAddress()?></td>
 		<td><?php echo $one->getPhone() ?></td>
 		<td>
-		<?php echo $one->getHigerPermission() ?>
-		|
-		<a href="<?php echo url_for('permission/edit?id='.$one->getId())?>">修改</a>
+		<select id="permission_<?php echo $one->getId() ?>">
+			<option value='-1'>无</option>
+			<?php foreach($permission as $p):?>
+			<option <?php if($one->getHigerPermission() == $p->getName() ) echo 'selected'?> value="<?php echo $p->getId() ?>"><?php echo $p->getDescription() ?></option>
+			<?php endforeach;?>
+		</select>
+		<input class="btnPurple" type="button" value="修改" onclick="changePermission(<?php echo $one->getId() ?>)" />
 		</td>
 	</tr>
 	<?php endforeach;?>
 </table>
+<script type="text/javascript">
+	function changePermission(uid) {
+		if(confirm('确定修改？')) {
+			var p = $('#permission_'+uid).val();
+			var url = '<?php echo url_for('ajax/changepermission')?>?id='+uid+'&permission='+p;
 
+			$.ajax({
+				type: "post",
+				url: url,
+				success: function(data, textStatus){
+					if(data == 1) location.reload();
+				}
+			});
+		}
+	}
+</script>
 <div class="pages">
 <?php if(count($pg)>0): ?>
 <?php if($pg->getPage()==1): ?>

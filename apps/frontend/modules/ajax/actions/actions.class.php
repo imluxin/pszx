@@ -9,7 +9,7 @@
 class ajaxActions extends sfActions {
 
 	public function executeTest(sfWebRequest $request) {
-		
+
 	}
 
 	/**************** manager: base_info **************************/
@@ -139,7 +139,7 @@ class ajaxActions extends sfActions {
 		return $this->renderText(1);
 	}
 	/**************** manager: oblation end**************************/
-	
+
 	/**************** manager: memorial **************************/
 	public function executeDelMemorial(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
@@ -153,28 +153,65 @@ class ajaxActions extends sfActions {
 		return $this->renderText(1);
 	}
 	/**************** manager: memorial end**************************/
-	
+
 	public function executeEditCoins(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
-		
+
 		$coins = $request->getParameter('coins',0);
 		$coins = (int)$coins;
 		$uid = $request->getParameter('uid',0);
 		$user = Doctrine_Core::getTable('sfGuardUser')->findOneById($uid);
-		
-		if(!is_integer($coins)) 
-			return $this->renderText(-1);
-		
+
+		if(!is_integer($coins))
+		return $this->renderText(-1);
+
 		if($user) {
 			$u_coins = $user->getCoins();
 			$tmp = $coins + $u_coins;
 			$user->setCoins($tmp);
 			$user->setLastModify($this->getUser()->getGuardUser()->getUsername());
 			$user->save();
-			
+
 			return $this->renderText(1);
 		}
+
+		return $this->renderText(0);
+	}
+
+	public function executeChangepermission(sfWebRequest $request) {
+		//$this->forward404Unless($request->isMethod(sfRequest::POST));
+
+		$p = $request->getParameter('permission');
+		$uid = $request->getParameter('id',0);
+
+		$user = Doctrine_Core::getTable('sfGuardUser')->findOneById($uid);
+
+		$tmp = array();
 		
+		if($p == '1')
+		$tmp = array(1,2,3);
+		if($p == '2')
+		$tmp = array(2,3);
+		if($p == '3')
+		$tmp = array(3);
+		if($p == '-1')
+		$tmp = array();
+		
+		if($user) {
+			$up = Doctrine_Core::getTable('sfGuardUserPermission')->findByUserId($user->getId());
+			foreach($up as $one) {
+				$one->delete();
+			}
+			
+			foreach($tmp as $one) {
+				$up = new sfGuardUserPermission();
+				$up->setUserId($user->getId());
+				$up->setPermissionId($one);
+				$up->save();
+			}
+			return $this->renderText(1);
+		}
+
 		return $this->renderText(0);
 	}
 }
