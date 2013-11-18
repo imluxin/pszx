@@ -13,17 +13,33 @@
 class sfGuardUser extends PluginsfGuardUser
 {
 	public function getHigerPermission() {
-		
+
 		if($this->hasPermission('high')) {
 			return 'high';
 		}
-		
+
 		if($this->hasPermission('senior')) {
 			return 'senior';
 		}
-		
+
 		if($this->hasPermission('primary')) {
 			return 'primary';
 		}
+	}
+
+	public function getAge() {
+		
+		$age = strtotime($this->getBirthday());
+		if($age === false){
+			return false;
+		}
+		list($y1,$m1,$d1) = explode("-",date("Y-m-d",$age));
+		$now = strtotime("now");
+		list($y2,$m2,$d2) = explode("-",date("Y-m-d",$now));
+		$age = $y2 - $y1;
+		if((int)($m2.$d2) < (int)($m1.$d1))
+		$age -= 1;
+		return $age;
+
 	}
 }

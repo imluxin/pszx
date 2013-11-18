@@ -18,7 +18,7 @@ BunddlaHall:
   relations:
       sfGuardUser:  { onDelete: CASCADE, local: user_id, foreign: id }
 #礼佛记录
-OtwrHistory: 
+BuddhaHistory: 
   options:
     type: MyISAM
     collate: utf8_unicode_ci
@@ -28,8 +28,9 @@ OtwrHistory:
   columns:
     bh_id: { type: integer, notnull: true }
     user_id: { type: integer, notnull: true }
-    gid: { type: integer}
-    description: { type: string(255), notnull: true } 
+  relations:
+      BunddlaHall:  { onDelete: CASCADE, local: bh_id, foreign: id }
+      sfGuardUser:  { onDelete: CASCADE, local: user_id, foreign: id }
 
 #寺庙
 Temple: 

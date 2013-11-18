@@ -9,7 +9,7 @@
 class ajaxActions extends sfActions {
 
 	public function executeTest(sfWebRequest $request) {
-
+		exit;
 	}
 
 	/**************** manager: base_info **************************/
