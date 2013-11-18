@@ -3,7 +3,7 @@
 class owtrActions extends sfActions {
 
 	public function executeBuddha(sfWebRequest $request) {
-		# $this->forward404Unless($request->isMethod(sfRequest::POST));
+		$this->forward404Unless($request->isMethod(sfRequest::POST));
 		
 		$result = array();
 		
