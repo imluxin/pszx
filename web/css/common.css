@@ -100,6 +100,7 @@ body{ background:url(../images/body_bg.jpg) 0 0 repeat-x}
 .grade2{width:58px}
 .grade1{width:31px}
 
-
+.function_bar { margin-top:5px;text-align: center;font-size:18px; }
+.function_bar li{ display: inline; padding-right: 20px; } 
 
 

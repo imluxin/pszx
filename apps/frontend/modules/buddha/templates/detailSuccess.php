@@ -11,6 +11,55 @@
 <!--flash-->
 <div class="flash"></div>
 <!--/flash--></div>
+<div>
+	许愿描述：<textarea id="wish" style="width:1000px;"></textarea>(输入您的许愿描述，然后点击下方的按钮。)
+	<ul class="function_bar">
+		<li><a href="javascript:owtr('1');">我要供烛</a></li>
+		<li><a href="javascript:owtr('2')">我要供香</a></li>
+		<li><a href="javascript:owtr('3')">我要供果</a></li>
+		<li><a href="javascript:owtr('4')">我要供茶</a></li>
+		<li><a href="javascript:owtr('5')">我要供花</a></li>
+		<li><a href="javascript:owtr('6')">祈福许愿</a></li>
+		<li><a href="javascript:owtr('7')">拜佛捐赠</a></li>
+		<li><a href="javascript:owtr('8')">香火不断</a></li>
+	</ul>
+</div>
+
+<script>
+function owtr(g) {
+	var wish = $('#wish').val();
+	if(wish == '') {alert('请输入您的许愿描述'); $('#wish').focus(); return false; }
+	var url = '<?php echo url_for('owtr/buddha')?>?type='+g+'&txt='+wish+'&bid=<?php echo $buddha->getId()?>';
+
+	$.ajax({
+		type: "post",
+		url: url,
+		beforeSend: function(XMLHttpRequest){
+		},
+		success: function(data, textStatus){
+			var result = eval ("(" + data + ")");
+			if(result.error == '') {
+				var type_id = result.type_id;  // 物品类别id
+				var gid = result.gid;  // 物品id
+				var bless = result.bless;  // 祝福语
+				var user_id = result.user_id; // 用户id
+				var px = result.px;  
+				var py = result.py;  
+				var sx = result.sx;
+				var sy = result.sy;
+				alert(px+','+py);
+			} else {
+				alert(result.error);
+			}
+		},
+		complete: function(XMLHttpRequest, textStatus){
+		},
+		error: function(){
+		}
+	});
+}
+</script>
+
 <div class="row">
 <div class="baifoTable">
 <table>
@@ -30,7 +79,7 @@
 		<td><?php echo $one->getSfGuardUser()->getGender() == 1 ? '男':'女' ?></td>
 		<td><?php echo $one->getSfGuardUser()->getAge() ?></td>
 		<td><?php echo $one->getSfGuardUser()->getProvince().','.$one->getSfGuardUser()->getCity() ?></td>
-		<td><?php  ?></td>
+		<td><?php echo $one->getTxt() ?></td>
 		<td><?php echo $one->getCreatedAt() ?></td>
 	</tr>
 	<?php endforeach;?>

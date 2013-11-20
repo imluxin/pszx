@@ -20,7 +20,7 @@
 	<a class="btnWhite" href="<?php echo url_for('buddha/index?rq=yes') ?>">人气最旺</a>
 	<a class="btnWhite" href="<?php echo url_for('buddha/index?last=yes') ?>">最新创建</a>
 <a class="btnPurple buildBtn fr"
-	href="<?php echo url_for('buddha/new') ?>>">创建佛殿</a></div>
+	href="<?php echo url_for('buddha/new') ?>">创建佛殿</a></div>
 <div class="cont">
 
 <div class="pages"><?php include_partial('buddha/pager', array('pg'=>$pg,'search_url'=>$search_url))?></div>

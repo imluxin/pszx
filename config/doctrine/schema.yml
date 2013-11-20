@@ -28,7 +28,14 @@ BuddhaHistory:
   columns:
     bh_id: { type: integer, notnull: true }
     user_id: { type: integer, notnull: true }
-  relations:
+    coins: { type: integer }
+    txt: { type: string(255) }
+    g_type: { type: integer }
+    point_x: { type: integer ,default: 240}
+    point_y: { type: integer ,default: 240}
+    scale_x: { type: double ,default: 1 }
+    scale_y: { type: double ,default: 1 }
+  relations: 
       BunddlaHall:  { onDelete: CASCADE, local: bh_id, foreign: id }
       sfGuardUser:  { onDelete: CASCADE, local: user_id, foreign: id }
 
