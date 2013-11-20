@@ -72,12 +72,14 @@ class buddhaActions extends sfActions
 	}
 
 	public function executeDetail(sfWebRequest $request) {
+		$this->myuser = $this->getUser()->getGuardUser();
 		$id = $request->getParameter('id');
 		$this->buddha = Doctrine_Core::getTable('BunddlaHall')->findOneById($id);
 		
 		$page= $request->getParameter('page',1);        //默认第1页
 		$query = Doctrine_Core::getTable('BuddhaHistory')->getListOnPage($page,30);
-		$query->where('bh_id=?',$id);
+		$query->where('bh_id=?',$id)
+			  ->orderBy('id DESC');
 
 		//分页
 		$this->pg= new sfDoctrinePager('BuddhaHistory',30);

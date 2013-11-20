@@ -1,3 +1,6 @@
+<?php use_javascript('../flash/swfobject.js')?>
+<?php use_javascript('../flash/history/history.js')?>
+<?php use_stylesheet('../flash/history/history.css')?>
 <?php slot('title','礼佛-菩萨在线') ?>
 <div id="content" class="build">
 <div class="row box">
@@ -9,7 +12,59 @@
 </h2>
 </div>
 <!--flash-->
-<div class="flash"></div>
+<div class="flash">
+
+<script type="text/javascript">
+
+	function getUid() {
+		return '<?php  if($myuser) echo $myuser->getId(); else echo 0; ?>';
+	}
+
+	function getSid() {
+		return '1';
+	}
+
+	function getInitUrl() {
+		return 'http://localhost<?php echo url_for('owtr/buddhainit?bhid='.$buddha->getId())?>';
+	}
+	
+    // For version detection, set to min. required Flash Player version, or 0 (or 0.0.0), for no version detection. 
+    var swfVersionStr = "11.6.0";
+    // To use express install, set to playerProductInstall.swf, otherwise the empty string. 
+    var xiSwfUrlStr = "/pszx/web/flash/playerProductInstall.swf";
+    var flashvars = {};
+    var params = {};
+    params.quality = "high";
+    params.bgcolor = "#ffffff";
+    params.allowscriptaccess = "sameDomain";
+    params.allowfullscreen = "true";
+    var attributes = {};
+    attributes.id = "FO";
+    attributes.name = "FO";
+    attributes.align = "middle";
+    swfobject.embedSWF(
+        "/pszx/web/flash/FO.swf", "flashContent", 
+        "100%", "670", 
+        swfVersionStr, xiSwfUrlStr, 
+        flashvars, params, attributes);
+    // JavaScript enabled so display the flashContent div in case it is not replaced with a swf object.
+    swfobject.createCSS("#flashContent", "display:block;text-align:left;");
+</script>
+
+<div id="flashContent">
+            <p>
+                To view this page ensure that Adobe Flash Player version 
+                11.6.0 or greater is installed. 
+            </p>
+            <script type="text/javascript"> 
+                var pageHost = ((document.location.protocol == "https:") ? "https://" : "http://"); 
+                document.write("<a href='http://www.adobe.com/go/getflashplayer'><img src='" 
+                                + pageHost + "www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a>" ); 
+            </script> 
+</div>
+
+</div>
+
 <!--/flash--></div>
 <div>
 	许愿描述：<textarea id="wish" style="width:1000px;"></textarea>(输入您的许愿描述，然后点击下方的按钮。)
@@ -47,7 +102,7 @@ function owtr(g) {
 				var py = result.py;  
 				var sx = result.sx;
 				var sy = result.sy;
-				alert(px+','+py);
+				document.getElementById("FO").addGoods(type_id,user_id,gid,bless,px,py,sx,sy);
 			} else {
 				alert(result.error);
 			}
@@ -58,6 +113,31 @@ function owtr(g) {
 		}
 	});
 }
+
+function move(sid,ggid,uid,x,y,sx,sy) {
+
+	var url = '<?php echo url_for('owtr/buddhamove')?>?sid=' + sid + '&id=' + ggid + '&uid='+uid+'&px='+x+'&py='+y+'&sx='+sx+'&sy='+sy;
+	
+	$.ajax({
+		type: "post",
+		url: url,
+		beforeSend: function(XMLHttpRequest){
+		},
+		success: function(data, textStatus){
+			var result = eval ("(" + data + ")");
+			if(result.error == '') {
+				// alert('success');
+			} else {
+				alert(result.error);
+			}
+		},
+		complete: function(XMLHttpRequest, textStatus){
+		},
+		error: function(){
+		}
+	});
+}
+
 </script>
 
 <div class="row">

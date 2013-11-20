@@ -32,7 +32,7 @@ BuddhaHistory:
     txt: { type: string(255) }
     g_type: { type: integer }
     point_x: { type: integer ,default: 240}
-    point_y: { type: integer ,default: 240}
+    point_y: { type: integer ,default: 30}
     scale_x: { type: double ,default: 1 }
     scale_y: { type: double ,default: 1 }
   relations: 
