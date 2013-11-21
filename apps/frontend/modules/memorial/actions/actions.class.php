@@ -175,4 +175,13 @@ class memorialActions extends sfActions
 			$this->redirect('memorial/edit?id='.$memorial->getId());
 		}
 	}
+	
+	public function executeDetail(sfWebRequest $request) {
+		$this->myuser = $this->getUser()->getGuardUser();
+	}
+	
+	public function executeZxlw(sfWebRequest $request) {
+		$this->myuser = $this->getUser()->getGuardUser();
+	}
+	
 }

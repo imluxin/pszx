@@ -56,7 +56,7 @@ class owtrActions extends sfActions {
 			$bh->setUserId($user->getId());
 			$bh->setCoins($coins);
 			$bh->setTxt($txt);
-			$bh->setGType($type);
+			$bh->setGType('http://localhost/pszx/web/uploads/oblation/'.$type);
 			$bh->save();
 
 			$user->setCoins($c);

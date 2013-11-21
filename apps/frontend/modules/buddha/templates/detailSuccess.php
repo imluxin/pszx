@@ -24,8 +24,12 @@
 		return '1';
 	}
 
+	function getScene() {
+		return '<?php echo 'http://localhost/pszx/web/uploads/buddha/'.$buddha->getImages() ?>';
+	}
+	
 	function getInitUrl() {
-		return 'http://localhost<?php echo url_for('owtr/buddhainit?bhid='.$buddha->getId())?>';
+		return '<?php echo 'http://localhost'.url_for('owtr/buddhainit?bhid='.$buddha->getId())?>';
 	}
 	
     // For version detection, set to min. required Flash Player version, or 0 (or 0.0.0), for no version detection. 
@@ -52,15 +56,15 @@
 </script>
 
 <div id="flashContent">
-            <p>
-                To view this page ensure that Adobe Flash Player version 
-                11.6.0 or greater is installed. 
-            </p>
-            <script type="text/javascript"> 
-                var pageHost = ((document.location.protocol == "https:") ? "https://" : "http://"); 
-                document.write("<a href='http://www.adobe.com/go/getflashplayer'><img src='" 
+	<p>
+        To view this page ensure that Adobe Flash Player version 
+		11.6.0 or greater is installed. 
+	</p>
+    <script type="text/javascript"> 
+           var pageHost = ((document.location.protocol == "https:") ? "https://" : "http://"); 
+           document.write("<a href='http://www.adobe.com/go/getflashplayer'><img src='" 
                                 + pageHost + "www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a>" ); 
-            </script> 
+    </script> 
 </div>
 
 </div>

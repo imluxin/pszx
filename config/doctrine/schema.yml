@@ -30,7 +30,7 @@ BuddhaHistory:
     user_id: { type: integer, notnull: true }
     coins: { type: integer }
     txt: { type: string(255) }
-    g_type: { type: integer }
+    g_type: { type: string(255) }
     point_x: { type: integer ,default: 240}
     point_y: { type: integer ,default: 30}
     scale_x: { type: double ,default: 1 }

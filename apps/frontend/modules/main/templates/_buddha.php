@@ -7,7 +7,7 @@
 <ul class="clearfix">
 	<?php foreach($buddhas as $one): ?>
 	<li>
-	<a href="<?php echo url_for('buddha/details?id='.$one->getId()) ?>"> 
+	<a href="<?php echo url_for('buddha/detail?id='.$one->getId()) ?>"> 
 		<?php echo image_tag('../uploads/buddha/'.$one['images']) ?>
 		<p><?php echo $one->getName() ?></p>
 	</a>
