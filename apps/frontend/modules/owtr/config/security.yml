@@ -1,4 +1,4 @@
 buddha: 
-  is_secure:   true
+  is_secure:   false
 buddhamove: 
   is_secure:   true

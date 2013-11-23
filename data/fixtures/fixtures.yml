@@ -37,12 +37,18 @@ sfGuardUser:
     password:       aaaaaa
     phone:          13824789585
     Permissions:     [primary_admin] 
-  User_origin: 
+  User_origin1: 
     email_address:  t@gmail.com
     username:       user
     gender:         1
     password:       aaaaaa
     phone:          13824789585
+  User_origin2: 
+    email_address:  tt@gmail.com
+    username:       user2
+    gender:         0
+    password:       aaaaaa
+    phone:          13824789515
 
 #sfGuardGroup:
 #  Group_admin:

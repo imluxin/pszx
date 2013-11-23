@@ -75,14 +75,14 @@ class buddhaActions extends sfActions
 		$this->myuser = $this->getUser()->getGuardUser();
 		$id = $request->getParameter('id');
 		$this->buddha = Doctrine_Core::getTable('BunddlaHall')->findOneById($id);
-		
+
 		$page= $request->getParameter('page',1);        //默认第1页
-		$query = Doctrine_Core::getTable('BuddhaHistory')->getListOnPage($page,30);
+		$query = Doctrine_Core::getTable('BunddlaHallHistory')->getListOnPage($page,30);
 		$query->where('bh_id=?',$id)
-			  ->orderBy('id DESC');
+		->orderBy('id DESC');
 
 		//分页
-		$this->pg= new sfDoctrinePager('BuddhaHistory',30);
+		$this->pg= new sfDoctrinePager('BunddlaHallHistory',30);
 		$this->pg->setQuery($query);
 		$this->pg->setPage($page);
 		$this->pg->init();
@@ -90,8 +90,10 @@ class buddhaActions extends sfActions
 		$this->result = $this->pg->getResults();
 	}
 
-	public function executeOwtr(sfWebRequest $request) {
-
+	public function executeDescription(sfWebRequest $request) {
+		$this->myuser = $this->getUser()->getGuardUser();
+		$this->forward404Unless($this->bunddla_hall = Doctrine_Core::getTable('BunddlaHall')->find(array($request->getParameter('id'))), sprintf('没有找到对应的佛殿！佛殿ID： (%s).', $request->getParameter('id')));
+		
 	}
 
 	public function executeEdit(sfWebRequest $request) {

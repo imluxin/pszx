@@ -18,7 +18,7 @@ BunddlaHall:
   relations:
       sfGuardUser:  { onDelete: CASCADE, local: user_id, foreign: id }
 #礼佛记录
-BuddhaHistory: 
+BunddlaHallHistory: 
   options:
     type: MyISAM
     collate: utf8_unicode_ci
@@ -63,6 +63,29 @@ Temple:
     last_modify: { type: string(255) }
   relations:
       sfGuardUser:  { onDelete: CASCADE, local: user_id, foreign: id }
+
+#寺庙记录
+TempleHistory: 
+  options:
+    type: MyISAM
+    collate: utf8_unicode_ci
+    charset: utf8
+  actAs: 
+    Timestampable: ~ 
+  columns:
+    t_id: { type: integer, notnull: true }
+    user_id: { type: integer, notnull: true }
+    coins: { type: integer }
+    txt: { type: string(255) }
+    g_type: { type: string(255) }
+    point_x: { type: integer ,default: 240}
+    point_y: { type: integer ,default: 30}
+    scale_x: { type: double ,default: 1 }
+    scale_y: { type: double ,default: 1 }
+  relations: 
+      Temple:  { onDelete: CASCADE, local: t_id, foreign: id }
+      sfGuardUser:  { onDelete: CASCADE, local: user_id, foreign: id }      
+      
 #纪念馆
 Memorial: 
   options:

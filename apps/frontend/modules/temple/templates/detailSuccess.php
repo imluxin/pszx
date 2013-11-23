@@ -1,14 +1,11 @@
 <?php use_javascript('../flash/swfobject.js')?>
 <?php use_javascript('../flash/history/history.js')?>
 <?php use_stylesheet('../flash/history/history.css')?>
-<?php slot('title',$buddha->getName().'-菩萨在线') ?>
+<?php slot('title',$temple->getName().'-菩萨在线') ?>
 <div id="content" class="build">
 <div class="row box">
 <div class="titleBar">
-<h2 class="title">
-<a href="<?php echo url_for('buddha/index')?>">拜佛首页</a> 
-<a href="<?php echo url_for('buddha/description?id='.$buddha->getId()) ?>">佛主介绍</a> 
-<a href="#">在线佛乐</a>
+<h2 class="title"><a href="<?php echo url_for('temple/index')?>">拜佛首页</a> <a href="<?php echo url_for('temple/description') ?>">寺庙介绍</a> <a href="#">背景佛乐</a>
 </h2>
 </div>
 <!--flash-->
@@ -25,11 +22,11 @@
 	}
 
 	function getScene() {
-		return '<?php echo 'http://localhost/pszx/web/uploads/buddha/'.$buddha->getImages() ?>';
+		return '<?php echo 'http://localhost/pszx/web/uploads/temple/'.$temple->getImgOne() ?>';
 	}
 	
 	function getInitUrl() {
-		return '<?php echo 'http://localhost'.url_for('owtr/buddhainit?bhid='.$buddha->getId())?>';
+		return '<?php echo 'http://localhost'.url_for('owtr/templeinit?tid='.$temple->getId())?>';
 	}
 	
     // For version detection, set to min. required Flash Player version, or 0 (or 0.0.0), for no version detection. 
@@ -69,7 +66,8 @@
 
 </div>
 
-<!--/flash--></div>
+<!--/flash-->
+</div>
 <div>
 	许愿描述：<textarea id="wish" style="width:1000px;"></textarea>(输入您的许愿描述，然后点击下方的按钮。)
 	<ul class="function_bar">
@@ -83,14 +81,13 @@
 		<li><a href="javascript:owtr('8')">香火不断</a></li>
 	</ul>
 </div>
-
 <script>
 function owtr(g) {
 	<?php if(!$sf_user) {echo 'alert("请登录后再来进贡。");location.href="'.url_for('@sf_guard_signin').'"';} ?>
 
 	var wish = $('#wish').val();
 	if(wish == '') {alert('请输入您的许愿描述'); $('#wish').focus(); return false; }
-	var url = '<?php echo url_for('owtr/buddha')?>?type='+g+'&txt='+wish+'&bid=<?php echo $buddha->getId()?>';
+	var url = '<?php echo url_for('owtr/temple')?>?type='+g+'&txt='+wish+'&tid=<?php echo $temple->getId()?>';
 
 	$.ajax({
 		type: "post",
@@ -127,7 +124,7 @@ function owtr(g) {
 
 function move(sid,ggid,uid,x,y,sx,sy) {
 
-	var url = '<?php echo url_for('owtr/buddhamove')?>?sid=' + sid + '&id=' + ggid + '&uid='+uid+'&px='+x+'&py='+y+'&sx='+sx+'&sy='+sy;
+	var url = '<?php echo url_for('owtr/templemove')?>?sid=' + sid + '&id=' + ggid + '&uid='+uid+'&px='+x+'&py='+y+'&sx='+sx+'&sy='+sy;
 	
 	$.ajax({
 		type: "post",
@@ -150,7 +147,6 @@ function move(sid,ggid,uid,x,y,sx,sy) {
 }
 
 </script>
-
 <div class="row">
 <div class="baifoTable">
 <table>
@@ -182,9 +178,9 @@ function move(sid,ggid,uid,x,y,sx,sy) {
 <a class="disabled">首页</a>
 <a class="disabled">前一页</a>
 <?php else : ?>
-<a href="<?php echo url_for('buddha/detail?id='.$buddha->getId().'&page=1') ?>">首页</a>
+<a href="<?php echo url_for('temple/detail?id='.$temple->getId().'&page=1') ?>">首页</a>
 <a
-	href="<?php echo url_for('buddha/detail?id='.$buddha->getId().'&page='.$pg->getPreviousPage()) ?>">前一页</a>
+	href="<?php echo url_for('temple/detail?id='.$temple->getId().'&page='.$pg->getPreviousPage()) ?>">前一页</a>
 <!-- 前一页号 -->
 <?php endif; ?>
 <?php foreach ($pg->getLinks() as $page): ?>
@@ -192,7 +188,7 @@ function move(sid,ggid,uid,x,y,sx,sy) {
 <?php if($page==$pg->getPage()): ?>
 <a class="current"><?php echo $page ?></a>
 <?php else: ?>
-<a href="<?php echo url_for('buddha/detail?id='.$buddha->getId().'&page='.$page) ?>"><?php echo $page ?></a>
+<a href="<?php echo url_for('temple/detail?id='.$temple->getId().'&page='.$page) ?>"><?php echo $page ?></a>
 <?php endif; ?>
 <?php endforeach; ?>
 <?php if($pg->getPage()==$pg->getLastPage()): ?>
@@ -200,9 +196,9 @@ function move(sid,ggid,uid,x,y,sx,sy) {
 <a class="disabled">后一页</a>
 <a class="disabled">尾页</a>
 <?php else : ?>
-<a href="<?php echo url_for('buddha/detail?id='.$buddha->getId().'&page='.$pg->getNextPage()) ?>">后一页</a>
+<a href="<?php echo url_for('temple/detail?id='.$temple->getId().'&page='.$pg->getNextPage()) ?>">后一页</a>
 <!-- 下一页页号 -->
-<a href="<?php echo url_for('buddha/detail?id='.$buddha->getId().'&page='.$pg->getLastPage()) ?>">尾页</a>
+<a href="<?php echo url_for('temple/detail?id='.$temple->getId().'&page='.$pg->getLastPage()) ?>">尾页</a>
 <?php endif; ?>
 <?php endif;?>
 </div>

@@ -11,14 +11,14 @@
 class templeActions extends sfActions {
 	public function executeIndex(sfWebRequest $request) {
 		$this->myuser = $this->getUser()->getGuardUser();
-		
+
 		$page= $request->getParameter('page',1);        //默认第1页
 		$q = Doctrine_Core::getTable('temple')->getListOnPage($page,18); //第页显示n条
 		$q->Where('is_approved=1 AND is_rejected=0');
-		
+
 		$search_query = '';
 		$search_url = '';
-		
+
 		$this->province = $request->getParameter('province','选择省份');
 		$this->city = $request->getParameter('city','选择城市');
 		$this->block = $request->getParameter('block','选择区');
@@ -27,8 +27,8 @@ class templeActions extends sfActions {
 		$this->rq = $request->getParameter('rq','no');
 		$this->xh = $request->getParameter('xh','no');
 		$this->last = $request->getParameter('last','no');
-		
-		
+
+
 		if($this->province != '选择省份') {
 			// $search_query .= " AND province='".$this->province."'";
 			$q->andWhere('province=?',$this->province);
@@ -62,10 +62,10 @@ class templeActions extends sfActions {
 			$q->orderBy('id DESC');
 			$search_url .= '&last=yes';
 		}
-		
+
 		$this->search_url = $search_url.'&province='.$this->province.'&city='.$this->city.'&block='.$this->block.'&name='.$this->name.'&creator='.$this->creator;
 		$this->search_url = urlencode($this->search_url);
-		
+
 		//分页
 		$this->pg= new sfDoctrinePager('temple',1);
 		$this->pg->setQuery($q);
@@ -91,8 +91,23 @@ class templeActions extends sfActions {
 		$this->setTemplate('new');
 	}
 
-	public function executeDetails(sfWebRequest $request) {
+	public function executeDetail(sfWebRequest $request) {
+		$this->myuser = $this->getUser()->getGuardUser();
+		$id = $request->getParameter('id');
+		$this->temple = Doctrine_Core::getTable('Temple')->findOneById($id);
 
+		$page= $request->getParameter('page',1);        //默认第1页
+		$query = Doctrine_Core::getTable('TempleHistory')->getListOnPage($page,30);
+		$query->where('t_id=?',$id)
+		->orderBy('id DESC');
+
+		//分页
+		$this->pg= new sfDoctrinePager('TempleHistory',30);
+		$this->pg->setQuery($query);
+		$this->pg->setPage($page);
+		$this->pg->init();
+
+		$this->result = $this->pg->getResults();
 	}
 
 	public function executeEdit(sfWebRequest $request) {
