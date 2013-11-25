@@ -272,4 +272,276 @@ class owtrActions extends sfActions {
 		
 		exit;
 	}
+	
+	//***************** zxlw **********************//
+	public function executeZxlw(sfWebRequest $request) {
+		//$this->forward404Unless($request->isMethod(sfRequest::POST));
+
+		$result = array();
+
+		$user = $this->getUser()->getGuardUser();
+
+		if(!$user) {
+			$result['error'] = '请先登录!';
+			echo json_encode($result);
+			exit;
+		}
+
+		$id = $request->getParameter('mid',-1);
+		// 功能类别标识
+		$type = $request->getParameter('type');
+		$txt = $request->getParameter('txt');
+		$coins = $request->getParameter('coins');
+		$gain = sfConfig::get('gain',0.1);
+
+		$memorial = Doctrine_Core::getTable('Memorial')->findOneById($id);
+		if(!$memorial) {
+			$result['error'] = '灵位不存在!!';
+			echo json_encode($result);
+			exit;
+		}
+		$memorial_owner = $memorial->getSfGuardUser();
+		
+		if($type < 7 && $type >= 1) {
+			$coins = 30;
+		} else if($type == '7') {
+			$coins = $request->getParameter('coins',30);
+		}else if($type == '8') {
+			$coins = 1000;
+		} else {
+			$result['error'] = 'ERROR: 功能类别不正确!!';
+			echo json_encode($result);
+			exit;
+		}
+
+		$u_coins = $user->getCoins();
+		$c = $u_coins - $coins;
+
+		if($c >= 0) {
+			$mh = new MemorialHistory();
+			$mh->setModule('zxlw');
+			$mh->setMId($id);
+			$mh->setUserId($user->getId());
+			$mh->setCoins($coins);
+			$mh->setTxt($txt);
+			$mh->setGType('http://localhost/pszx/web/uploads/oblation/'.$type.'.jpg');
+			$mh->save();
+
+			$user->setCoins($c);
+			$user->save();
+			
+			$memorial_owner->setCoins($memorial_owner->getCoins() + ($coins * $gain));
+			$memorial_owner->save();
+				
+			$result['bless'] = Doctrine_Core::getTable('PrayWords')->getRandomWords(1);
+			$result['type_id']  = $mh->getGType();
+			$result['gid'] = $mh->getId();
+			$result['user_id'] = $mh->getUserId();
+			$result['px'] = $mh->getPointX();
+			$result['py'] = $mh->getPointY();
+			$result['sx'] = $mh->getScaleX();
+			$result['sy'] = $mh->getScaleY();
+			$result['error'] = '';
+			echo json_encode($result,JSON_FORCE_OBJECT);
+
+			exit;
+		} else {
+			$result['error'] = '金币数量不足。';
+			echo json_encode($result);
+			exit;
+		}
+	}
+	
+	public function executeZxlwmove(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST));
+		$sid = $request->getParameter('sid');
+		$uid = $request->getParameter('uid');
+		
+		$user = $this->getUser()->getGuardUser();
+		
+		if($uid != $user->getId()) {
+			$result['error'] = '该物品不属于你。';
+			echo json_encode($result,JSON_FORCE_OBJECT);
+			exit;
+		}
+		
+		$t_id = $request->getParameter('id');
+		
+		$mh = Doctrine_Core::getTable('MemorialHistory')->findOneById($t_id);
+
+		$result = array();
+
+		if(!$mh) {
+			$result['error'] = '不存在的物品。';
+			echo json_encode($result,JSON_FORCE_OBJECT);
+			exit;
+		}
+
+		$px = $request->getParameter('px');
+		$py = $request->getParameter('py');
+		$sx = $request->getParameter('sx');
+		$sy = $request->getParameter('sy');
+
+		$mh->setPointX($px);
+		$mh->setPointY($py);
+		$mh->setScaleX($sx);
+		$mh->setScaleY($sy);
+		$mh->save();
+		
+		$result['error'] = '';
+		$result['status'] = 1;
+
+		echo json_encode($result,JSON_FORCE_OBJECT);
+		exit;
+	}
+	
+	public function executeZxlwinit(sfWebRequest $request) {
+		$mhid = $request->getParameter('mid');
+		
+		if($mhid == '' || $mhid <= 0) {echo json_encode(0,JSON_FORCE_OBJECT);exit;}
+		
+		$query_flash = Doctrine_Core::getTable('MemorialHistory')->createQuery();
+		$query_flash->where('m_id=?',$mhid)->andWhere("created_at >= date_sub(now(), interval '1 0:0:0' day_second)")->andWhere('module=?','zxlw');
+		$mh = $query_flash->execute();
+		$mh = $mh->toArray();
+		echo json_encode($mh);
+		
+		exit;
+	}
+	
+	//***************** zxgm **********************//
+	public function executeZxgm(sfWebRequest $request) {
+		//$this->forward404Unless($request->isMethod(sfRequest::POST));
+
+		$result = array();
+
+		$user = $this->getUser()->getGuardUser();
+
+		if(!$user) {
+			$result['error'] = '请先登录!';
+			echo json_encode($result);
+			exit;
+		}
+
+		$id = $request->getParameter('mid',-1);
+		// 功能类别标识
+		$type = $request->getParameter('type');
+		$txt = $request->getParameter('txt');
+		$coins = $request->getParameter('coins');
+		$gain = sfConfig::get('gain',0.1);
+
+		$memorial = Doctrine_Core::getTable('Memorial')->findOneById($id);
+		if(!$memorial) {
+			$result['error'] = '公墓不存在!!';
+			echo json_encode($result);
+			exit;
+		}
+		$memorial_owner = $memorial->getSfGuardUser();
+		
+		if($type < 7 && $type >= 1) {
+			$coins = 30;
+		} else if($type == '7') {
+			$coins = $request->getParameter('coins',30);
+		}else if($type == '8') {
+			$coins = 1000;
+		} else {
+			$result['error'] = 'ERROR: 功能类别不正确!!';
+			echo json_encode($result);
+			exit;
+		}
+
+		$u_coins = $user->getCoins();
+		$c = $u_coins - $coins;
+
+		if($c >= 0) {
+			$mh = new MemorialHistory();
+			$mh->setModule('zxgm');
+			$mh->setMId($id);
+			$mh->setUserId($user->getId());
+			$mh->setCoins($coins);
+			$mh->setTxt($txt);
+			$mh->setGType('http://localhost/pszx/web/uploads/oblation/'.$type.'.jpg');
+			$mh->save();
+
+			$user->setCoins($c);
+			$user->save();
+			
+			$memorial_owner->setCoins($memorial_owner->getCoins() + ($coins * $gain));
+			$memorial_owner->save();
+				
+			$result['bless'] = Doctrine_Core::getTable('PrayWords')->getRandomWords(1);
+			$result['type_id']  = $mh->getGType();
+			$result['gid'] = $mh->getId();
+			$result['user_id'] = $mh->getUserId();
+			$result['px'] = $mh->getPointX();
+			$result['py'] = $mh->getPointY();
+			$result['sx'] = $mh->getScaleX();
+			$result['sy'] = $mh->getScaleY();
+			$result['error'] = '';
+			echo json_encode($result,JSON_FORCE_OBJECT);
+
+			exit;
+		} else {
+			$result['error'] = '金币数量不足。';
+			echo json_encode($result);
+			exit;
+		}
+	}
+	
+	public function executeZxgmmove(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST));
+		$sid = $request->getParameter('sid');
+		$uid = $request->getParameter('uid');
+		
+		$user = $this->getUser()->getGuardUser();
+		
+		if($uid != $user->getId()) {
+			$result['error'] = '该物品不属于你。';
+			echo json_encode($result,JSON_FORCE_OBJECT);
+			exit;
+		}
+		
+		$t_id = $request->getParameter('id');
+		
+		$mh = Doctrine_Core::getTable('MemorialHistory')->findOneById($t_id);
+
+		$result = array();
+
+		if(!$mh) {
+			$result['error'] = '不存在的物品。';
+			echo json_encode($result,JSON_FORCE_OBJECT);
+			exit;
+		}
+
+		$px = $request->getParameter('px');
+		$py = $request->getParameter('py');
+		$sx = $request->getParameter('sx');
+		$sy = $request->getParameter('sy');
+
+		$mh->setPointX($px);
+		$mh->setPointY($py);
+		$mh->setScaleX($sx);
+		$mh->setScaleY($sy);
+		$mh->save();
+		
+		$result['error'] = '';
+		$result['status'] = 1;
+
+		echo json_encode($result,JSON_FORCE_OBJECT);
+		exit;
+	}
+	
+	public function executeZxgminit(sfWebRequest $request) {
+		$mhid = $request->getParameter('mid');
+		
+		if($mhid == '' || $mhid <= 0) {echo json_encode(0,JSON_FORCE_OBJECT);exit;}
+		
+		$query_flash = Doctrine_Core::getTable('MemorialHistory')->createQuery();
+		$query_flash->where('m_id=?',$mhid)->andWhere("created_at >= date_sub(now(), interval '1 0:0:0' day_second)")->andWhere('module=?','zxgm');
+		$mh = $query_flash->execute();
+		$mh = $mh->toArray();
+		echo json_encode($mh);
+		
+		exit;
+	}
 }

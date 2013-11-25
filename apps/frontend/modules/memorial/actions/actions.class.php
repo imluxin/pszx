@@ -75,7 +75,7 @@ class memorialActions extends sfActions
 		}
 
 		if($this->rq != 'no') {
-
+			
 		}
 		if($this->xh != 'no') {
 
@@ -177,11 +177,55 @@ class memorialActions extends sfActions
 	}
 	
 	public function executeDetail(sfWebRequest $request) {
+		$this->forward404Unless($this->memorial = Doctrine_Core::getTable('Memorial')->find(array($request->getParameter('id'))), sprintf('纪念馆不存在，ID： (%s).', $request->getParameter('id')));
 		$this->myuser = $this->getUser()->getGuardUser();
 	}
 	
 	public function executeZxlw(sfWebRequest $request) {
+		$this->forward404Unless($this->memorial = Doctrine_Core::getTable('Memorial')->find(array($request->getParameter('id'))), sprintf('纪念馆不存在，ID： (%s).', $request->getParameter('id')));
+		$this->myuser = $this->getUser()->getGuardUser();
+		
+		$page= $request->getParameter('page',1);        //默认第1页
+		$query = Doctrine_Core::getTable('MemorialHistory')->getListOnPage($page,30);
+		$query->where('m_id=?',$request->getParameter('id'))
+		->andWhere('module=?','zxlw')
+		->orderBy('id DESC');
+
+		//分页
+		$this->pg= new sfDoctrinePager('MemorialHistory',30);
+		$this->pg->setQuery($query);
+		$this->pg->setPage($page);
+		$this->pg->init();
+
+		$this->result = $this->pg->getResults();
+	}
+	
+	public function executeZxgm(sfWebRequest $request){ 
+		$this->forward404Unless($this->memorial = Doctrine_Core::getTable('Memorial')->find(array($request->getParameter('id'))), sprintf('纪念馆不存在，ID： (%s).', $request->getParameter('id')));
+		$this->myuser = $this->getUser()->getGuardUser();
+		
+		$page= $request->getParameter('page',1);        //默认第1页
+		$query = Doctrine_Core::getTable('MemorialHistory')->getListOnPage($page,30);
+		$query->where('m_id=?',$request->getParameter('id'))
+		->andWhere('module=?','zxgm')
+		->orderBy('id DESC');
+
+		//分页
+		$this->pg= new sfDoctrinePager('MemorialHistory',30);
+		$this->pg->setQuery($query);
+		$this->pg->setPage($page);
+		$this->pg->init();
+
+		$this->result = $this->pg->getResults();
+	}
+	
+	public function executeLifetime(sfWebRequest $request) {
+		$this->forward404Unless($this->memorial = Doctrine_Core::getTable('Memorial')->find(array($request->getParameter('id'))), sprintf('纪念馆不存在，ID： (%s).', $request->getParameter('id')));
 		$this->myuser = $this->getUser()->getGuardUser();
 	}
 	
+	public function executePhoto(sfWebRequest $request) {
+		$this->forward404Unless($this->memorial = Doctrine_Core::getTable('Memorial')->find(array($request->getParameter('id'))), sprintf('纪念馆不存在，ID： (%s).', $request->getParameter('id')));
+		$this->myuser = $this->getUser()->getGuardUser();
+	}
 }

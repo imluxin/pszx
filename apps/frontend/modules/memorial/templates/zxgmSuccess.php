@@ -1,7 +1,7 @@
 <?php use_javascript('../flash/swfobject.js')?>
 <?php use_javascript('../flash/history/history.js')?>
 <?php use_stylesheet('../flash/history/history.css')?>
-<?php slot('title',$memorial->getMName().'-在线灵位-菩萨在线') ?>
+<?php slot('title',$memorial->getMName().'-在线公墓-菩萨在线') ?>
 <div id="content" class="jng detail">
 <div class="row box">
 <div class="titleBar">
@@ -14,7 +14,6 @@
 </div>
 <!--flash-->
 <div class="flash">
-
 <script type="text/javascript">
 
 	function getUid() {
@@ -30,7 +29,7 @@
 	}
 	
 	function getInitUrl() {
-		return '<?php echo 'http://localhost'.url_for('owtr/zxlwinit?mid='.$memorial->getId())?>';
+		return '<?php echo 'http://localhost'.url_for('owtr/zxgminit?mid='.$memorial->getId())?>';
 	}
 	
     // For version detection, set to min. required Flash Player version, or 0 (or 0.0.0), for no version detection. 
@@ -91,7 +90,7 @@ function owtr(g) {
 
 	var wish = $('#wish').val();
 	if(wish == '') {alert('请输入您的许愿描述'); $('#wish').focus(); return false; }
-	var url = '<?php echo url_for('owtr/zxlw')?>?type='+g+'&txt='+wish+'&mid=<?php echo $memorial->getId()?>';
+	var url = '<?php echo url_for('owtr/zxgm')?>?type='+g+'&txt='+wish+'&mid=<?php echo $memorial->getId()?>';
 
 	$.ajax({
 		type: "post",
@@ -128,7 +127,7 @@ function owtr(g) {
 
 function move(sid,ggid,uid,x,y,sx,sy) {
 
-	var url = '<?php echo url_for('owtr/zxlwmove')?>?sid=' + sid + '&id=' + ggid + '&uid='+uid+'&px='+x+'&py='+y+'&sx='+sx+'&sy='+sy;
+	var url = '<?php echo url_for('owtr/zxgmmove')?>?sid=' + sid + '&id=' + ggid + '&uid='+uid+'&px='+x+'&py='+y+'&sx='+sx+'&sy='+sy;
 	
 	$.ajax({
 		type: "post",
